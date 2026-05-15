@@ -23,7 +23,8 @@ body{font-family:'Inter',sans-serif;background:var(--white);color:var(--navy);ov
 /* NAV */
 nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(79,163,165,0.18);backdrop-filter:blur(20px) saturate(200%);-webkit-backdrop-filter:blur(20px) saturate(200%);border-bottom:1px solid rgba(79,163,165,0.35);padding:0 5%;transition:background .4s,box-shadow .4s}
 nav.scrolled{background:rgba(79,163,165,0.3);box-shadow:0 4px 32px rgba(79,163,165,0.2)}
-.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.nav-actions{display:flex;align-items:center;gap:.9rem}
 .logo{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-1px}
 .logo span{color:var(--teal)}
 .nav-links{display:flex;gap:2rem;list-style:none}
@@ -31,6 +32,21 @@ nav.scrolled{background:rgba(79,163,165,0.3);box-shadow:0 4px 32px rgba(79,163,1
 .nav-links a:hover,.nav-links a.active{color:#fff}
 .nav-cta{background:var(--teal);color:#fff;border:none;padding:.55rem 1.4rem;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.2s}
 .nav-cta:hover{background:var(--teal-dark)}
+.lang-switcher{
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.18);
+  padding:.52rem .9rem;
+  border-radius:8px;
+  font-size:.85rem;
+  font-weight:600;
+  outline:none;
+  cursor:pointer;
+  transition:.2s;
+  backdrop-filter:blur(10px);
+}
+.lang-switcher:hover{background:rgba(255,255,255,.18)}
+.lang-switcher option{color:#000}
 
 /* HERO */
 .hero{min-height:100vh;background:linear-gradient(135deg,#0F1F3D 0%,#1a3560 60%,#0F766E 100%);display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden}
@@ -189,7 +205,7 @@ section{padding:90px 5%}
 .form-row{display:flex;gap:.8rem;margin-bottom:1rem}
 .form-row input{flex:1;padding:.85rem 1.2rem;border:2px solid var(--border);border-radius:10px;font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s}
 .form-row input:focus{border-color:var(--teal)}
-.role-toggle{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.5rem}
+.role-toggle{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
 .role-btn{padding:.55rem 1.4rem;border-radius:100px;border:2px solid var(--border);background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;color:var(--gray)}
 .role-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
 .form-submit{width:100%;padding:.9rem;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
@@ -230,6 +246,8 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
   .stats-band-inner{grid-template-columns:1fr 1fr}
   .footer-top{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
+  .nav-actions{gap:.6rem}
+  .lang-switcher{padding:.48rem .7rem}
 }
 </style>
 </head>
@@ -239,15 +257,23 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <nav id="navbar">
   <div class="nav-inner">
     <div class="logo">Nee<span>VLY</span></div>
+
     <ul class="nav-links">
-      <li><a href="#problem">Problem</a></li>
-      <li><a href="#how">How It Works</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#who">Who It's For</a></li>
-      <li><a href="#vision">Vision</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#problem" data-translate="nav_problem">Problem</a></li>
+      <li><a href="#how" data-translate="nav_how">How It Works</a></li>
+      <li><a href="#features" data-translate="nav_features">Features</a></li>
+      <li><a href="#who" data-translate="nav_who">Who It's For</a></li>
+      <li><a href="#vision" data-translate="nav_vision">Vision</a></li>
+      <li><a href="#faq" data-translate="nav_faq">FAQ</a></li>
     </ul>
-    <button class="nav-cta" onclick="scrollToWaitlist('buyer')">Get Early Access</button>
+
+    <div class="nav-actions">
+      <select id="languageSwitcher" class="lang-switcher" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+      </select>
+      <button class="nav-cta" data-translate="nav_cta" onclick="scrollToWaitlist('buyer')">Get Early Access</button>
+    </div>
   </div>
 </nav>
 
@@ -255,17 +281,17 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="hero" id="home">
   <div class="hero-inner">
     <div>
-      <div class="hero-badge"><span class="dot"></span>Launching in Tier-2 & Tier-3 Cities</div>
-      <h1>Buy Construction Materials <span class="hl">Smarter, Locally.</span></h1>
-      <p>NeeVLY connects homeowners, contractors, and masons with nearby material stores — compare prices, check stock, and order in minutes. No more wasted trips.</p>
+      <div class="hero-badge" data-translate="hero_badge"><span class="dot"></span>Launching in Tier-2 & Tier-3 Cities</div>
+      <h1 data-translate="hero_title">Buy Construction Materials <span class="hl">Smarter, Locally.</span></h1>
+      <p data-translate="hero_desc">NeeVLY connects homeowners, contractors, and masons with nearby material stores — compare prices, check stock, and order in minutes. No more wasted trips.</p>
       <div class="hero-btns">
-        <a href="#waitlist" class="btn-primary" onclick="event.preventDefault();scrollToWaitlist('buyer')">🏠 I'm a Buyer</a>
-        <a href="#waitlist" class="btn-outline" onclick="event.preventDefault();scrollToWaitlist('seller')">🏪 List My Store</a>
+        <a href="#waitlist" class="btn-primary" data-translate="buyer_btn" onclick="event.preventDefault();scrollToWaitlist('buyer')">🏠 I'm a Buyer</a>
+        <a href="#waitlist" class="btn-outline" data-translate="seller_btn" onclick="event.preventDefault();scrollToWaitlist('seller')">🏪 List My Store</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Categories</div></div>
-        <div class="stat"><div class="stat-num">Hyperlocal</div><div class="stat-label">First Platform</div></div>
-        <div class="stat"><div class="stat-num">Tier 2/3</div><div class="stat-label">City Focus</div></div>
+        <div class="stat"><div class="stat-num">100+</div><div class="stat-label" data-translate="stat_1">Categories</div></div>
+        <div class="stat"><div class="stat-num" data-translate="stat_2_num">Hyperlocal</div><div class="stat-label" data-translate="stat_2">First Platform</div></div>
+        <div class="stat"><div class="stat-num" data-translate="stat_3_num">Tier 2/3</div><div class="stat-label" data-translate="stat_3">City Focus</div></div>
       </div>
     </div>
     <div class="phone-wrap">
@@ -273,28 +299,28 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
         <div class="phone-notch"></div>
         <div class="phone-screen">
           <div class="p-loc">📍 Patna, Bihar</div>
-          <div class="p-search">🔍 Search materials or stores...</div>
-          <div class="p-section-title">CATEGORIES</div>
+          <div class="p-search" data-translate="phone_search">🔍 Search materials or stores...</div>
+          <div class="p-section-title" data-translate="phone_categories">CATEGORIES</div>
           <div class="p-cats">
-            <div class="p-cat"><div class="p-cat-icon">🧱</div>Cement</div>
-            <div class="p-cat"><div class="p-cat-icon">🔩</div>Steel</div>
-            <div class="p-cat"><div class="p-cat-icon">🪟</div>Tiles</div>
-            <div class="p-cat"><div class="p-cat-icon">💡</div>Electrical</div>
-            <div class="p-cat"><div class="p-cat-icon">🚿</div>Plumbing</div>
-            <div class="p-cat"><div class="p-cat-icon">🎨</div>Paint</div>
-            <div class="p-cat"><div class="p-cat-icon">🔨</div>Tools</div>
-            <div class="p-cat"><div class="p-cat-icon">🏗️</div>Bricks</div>
+            <div class="p-cat"><div class="p-cat-icon">🧱</div><span data-translate="cat_cement">Cement</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🔩</div><span data-translate="cat_steel">Steel</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🪟</div><span data-translate="cat_tiles">Tiles</span></div>
+            <div class="p-cat"><div class="p-cat-icon">💡</div><span data-translate="cat_elec">Electrical</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🚿</div><span data-translate="cat_plumb">Plumbing</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🎨</div><span data-translate="cat_paint">Paint</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🔨</div><span data-translate="cat_tools">Tools</span></div>
+            <div class="p-cat"><div class="p-cat-icon">🏗️</div><span data-translate="cat_bricks">Bricks</span></div>
           </div>
-          <div class="p-section-title">NEARBY STORES</div>
+          <div class="p-section-title" data-translate="nearby_stores">NEARBY STORES</div>
           <div class="p-store-card">
-            <div class="p-store-top"><div class="p-store-name">Sharma Building Supplies</div><div class="p-badge">Best Price</div></div>
+            <div class="p-store-top"><div class="p-store-name">Sharma Building Supplies</div><div class="p-badge" data-translate="badge_best">Best Price</div></div>
             <div class="p-store-rating">★★★★★</div>
-            <div class="p-store-meta">0.8 km · Cement, Steel, Tiles</div>
+            <div class="p-store-meta" data-translate="store_1_meta">0.8 km · Cement, Steel, Tiles</div>
           </div>
           <div class="p-store-card">
-            <div class="p-store-top"><div class="p-store-name">Ram Hardware & More</div><div class="p-badge">Top Rated</div></div>
+            <div class="p-store-top"><div class="p-store-name">Ram Hardware & More</div><div class="p-badge" data-translate="badge_top">Top Rated</div></div>
             <div class="p-store-rating">★★★★☆</div>
-            <div class="p-store-meta">1.2 km · Electrical, Plumbing</div>
+            <div class="p-store-meta" data-translate="store_2_meta">1.2 km · Electrical, Plumbing</div>
           </div>
         </div>
       </div>
@@ -305,16 +331,16 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <!-- PROBLEM -->
 <section class="problem" id="problem">
   <div class="section-inner">
-    <div class="section-tag">The Problem</div>
-    <div class="section-title">Buying materials is broken<br>in India's growing cities.</div>
-    <p class="section-sub">Homeowners and contractors in Tier-2/3 cities face a fragmented, offline market with no transparency, no comparison, and no convenience.</p>
+    <div class="section-tag" data-translate="problem_tag">The Problem</div>
+    <div class="section-title" data-translate="problem_title">Buying materials is broken<br>in India's growing cities.</div>
+    <p class="section-sub" data-translate="problem_sub">Homeowners and contractors in Tier-2/3 cities face a fragmented, offline market with no transparency, no comparison, and no convenience.</p>
     <div class="problem-grid">
-      <div class="prob-card"><div class="prob-icon">🕐</div><h3>Wasted Time</h3><p>Buyers visit 4–6 shops just to compare prices for cement or tiles. Half the day gone, and still no certainty on the best deal.</p></div>
-      <div class="prob-card"><div class="prob-icon">💸</div><h3>Price Exploitation</h3><p>Without visibility, buyers pay 15–30% more than market price. Local sellers exploit information asymmetry every day.</p></div>
-      <div class="prob-card"><div class="prob-icon">📦</div><h3>No Stock Visibility</h3><p>You drive to a store only to find the material is out of stock. There's no way to check availability without physically going there.</p></div>
-      <div class="prob-card"><div class="prob-icon">🗺️</div><h3>Fragmented Market</h3><p>Thousands of local stores exist but remain invisible digitally. Buyers can't discover them; sellers can't reach more customers.</p></div>
-      <div class="prob-card"><div class="prob-icon">🤝</div><h3>Zero Trust System</h3><p>No ratings, no reviews, no verified sellers. Buyers rely on word-of-mouth and luck to find a reliable material supplier.</p></div>
-      <div class="prob-card"><div class="prob-icon">📱</div><h3>Digital Gap</h3><p>Digital penetration is rising fast in Tier-2/3 cities, but there's still no structured marketplace for construction commerce.</p></div>
+      <div class="prob-card"><div class="prob-icon">🕐</div><h3 data-translate="prob_1_title">Wasted Time</h3><p data-translate="prob_1_desc">Buyers visit 4–6 shops just to compare prices for cement or tiles. Half the day gone, and still no certainty on the best deal.</p></div>
+      <div class="prob-card"><div class="prob-icon">💸</div><h3 data-translate="prob_2_title">Price Exploitation</h3><p data-translate="prob_2_desc">Without visibility, buyers pay 15–30% more than market price. Local sellers exploit information asymmetry every day.</p></div>
+      <div class="prob-card"><div class="prob-icon">📦</div><h3 data-translate="prob_3_title">No Stock Visibility</h3><p data-translate="prob_3_desc">You drive to a store only to find the material is out of stock. There's no way to check availability without physically going there.</p></div>
+      <div class="prob-card"><div class="prob-icon">🗺️</div><h3 data-translate="prob_4_title">Fragmented Market</h3><p data-translate="prob_4_desc">Thousands of local stores exist but remain invisible digitally. Buyers can't discover them; sellers can't reach more customers.</p></div>
+      <div class="prob-card"><div class="prob-icon">🤝</div><h3 data-translate="prob_5_title">Zero Trust System</h3><p data-translate="prob_5_desc">No ratings, no reviews, no verified sellers. Buyers rely on word-of-mouth and luck to find a reliable material supplier.</p></div>
+      <div class="prob-card"><div class="prob-icon">📱</div><h3 data-translate="prob_6_title">Digital Gap</h3><p data-translate="prob_6_desc">Digital penetration is rising fast in Tier-2/3 cities, but there's still no structured marketplace for construction commerce.</p></div>
     </div>
   </div>
 </section>
@@ -323,25 +349,25 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section id="how">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">How It Works</div>
-      <div class="section-title">Simple. Fast. Transparent.</div>
-      <p class="section-sub">NeeVLY makes the entire construction material buying process digital in just a few taps.</p>
+      <div class="section-tag" data-translate="how_tag">How It Works</div>
+      <div class="section-title" data-translate="how_title">Simple. Fast. Transparent.</div>
+      <p class="section-sub" data-translate="how_sub">NeeVLY makes the entire construction material buying process digital in just a few taps.</p>
     </div>
     <div class="hiw-tabs">
-      <div class="tab active" onclick="switchTab(this,'buyer')">🏠 For Buyers</div>
-      <div class="tab" onclick="switchTab(this,'seller')">🏪 For Sellers</div>
+      <div class="tab active" onclick="switchTab(this,'buyer')" data-translate="for_buyers">🏠 For Buyers</div>
+      <div class="tab" onclick="switchTab(this,'seller')" data-translate="for_sellers">🏪 For Sellers</div>
     </div>
     <div id="buyer-steps" class="steps-grid">
-      <div class="step-card"><div class="step-num">1</div><div class="step-icon">📱</div><h4>Sign Up & Set Location</h4><p>Create your account with phone or Google. Allow location to discover stores near you.</p></div>
-      <div class="step-card"><div class="step-num">2</div><div class="step-icon">🔍</div><h4>Search & Compare</h4><p>Search for cement, tiles, steel, paint — instantly compare prices and stock across nearby stores.</p></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-icon">🛒</div><h4>Order or Visit</h4><p>Place an order for delivery or pickup directly from the app, or message the seller to negotiate.</p></div>
-      <div class="step-card"><div class="step-num">4</div><div class="step-icon">✅</div><h4>Track & Rate</h4><p>Track your order status in real-time. After delivery, rate the store to help the community.</p></div>
+      <div class="step-card"><div class="step-num">1</div><div class="step-icon">📱</div><h4 data-translate="buyer_step1_title">Sign Up & Set Location</h4><p data-translate="buyer_step1_desc">Create your account with phone or Google. Allow location to discover stores near you.</p></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-icon">🔍</div><h4 data-translate="buyer_step2_title">Search & Compare</h4><p data-translate="buyer_step2_desc">Search for cement, tiles, steel, paint — instantly compare prices and stock across nearby stores.</p></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon">🛒</div><h4 data-translate="buyer_step3_title">Order or Visit</h4><p data-translate="buyer_step3_desc">Place an order for delivery or pickup directly from the app, or message the seller to negotiate.</p></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon">✅</div><h4 data-translate="buyer_step4_title">Track & Rate</h4><p data-translate="buyer_step4_desc">Track your order status in real-time. After delivery, rate the store to help the community.</p></div>
     </div>
     <div id="seller-steps" class="steps-grid" style="display:none">
-      <div class="step-card"><div class="step-num">1</div><div class="step-icon">🏪</div><h4>Create Your Store</h4><p>Set up your digital storefront in minutes. Add store details, photos, and verify your business.</p></div>
-      <div class="step-card"><div class="step-num">2</div><div class="step-icon">📦</div><h4>List Products</h4><p>Add your inventory with prices and stock status. Update in real-time so buyers always see accurate info.</p></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-icon">📊</div><h4>Receive Orders</h4><p>Get incoming orders directly. Accept, process, and dispatch from your seller dashboard.</p></div>
-      <div class="step-card"><div class="step-num">4</div><div class="step-icon">📈</div><h4>Grow & Analyse</h4><p>Track revenue, popular products, and customer insights. Use analytics to make smarter decisions.</p></div>
+      <div class="step-card"><div class="step-num">1</div><div class="step-icon">🏪</div><h4 data-translate="seller_step1_title">Create Your Store</h4><p data-translate="seller_step1_desc">Set up your digital storefront in minutes. Add store details, photos, and verify your business.</p></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-icon">📦</div><h4 data-translate="seller_step2_title">List Products</h4><p data-translate="seller_step2_desc">Add your inventory with prices and stock status. Update in real-time so buyers always see accurate info.</p></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon">📊</div><h4 data-translate="seller_step3_title">Receive Orders</h4><p data-translate="seller_step3_desc">Get incoming orders directly. Accept, process, and dispatch from your seller dashboard.</p></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon">📈</div><h4 data-translate="seller_step4_title">Grow & Analyse</h4><p data-translate="seller_step4_desc">Track revenue, popular products, and customer insights. Use analytics to make smarter decisions.</p></div>
     </div>
   </div>
 </section>
@@ -350,20 +376,20 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="features" id="features">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">Features</div>
-      <div class="section-title">Everything you need.<br>Nothing you don't.</div>
-      <p class="section-sub" style="color:rgba(255,255,255,.6);margin:0 auto">Built from the ground up for real construction commerce — not adapted from generic e-commerce.</p>
+      <div class="section-tag" data-translate="features_tag">Features</div>
+      <div class="section-title" data-translate="features_title">Everything you need.<br>Nothing you don't.</div>
+      <p class="section-sub" style="color:rgba(255,255,255,.6);margin:0 auto" data-translate="features_sub">Built from the ground up for real construction commerce — not adapted from generic e-commerce.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat-card"><div class="feat-icon">🔍</div><h3>Smart Search & Filters</h3><p>Filter by distance, price, rating, and availability. Find exactly what you need, fast.</p></div>
-      <div class="feat-card"><div class="feat-icon">🏪</div><h3>Digital Storefronts</h3><p>Every seller gets a complete store — product listings, pricing, stock, delivery options, and contact.</p></div>
-      <div class="feat-card"><div class="feat-icon">⚖️</div><h3>AI Price Comparison</h3><p>AI engine compares nearby stores and suggests the best option based on price, distance, and stock.</p></div>
-      <div class="feat-card"><div class="feat-icon">📦</div><h3>Order & Track</h3><p>Place orders, pay via COD or UPI, and track from "Placed" to "Delivered" inside the app.</p></div>
-      <div class="feat-card"><div class="feat-icon">⭐</div><h3>Trust & Verification</h3><p>Ratings, reviews, verified seller badges, and transaction history — every interaction safe and reliable.</p></div>
-      <div class="feat-card"><div class="feat-icon">🚚</div><h3>Flexible Delivery</h3><p>Pickup from store or local delivery by the seller. Future logistics partnerships for last-mile delivery.</p></div>
-      <div class="feat-card"><div class="feat-icon">📊</div><h3>Seller Analytics</h3><p>Daily sales, revenue trends, popular products, and low-stock alerts for smarter business decisions.</p></div>
-      <div class="feat-card"><div class="feat-icon">🔔</div><h3>Smart Notifications</h3><p>Real-time alerts for order updates, price drops, stock availability, and promotions.</p></div>
-      <div class="feat-card"><div class="feat-icon">💬</div><h3>Buyer–Seller Chat</h3><p>Direct messaging for queries, negotiation, and clarification. Build real local business relationships.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔍</div><h3 data-translate="feat_1_title">Smart Search & Filters</h3><p data-translate="feat_1_desc">Filter by distance, price, rating, and availability. Find exactly what you need, fast.</p></div>
+      <div class="feat-card"><div class="feat-icon">🏪</div><h3 data-translate="feat_2_title">Digital Storefronts</h3><p data-translate="feat_2_desc">Every seller gets a complete store — product listings, pricing, stock, delivery options, and contact.</p></div>
+      <div class="feat-card"><div class="feat-icon">⚖️</div><h3 data-translate="feat_3_title">AI Price Comparison</h3><p data-translate="feat_3_desc">AI engine compares nearby stores and suggests the best option based on price, distance, and stock.</p></div>
+      <div class="feat-card"><div class="feat-icon">📦</div><h3 data-translate="feat_4_title">Order & Track</h3><p data-translate="feat_4_desc">Place orders, pay via COD or UPI, and track from "Placed" to "Delivered" inside the app.</p></div>
+      <div class="feat-card"><div class="feat-icon">⭐</div><h3 data-translate="feat_5_title">Trust & Verification</h3><p data-translate="feat_5_desc">Ratings, reviews, verified seller badges, and transaction history — every interaction safe and reliable.</p></div>
+      <div class="feat-card"><div class="feat-icon">🚚</div><h3 data-translate="feat_6_title">Flexible Delivery</h3><p data-translate="feat_6_desc">Pickup from store or local delivery by the seller. Future logistics partnerships for last-mile delivery.</p></div>
+      <div class="feat-card"><div class="feat-icon">📊</div><h3 data-translate="feat_7_title">Seller Analytics</h3><p data-translate="feat_7_desc">Daily sales, revenue trends, popular products, and low-stock alerts for smarter business decisions.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔔</div><h3 data-translate="feat_8_title">Smart Notifications</h3><p data-translate="feat_8_desc">Real-time alerts for order updates, price drops, stock availability, and promotions.</p></div>
+      <div class="feat-card"><div class="feat-icon">💬</div><h3 data-translate="feat_9_title">Buyer–Seller Chat</h3><p data-translate="feat_9_desc">Direct messaging for queries, negotiation, and clarification. Build real local business relationships.</p></div>
     </div>
   </div>
 </section>
@@ -372,42 +398,42 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section id="who">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">Who It's For</div>
-      <div class="section-title">Built for real people<br>doing real construction.</div>
-      <p class="section-sub">Whether you're building a home, running a project, or selling materials — NeeVLY works for you.</p>
+      <div class="section-tag" data-translate="who_tag">Who It's For</div>
+      <div class="section-title" data-translate="who_title">Built for real people<br>doing real construction.</div>
+      <p class="section-sub" data-translate="who_sub">Whether you're building a home, running a project, or selling materials — NeeVLY works for you.</p>
     </div>
     <div class="who-grid">
       <div class="who-card">
         <div class="who-icon">🏠</div>
-        <h3>Homeowners</h3>
-        <p>Building or renovating? Save money and time comparing materials from verified local stores.</p>
+        <h3 data-translate="who_1_title">Homeowners</h3>
+        <p data-translate="who_1_desc">Building or renovating? Save money and time comparing materials from verified local stores.</p>
         <ul>
-          <li>Compare prices before buying</li>
-          <li>Check stock without visiting</li>
-          <li>Order delivery to site</li>
-          <li>Track purchase history</li>
+          <li data-translate="who_1_li1">Compare prices before buying</li>
+          <li data-translate="who_1_li2">Check stock without visiting</li>
+          <li data-translate="who_1_li3">Order delivery to site</li>
+          <li data-translate="who_1_li4">Track purchase history</li>
         </ul>
       </div>
       <div class="who-card">
         <div class="who-icon">👷</div>
-        <h3>Contractors & Masons</h3>
-        <p>Managing multiple projects? Find reliable suppliers, get bulk pricing, and manage orders in one place.</p>
+        <h3 data-translate="who_2_title">Contractors & Masons</h3>
+        <p data-translate="who_2_desc">Managing multiple projects? Find reliable suppliers, get bulk pricing, and manage orders in one place.</p>
         <ul>
-          <li>Bulk order management</li>
-          <li>Saved favourite stores</li>
-          <li>Quick reordering</li>
-          <li>Multiple site addresses</li>
+          <li data-translate="who_2_li1">Bulk order management</li>
+          <li data-translate="who_2_li2">Saved favourite stores</li>
+          <li data-translate="who_2_li3">Quick reordering</li>
+          <li data-translate="who_2_li4">Multiple site addresses</li>
         </ul>
       </div>
       <div class="who-card">
         <div class="who-icon">🏪</div>
-        <h3>Local Sellers</h3>
-        <p>Hardware, tiles, electrical, plumbing stores — go digital and reach more customers effortlessly.</p>
+        <h3 data-translate="who_3_title">Local Sellers</h3>
+        <p data-translate="who_3_desc">Hardware, tiles, electrical, plumbing stores — go digital and reach more customers effortlessly.</p>
         <ul>
-          <li>Free digital storefront</li>
-          <li>Reach more buyers nearby</li>
-          <li>Inventory & order tools</li>
-          <li>Analytics dashboard</li>
+          <li data-translate="who_3_li1">Free digital storefront</li>
+          <li data-translate="who_3_li2">Reach more buyers nearby</li>
+          <li data-translate="who_3_li3">Inventory & order tools</li>
+          <li data-translate="who_3_li4">Analytics dashboard</li>
         </ul>
       </div>
     </div>
@@ -418,19 +444,19 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="cats-section" id="categories">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">Material Categories</div>
-      <div class="section-title">Every material you need,<br>one platform.</div>
-      <p class="section-sub">From cement to electrical fittings — NeeVLY covers all construction and home improvement categories.</p>
+      <div class="section-tag" data-translate="cat_tag">Material Categories</div>
+      <div class="section-title" data-translate="cat_title">Every material you need,<br>one platform.</div>
+      <p class="section-sub" data-translate="cat_sub">From cement to electrical fittings — NeeVLY covers all construction and home improvement categories.</p>
     </div>
     <div class="cats-grid">
-      <div class="cat-card"><div class="cat-emoji">🧱</div><h4>Cement & Concrete</h4><p>All brands, all grades, best prices</p></div>
-      <div class="cat-card"><div class="cat-emoji">🔩</div><h4>Steel & Iron</h4><p>TMT bars, rods, structural steel</p></div>
-      <div class="cat-card"><div class="cat-emoji">🪟</div><h4>Tiles & Flooring</h4><p>Ceramic, vitrified, marble, granite</p></div>
-      <div class="cat-card"><div class="cat-emoji">💡</div><h4>Electrical</h4><p>Wires, switches, panels, fittings</p></div>
-      <div class="cat-card"><div class="cat-emoji">🚿</div><h4>Plumbing</h4><p>Pipes, fittings, sanitary ware</p></div>
-      <div class="cat-card"><div class="cat-emoji">🎨</div><h4>Paint & Finish</h4><p>Interior, exterior, primers, putty</p></div>
-      <div class="cat-card"><div class="cat-emoji">🔨</div><h4>Tools & Equipment</h4><p>Hand tools, power tools, safety gear</p></div>
-      <div class="cat-card"><div class="cat-emoji">🏗️</div><h4>Bricks & Blocks</h4><p>Red bricks, AAC blocks, fly ash</p></div>
+      <div class="cat-card"><div class="cat-emoji">🧱</div><h4 data-translate="cat_1_title">Cement & Concrete</h4><p data-translate="cat_1_desc">All brands, all grades, best prices</p></div>
+      <div class="cat-card"><div class="cat-emoji">🔩</div><h4 data-translate="cat_2_title">Steel & Iron</h4><p data-translate="cat_2_desc">TMT bars, rods, structural steel</p></div>
+      <div class="cat-card"><div class="cat-emoji">🪟</div><h4 data-translate="cat_3_title">Tiles & Flooring</h4><p data-translate="cat_3_desc">Ceramic, vitrified, marble, granite</p></div>
+      <div class="cat-card"><div class="cat-emoji">💡</div><h4 data-translate="cat_4_title">Electrical</h4><p data-translate="cat_4_desc">Wires, switches, panels, fittings</p></div>
+      <div class="cat-card"><div class="cat-emoji">🚿</div><h4 data-translate="cat_5_title">Plumbing</h4><p data-translate="cat_5_desc">Pipes, fittings, sanitary ware</p></div>
+      <div class="cat-card"><div class="cat-emoji">🎨</div><h4 data-translate="cat_6_title">Paint & Finish</h4><p data-translate="cat_6_desc">Interior, exterior, primers, putty</p></div>
+      <div class="cat-card"><div class="cat-emoji">🔨</div><h4 data-translate="cat_7_title">Tools & Equipment</h4><p data-translate="cat_7_desc">Hand tools, power tools, safety gear</p></div>
+      <div class="cat-card"><div class="cat-emoji">🏗️</div><h4 data-translate="cat_8_title">Bricks & Blocks</h4><p data-translate="cat_8_desc">Red bricks, AAC blocks, fly ash</p></div>
     </div>
   </div>
 </section>
@@ -438,36 +464,36 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <!-- STATS BAND -->
 <div class="stats-band">
   <div class="stats-band-inner">
-    <div><div class="band-stat-num">₹2.5L Cr</div><div class="band-stat-label">Indian construction market size</div></div>
-    <div><div class="band-stat-num">5,000+</div><div class="band-stat-label">Tier-2/3 cities & towns</div></div>
-    <div><div class="band-stat-num">90%</div><div class="band-stat-label">Purchases still happen offline</div></div>
-    <div><div class="band-stat-num">₹30%</div><div class="band-stat-label">Average overpayment without comparison</div></div>
+    <div><div class="band-stat-num">₹2.5L Cr</div><div class="band-stat-label" data-translate="band_1">Indian construction market size</div></div>
+    <div><div class="band-stat-num">5,000+</div><div class="band-stat-label" data-translate="band_2">Tier-2/3 cities & towns</div></div>
+    <div><div class="band-stat-num">90%</div><div class="band-stat-label" data-translate="band_3">Purchases still happen offline</div></div>
+    <div><div class="band-stat-num">₹30%</div><div class="band-stat-label" data-translate="band_4">Average overpayment without comparison</div></div>
   </div>
 </div>
 
-<!-- TESTIMONIALS (SIMULATED BETA) -->
+<!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">Early Feedback</div>
-      <div class="section-title">People are already excited.</div>
-      <p class="section-sub">Here's what potential users say about the NeeVLY idea during our early discovery interviews.</p>
+      <div class="section-tag" data-translate="testi_tag">Early Feedback</div>
+      <div class="section-title" data-translate="testi_title">People are already excited.</div>
+      <p class="section-sub" data-translate="testi_sub">Here's what potential users say about the NeeVLY idea during our early discovery interviews.</p>
     </div>
     <div class="testi-grid">
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"I built my house last year and wasted 2 weeks just comparing cement prices. If NeeVLY had existed, I would have saved at least ₹40,000 and weeks of stress."</p>
-        <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Rajesh Kumar</div><div class="testi-role">Homeowner · Ranchi</div></div></div>
+        <p class="testi-text" data-translate="testi_1_text">"I built my house last year and wasted 2 weeks just comparing cement prices. If NeeVLY had existed, I would have saved at least ₹40,000 and weeks of stress."</p>
+        <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Rajesh Kumar</div><div class="testi-role" data-translate="testi_1_role">Homeowner · Ranchi</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"As a contractor, I manage 3-4 sites at a time. Having one app to order all materials from verified local stores would save me hours every single week."</p>
-        <div class="testi-author"><div class="testi-avatar">👷</div><div><div class="testi-name">Suresh Mishra</div><div class="testi-role">Civil Contractor · Patna</div></div></div>
+        <p class="testi-text" data-translate="testi_2_text">"As a contractor, I manage 3-4 sites at a time. Having one app to order all materials from verified local stores would save me hours every single week."</p>
+        <div class="testi-author"><div class="testi-avatar">👷</div><div><div class="testi-name">Suresh Mishra</div><div class="testi-role" data-translate="testi_2_role">Civil Contractor · Patna</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"My hardware store has been running for 15 years but I have no online presence. I want to reach more customers. This is exactly what we need in our market."</p>
-        <div class="testi-author"><div class="testi-avatar">🏪</div><div><div class="testi-name">Anil Sharma</div><div class="testi-role">Hardware Store Owner · Jamshedpur</div></div></div>
+        <p class="testi-text" data-translate="testi_3_text">"My hardware store has been running for 15 years but I have no online presence. I want to reach more customers. This is exactly what we need in our market."</p>
+        <div class="testi-author"><div class="testi-avatar">🏪</div><div><div class="testi-name">Anil Sharma</div><div class="testi-role" data-translate="testi_3_role">Hardware Store Owner · Jamshedpur</div></div></div>
       </div>
     </div>
   </div>
@@ -477,22 +503,32 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="vision" id="vision">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">The Vision</div>
-      <div class="section-title" style="color:#fff">NeeVLY is bigger than an app.</div>
-      <p class="section-sub text-center" style="color:rgba(255,255,255,.6)">Think IndiaMart + Swiggy + Local Stores — combined into one hyperlocal commerce ecosystem.</p>
+      <div class="section-tag" data-translate="vision_tag">The Vision</div>
+      <div class="section-title" style="color:#fff" data-translate="vision_title">NeeVLY is bigger than an app.</div>
+      <p class="section-sub text-center" style="color:rgba(255,255,255,.6)" data-translate="vision_sub">Think IndiaMart + Swiggy + Local Stores — combined into one hyperlocal commerce ecosystem.</p>
     </div>
     <div class="vision-grid">
       <div class="vision-card">
-        <div class="vision-year">🎯 3-Year Vision</div>
-        <h3>Hyperlocal Market Leader</h3>
-        <p>Become the most trusted marketplace for construction and home-necessity commerce across multiple Tier-2 and Tier-3 cities, with thousands of verified sellers and consistent daily order flow.</p>
-        <div class="vision-tags"><span class="vtag">Strong seller adoption</span><span class="vtag">Multi-city presence</span><span class="vtag">Consistent order flow</span><span class="vtag">Trust at scale</span></div>
+        <div class="vision-year" data-translate="vision_1_year">🎯 3-Year Vision</div>
+        <h3 data-translate="vision_1_title">Hyperlocal Market Leader</h3>
+        <p data-translate="vision_1_desc">Become the most trusted marketplace for construction and home-necessity commerce across multiple Tier-2 and Tier-3 cities, with thousands of verified sellers and consistent daily order flow.</p>
+        <div class="vision-tags">
+          <span class="vtag" data-translate="vision_1_tag1">Strong seller adoption</span>
+          <span class="vtag" data-translate="vision_1_tag2">Multi-city presence</span>
+          <span class="vtag" data-translate="vision_1_tag3">Consistent order flow</span>
+          <span class="vtag" data-translate="vision_1_tag4">Trust at scale</span>
+        </div>
       </div>
       <div class="vision-card">
-        <div class="vision-year">🚀 10-Year Vision</div>
-        <h3>Digital Commerce Infrastructure</h3>
-        <p>Transform NeeVLY into large-scale digital infrastructure for local commerce — expanding beyond construction into supply chains, home services, financial products, and smart procurement systems.</p>
-        <div class="vision-tags"><span class="vtag">Finance & credit</span><span class="vtag">Home services</span><span class="vtag">Supply chain</span><span class="vtag">Pan-India</span></div>
+        <div class="vision-year" data-translate="vision_2_year">🚀 10-Year Vision</div>
+        <h3 data-translate="vision_2_title">Digital Commerce Infrastructure</h3>
+        <p data-translate="vision_2_desc">Transform NeeVLY into large-scale digital infrastructure for local commerce — expanding beyond construction into supply chains, home services, financial products, and smart procurement systems.</p>
+        <div class="vision-tags">
+          <span class="vtag" data-translate="vision_2_tag1">Finance & credit</span>
+          <span class="vtag" data-translate="vision_2_tag2">Home services</span>
+          <span class="vtag" data-translate="vision_2_tag3">Supply chain</span>
+          <span class="vtag" data-translate="vision_2_tag4">Pan-India</span>
+        </div>
       </div>
     </div>
   </div>
@@ -502,17 +538,17 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="mono-section" id="monetization">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">Business Model</div>
-      <div class="section-title">Multiple revenue streams.<br>Scalable from day one.</div>
-      <p class="section-sub">NeeVLY's monetization is designed to grow with the platform — starting simple and expanding into a full commerce ecosystem.</p>
+      <div class="section-tag" data-translate="mono_tag">Business Model</div>
+      <div class="section-title" data-translate="mono_title">Multiple revenue streams.<br>Scalable from day one.</div>
+      <p class="section-sub" data-translate="mono_sub">NeeVLY's monetization is designed to grow with the platform — starting simple and expanding into a full commerce ecosystem.</p>
     </div>
     <div class="mono-grid">
-      <div class="mono-card"><div class="mono-num">1</div><div><h4>Transaction Commission</h4><p>A small percentage on every order placed through the platform. Scales directly with GMV.</p></div></div>
-      <div class="mono-card"><div class="mono-num">2</div><div><h4>Premium Seller Plans</h4><p>Paid subscriptions for better visibility, advanced analytics, and priority placement in search.</p></div></div>
-      <div class="mono-card"><div class="mono-num">3</div><div><h4>Sponsored Listings</h4><p>Sellers pay to appear at the top of search results and category pages for more exposure.</p></div></div>
-      <div class="mono-card"><div class="mono-num">4</div><div><h4>Logistics Margin</h4><p>Revenue from managing hyperlocal delivery through NeeVLY's logistics network.</p></div></div>
-      <div class="mono-card"><div class="mono-num">5</div><div><h4>SaaS Seller Tools</h4><p>Inventory management, credit ledger, and demand forecasting tools as a paid SaaS offering.</p></div></div>
-      <div class="mono-card"><div class="mono-num">6</div><div><h4>Financial Services</h4><p>Future: credit scoring, working capital loans, and BNPL for local sellers and contractors.</p></div></div>
+      <div class="mono-card"><div class="mono-num">1</div><div><h4 data-translate="mono_1_title">Transaction Commission</h4><p data-translate="mono_1_desc">A small percentage on every order placed through the platform. Scales directly with GMV.</p></div></div>
+      <div class="mono-card"><div class="mono-num">2</div><div><h4 data-translate="mono_2_title">Premium Seller Plans</h4><p data-translate="mono_2_desc">Paid subscriptions for better visibility, advanced analytics, and priority placement in search.</p></div></div>
+      <div class="mono-card"><div class="mono-num">3</div><div><h4 data-translate="mono_3_title">Sponsored Listings</h4><p data-translate="mono_3_desc">Sellers pay to appear at the top of search results and category pages for more exposure.</p></div></div>
+      <div class="mono-card"><div class="mono-num">4</div><div><h4 data-translate="mono_4_title">Logistics Margin</h4><p data-translate="mono_4_desc">Revenue from managing hyperlocal delivery through NeeVLY's logistics network.</p></div></div>
+      <div class="mono-card"><div class="mono-num">5</div><div><h4 data-translate="mono_5_title">SaaS Seller Tools</h4><p data-translate="mono_5_desc">Inventory management, credit ledger, and demand forecasting tools as a paid SaaS offering.</p></div></div>
+      <div class="mono-card"><div class="mono-num">6</div><div><h4 data-translate="mono_6_title">Financial Services</h4><p data-translate="mono_6_desc">Future: credit scoring, working capital loans, and BNPL for local sellers and contractors.</p></div></div>
     </div>
   </div>
 </section>
@@ -521,33 +557,33 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <section class="faq-section" id="faq">
   <div class="section-inner">
     <div class="text-center">
-      <div class="section-tag">FAQ</div>
-      <div class="section-title">Got questions?<br>We've got answers.</div>
+      <div class="section-tag" data-translate="faq_tag">FAQ</div>
+      <div class="section-title" data-translate="faq_title">Got questions?<br>We've got answers.</div>
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is NeeVLY free to use for buyers? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>Yes, NeeVLY is completely free for buyers. You can search, compare prices, and place orders without any charges. We only earn a small commission from sellers on completed transactions.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_1_q">Is NeeVLY free to use for buyers?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_1_a">Yes, NeeVLY is completely free for buyers. You can search, compare prices, and place orders without any charges. We only earn a small commission from sellers on completed transactions.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Which cities is NeeVLY launching in first? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>We are focused on Tier-2 and Tier-3 cities across Jharkhand, Bihar, and UP for our initial launch. Cities like Ranchi, Patna, Jamshedpur, and Varanasi are our priority targets.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_2_q">Which cities is NeeVLY launching in first?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_2_a">We are focused on Tier-2 and Tier-3 cities across Jharkhand, Bihar, and UP for our initial launch. Cities like Ranchi, Patna, Jamshedpur, and Varanasi are our priority targets.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How do sellers get verified on NeeVLY? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>Sellers go through a simple verification process that includes business document upload, phone verification, and a manual review by our team. Verified sellers get a badge that builds buyer trust.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_3_q">How do sellers get verified on NeeVLY?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_3_a">Sellers go through a simple verification process that includes business document upload, phone verification, and a manual review by our team. Verified sellers get a badge that builds buyer trust.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What payment methods are supported? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>At launch, we support Cash on Delivery (COD) and UPI payments. We plan to add card payments, wallets, and buy-now-pay-later options in subsequent releases.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_4_q">What payment methods are supported?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_4_a">At launch, we support Cash on Delivery (COD) and UPI payments. We plan to add card payments, wallets, and buy-now-pay-later options in subsequent releases.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Can a seller list multiple stores on NeeVLY? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>Yes. Sellers with multiple store locations can manage all of them from a single NeeVLY seller account, with separate storefronts, inventory, and order management for each location.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_5_q">Can a seller list multiple stores on NeeVLY?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_5_a">Yes. Sellers with multiple store locations can manage all of them from a single NeeVLY seller account, with separate storefronts, inventory, and order management for each location.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">When is NeeVLY launching? <span class="faq-arrow">▼</span></div>
-        <div class="faq-a"><p>We are currently in the pre-launch phase building our seller and buyer base. Join the waitlist and you'll be among the first to access NeeVLY when we go live in your city.</p></div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span data-translate="faq_6_q">When is NeeVLY launching?</span> <span class="faq-arrow">▼</span></div>
+        <div class="faq-a"><p data-translate="faq_6_a">We are currently in the pre-launch phase building our seller and buyer base. Join the waitlist and you'll be among the first to access NeeVLY when we go live in your city.</p></div>
       </div>
     </div>
   </div>
@@ -556,28 +592,28 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
 <!-- WAITLIST -->
 <section class="waitlist" id="waitlist">
   <div class="section-inner">
-    <div class="section-tag text-center">Early Access</div>
-    <div class="section-title text-center">Be the first to use NeeVLY.</div>
+    <div class="section-tag text-center" data-translate="waitlist_tag">Early Access</div>
+    <div class="section-title text-center" data-translate="waitlist_title">Be the first to use NeeVLY.</div>
     <div class="waitlist-box">
-      <h2>Join the Waitlist</h2>
-      <p>NeeVLY is launching soon in select cities. Get early access and help shape the product.</p>
-      <div class="form-row"><input type="text" id="wl-name" placeholder="Full name *"/></div>
+      <h2 data-translate="waitlist_box_title">Join the Waitlist</h2>
+      <p data-translate="waitlist_box_desc">NeeVLY is launching soon in select cities. Get early access and help shape the product.</p>
+      <div class="form-row"><input type="text" id="wl-name" data-translate-placeholder="ph_name" placeholder="Full name *"/></div>
       <div class="form-row">
-        <input type="tel" id="wl-phone" placeholder="Phone number *"/>
-        <input type="email" id="wl-email" placeholder="Email address *"/>
+        <input type="tel" id="wl-phone" data-translate-placeholder="ph_phone" placeholder="Phone number *"/>
+        <input type="email" id="wl-email" data-translate-placeholder="ph_email" placeholder="Email address *"/>
       </div>
-      <div class="form-row"><input type="text" id="wl-city" placeholder="Your city *"/></div>
-      <p style="font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:.6rem;text-align:left">Are you a... *</p>
+      <div class="form-row"><input type="text" id="wl-city" data-translate-placeholder="ph_city" placeholder="Your city *"/></div>
+      <p style="font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:.6rem;text-align:left" data-translate="are_you">Are you a... *</p>
       <div class="role-toggle" style="justify-content:flex-start;margin-bottom:1.2rem">
-        <button class="role-btn active" id="role-buyer" data-role="Buyer" onclick="setRole(this,'buyer')">🏠 Buyer</button>
-        <button class="role-btn" id="role-seller" data-role="Seller" onclick="setRole(this,'seller')">🏪 Seller</button>
-        <button class="role-btn" id="role-contractor" data-role="Contractor" onclick="setRole(this,'contractor')">👷 Contractor</button>
+        <button class="role-btn active" id="role-buyer" data-role="Buyer" onclick="setRole(this,'buyer')" data-translate="role_buyer">🏠 Buyer</button>
+        <button class="role-btn" id="role-seller" data-role="Seller" onclick="setRole(this,'seller')" data-translate="role_seller">🏪 Seller</button>
+        <button class="role-btn" id="role-contractor" data-role="Contractor" onclick="setRole(this,'contractor')" data-translate="role_contractor">👷 Contractor</button>
       </div>
-      <div class="form-row"><input type="text" id="wl-feature" placeholder="What feature interests you most? (optional)"/></div>
-      <button class="form-submit" onclick="submitWaitlist()">🚀 Get Early Access</button>
-      <div class="form-note">No spam. Just a launch notification when NeeVLY is live in your city.</div>
-      <div class="success-msg" id="success-msg">✅ You're on the list! We'll reach out when NeeVLY launches in your city.</div>
-      <!-- Google Form hidden submit target -->
+      <div class="form-row"><input type="text" id="wl-feature" data-translate-placeholder="ph_feature" placeholder="What feature interests you most? (optional)"/></div>
+      <button class="form-submit" data-translate="submit_btn" onclick="submitWaitlist()">🚀 Get Early Access</button>
+      <div class="form-note" data-translate="form_note">No spam. Just a launch notification when NeeVLY is live in your city.</div>
+      <div class="success-msg" id="success-msg" data-translate="success_msg">✅ You're on the list! We'll reach out when NeeVLY launches in your city.</div>
+
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
       <form
         id="gform"
@@ -603,38 +639,513 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
     <div class="footer-top">
       <div>
         <div class="footer-logo">Nee<span>VLY</span></div>
-        <p class="footer-desc">Hyperlocal construction commerce, digitized. Connecting buyers and sellers across India's growing cities.</p>
+        <p class="footer-desc" data-translate="footer_desc">Hyperlocal construction commerce, digitized. Connecting buyers and sellers across India's growing cities.</p>
       </div>
       <div class="footer-col">
-        <h5>Product</h5>
-        <a href="#how">How It Works</a>
-        <a href="#features">Features</a>
-        <a href="#categories">Categories</a>
-        <a href="#faq">FAQ</a>
+        <h5 data-translate="footer_product">Product</h5>
+        <a href="#how" data-translate="nav_how">How It Works</a>
+        <a href="#features" data-translate="nav_features">Features</a>
+        <a href="#categories" data-translate="footer_categories">Categories</a>
+        <a href="#faq" data-translate="nav_faq">FAQ</a>
       </div>
       <div class="footer-col">
-        <h5>For Users</h5>
-        <a href="#waitlist" onclick="event.preventDefault();scrollToWaitlist('buyer')">For Buyers</a>
-        <a href="#waitlist" onclick="event.preventDefault();scrollToWaitlist('seller')">For Sellers</a>
-        <a href="#who">Contractors</a>
-        <a href="#vision">Vision</a>
+        <h5 data-translate="footer_users">For Users</h5>
+        <a href="#waitlist" onclick="event.preventDefault();scrollToWaitlist('buyer')" data-translate="footer_buyers">For Buyers</a>
+        <a href="#waitlist" onclick="event.preventDefault();scrollToWaitlist('seller')" data-translate="footer_sellers">For Sellers</a>
+        <a href="#who" data-translate="footer_contractors">Contractors</a>
+        <a href="#vision" data-translate="nav_vision">Vision</a>
       </div>
       <div class="footer-col">
-        <h5>Company</h5>
-        <a href="#">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Contact Us</a>
+        <h5 data-translate="footer_company">Company</h5>
+        <a href="#" data-translate="footer_about">About</a>
+        <a href="#" data-translate="footer_privacy">Privacy Policy</a>
+        <a href="#" data-translate="footer_terms">Terms of Service</a>
+        <a href="#" data-translate="footer_contact">Contact Us</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 NeeVLY. Built with purpose for India's growing cities.</p>
-      <p>Made in 🇮🇳 India</p>
+      <p data-translate="footer_copy">© 2025 NeeVLY. Built with purpose for India's growing cities.</p>
+      <p data-translate="footer_made">Made in 🇮🇳 India</p>
     </div>
   </div>
 </footer>
 
 <script>
+  const translations = {
+    en: {
+      page_title: "NeeVLY – Your Local Material Marketplace",
+      nav_problem: "Problem",
+      nav_how: "How It Works",
+      nav_features: "Features",
+      nav_who: "Who It's For",
+      nav_vision: "Vision",
+      nav_faq: "FAQ",
+      nav_cta: "Get Early Access",
+      hero_badge: "Launching in Tier-2 & Tier-3 Cities",
+      hero_title: "Buy Construction Materials <span class=\"hl\">Smarter, Locally.</span>",
+      hero_desc: "NeeVLY connects homeowners, contractors, and masons with nearby material stores — compare prices, check stock, and order in minutes. No more wasted trips.",
+      buyer_btn: "🏠 I'm a Buyer",
+      seller_btn: "🏪 List My Store",
+      stat_1: "Categories",
+      stat_2_num: "Hyperlocal",
+      stat_2: "First Platform",
+      stat_3_num: "Tier 2/3",
+      stat_3: "City Focus",
+      phone_search: "🔍 Search materials or stores...",
+      phone_categories: "CATEGORIES",
+      cat_cement: "Cement",
+      cat_steel: "Steel",
+      cat_tiles: "Tiles",
+      cat_elec: "Electrical",
+      cat_plumb: "Plumbing",
+      cat_paint: "Paint",
+      cat_tools: "Tools",
+      cat_bricks: "Bricks",
+      nearby_stores: "NEARBY STORES",
+      badge_best: "Best Price",
+      badge_top: "Top Rated",
+      store_1_meta: "0.8 km · Cement, Steel, Tiles",
+      store_2_meta: "1.2 km · Electrical, Plumbing",
+      problem_tag: "The Problem",
+      problem_title: "Buying materials is broken<br>in India's growing cities.",
+      problem_sub: "Homeowners and contractors in Tier-2/3 cities face a fragmented, offline market with no transparency, no comparison, and no convenience.",
+      prob_1_title: "Wasted Time",
+      prob_1_desc: "Buyers visit 4–6 shops just to compare prices for cement or tiles. Half the day gone, and still no certainty on the best deal.",
+      prob_2_title: "Price Exploitation",
+      prob_2_desc: "Without visibility, buyers pay 15–30% more than market price. Local sellers exploit information asymmetry every day.",
+      prob_3_title: "No Stock Visibility",
+      prob_3_desc: "You drive to a store only to find the material is out of stock. There's no way to check availability without physically going there.",
+      prob_4_title: "Fragmented Market",
+      prob_4_desc: "Thousands of local stores exist but remain invisible digitally. Buyers can't discover them; sellers can't reach more customers.",
+      prob_5_title: "Zero Trust System",
+      prob_5_desc: "No ratings, no reviews, no verified sellers. Buyers rely on word-of-mouth and luck to find a reliable material supplier.",
+      prob_6_title: "Digital Gap",
+      prob_6_desc: "Digital penetration is rising fast in Tier-2/3 cities, but there's still no structured marketplace for construction commerce.",
+      how_tag: "How It Works",
+      how_title: "Simple. Fast. Transparent.",
+      how_sub: "NeeVLY makes the entire construction material buying process digital in just a few taps.",
+      for_buyers: "🏠 For Buyers",
+      for_sellers: "🏪 For Sellers",
+      buyer_step1_title: "Sign Up & Set Location",
+      buyer_step1_desc: "Create your account with phone or Google. Allow location to discover stores near you.",
+      buyer_step2_title: "Search & Compare",
+      buyer_step2_desc: "Search for cement, tiles, steel, paint — instantly compare prices and stock across nearby stores.",
+      buyer_step3_title: "Order or Visit",
+      buyer_step3_desc: "Place an order for delivery or pickup directly from the app, or message the seller to negotiate.",
+      buyer_step4_title: "Track & Rate",
+      buyer_step4_desc: "Track your order status in real-time. After delivery, rate the store to help the community.",
+      seller_step1_title: "Create Your Store",
+      seller_step1_desc: "Set up your digital storefront in minutes. Add store details, photos, and verify your business.",
+      seller_step2_title: "List Products",
+      seller_step2_desc: "Add your inventory with prices and stock status. Update in real-time so buyers always see accurate info.",
+      seller_step3_title: "Receive Orders",
+      seller_step3_desc: "Get incoming orders directly. Accept, process, and dispatch from your seller dashboard.",
+      seller_step4_title: "Grow & Analyse",
+      seller_step4_desc: "Track revenue, popular products, and customer insights. Use analytics to make smarter decisions.",
+      features_tag: "Features",
+      features_title: "Everything you need.<br>Nothing you don't.",
+      features_sub: "Built from the ground up for real construction commerce — not adapted from generic e-commerce.",
+      feat_1_title: "Smart Search & Filters",
+      feat_1_desc: "Filter by distance, price, rating, and availability. Find exactly what you need, fast.",
+      feat_2_title: "Digital Storefronts",
+      feat_2_desc: "Every seller gets a complete store — product listings, pricing, stock, delivery options, and contact.",
+      feat_3_title: "AI Price Comparison",
+      feat_3_desc: "AI engine compares nearby stores and suggests the best option based on price, distance, and stock.",
+      feat_4_title: "Order & Track",
+      feat_4_desc: "Place orders, pay via COD or UPI, and track from \"Placed\" to \"Delivered\" inside the app.",
+      feat_5_title: "Trust & Verification",
+      feat_5_desc: "Ratings, reviews, verified seller badges, and transaction history — every interaction safe and reliable.",
+      feat_6_title: "Flexible Delivery",
+      feat_6_desc: "Pickup from store or local delivery by the seller. Future logistics partnerships for last-mile delivery.",
+      feat_7_title: "Seller Analytics",
+      feat_7_desc: "Daily sales, revenue trends, popular products, and low-stock alerts for smarter business decisions.",
+      feat_8_title: "Smart Notifications",
+      feat_8_desc: "Real-time alerts for order updates, price drops, stock availability, and promotions.",
+      feat_9_title: "Buyer–Seller Chat",
+      feat_9_desc: "Direct messaging for queries, negotiation, and clarification. Build real local business relationships.",
+      who_tag: "Who It's For",
+      who_title: "Built for real people<br>doing real construction.",
+      who_sub: "Whether you're building a home, running a project, or selling materials — NeeVLY works for you.",
+      who_1_title: "Homeowners",
+      who_1_desc: "Building or renovating? Save money and time comparing materials from verified local stores.",
+      who_1_li1: "Compare prices before buying",
+      who_1_li2: "Check stock without visiting",
+      who_1_li3: "Order delivery to site",
+      who_1_li4: "Track purchase history",
+      who_2_title: "Contractors & Masons",
+      who_2_desc: "Managing multiple projects? Find reliable suppliers, get bulk pricing, and manage orders in one place.",
+      who_2_li1: "Bulk order management",
+      who_2_li2: "Saved favourite stores",
+      who_2_li3: "Quick reordering",
+      who_2_li4: "Multiple site addresses",
+      who_3_title: "Local Sellers",
+      who_3_desc: "Hardware, tiles, electrical, plumbing stores — go digital and reach more customers effortlessly.",
+      who_3_li1: "Free digital storefront",
+      who_3_li2: "Reach more buyers nearby",
+      who_3_li3: "Inventory & order tools",
+      who_3_li4: "Analytics dashboard",
+      cat_tag: "Material Categories",
+      cat_title: "Every material you need,<br>one platform.",
+      cat_sub: "From cement to electrical fittings — NeeVLY covers all construction and home improvement categories.",
+      cat_1_title: "Cement & Concrete",
+      cat_1_desc: "All brands, all grades, best prices",
+      cat_2_title: "Steel & Iron",
+      cat_2_desc: "TMT bars, rods, structural steel",
+      cat_3_title: "Tiles & Flooring",
+      cat_3_desc: "Ceramic, vitrified, marble, granite",
+      cat_4_title: "Electrical",
+      cat_4_desc: "Wires, switches, panels, fittings",
+      cat_5_title: "Plumbing",
+      cat_5_desc: "Pipes, fittings, sanitary ware",
+      cat_6_title: "Paint & Finish",
+      cat_6_desc: "Interior, exterior, primers, putty",
+      cat_7_title: "Tools & Equipment",
+      cat_7_desc: "Hand tools, power tools, safety gear",
+      cat_8_title: "Bricks & Blocks",
+      cat_8_desc: "Red bricks, AAC blocks, fly ash",
+      band_1: "Indian construction market size",
+      band_2: "Tier-2/3 cities & towns",
+      band_3: "Purchases still happen offline",
+      band_4: "Average overpayment without comparison",
+      testi_tag: "Early Feedback",
+      testi_title: "People are already excited.",
+      testi_sub: "Here's what potential users say about the NeeVLY idea during our early discovery interviews.",
+      testi_1_text: "\"I built my house last year and wasted 2 weeks just comparing cement prices. If NeeVLY had existed, I would have saved at least ₹40,000 and weeks of stress.\"",
+      testi_1_role: "Homeowner · Ranchi",
+      testi_2_text: "\"As a contractor, I manage 3-4 sites at a time. Having one app to order all materials from verified local stores would save me hours every single week.\"",
+      testi_2_role: "Civil Contractor · Patna",
+      testi_3_text: "\"My hardware store has been running for 15 years but I have no online presence. I want to reach more customers. This is exactly what we need in our market.\"",
+      testi_3_role: "Hardware Store Owner · Jamshedpur",
+      vision_tag: "The Vision",
+      vision_title: "NeeVLY is bigger than an app.",
+      vision_sub: "Think IndiaMart + Swiggy + Local Stores — combined into one hyperlocal commerce ecosystem.",
+      vision_1_year: "🎯 3-Year Vision",
+      vision_1_title: "Hyperlocal Market Leader",
+      vision_1_desc: "Become the most trusted marketplace for construction and home-necessity commerce across multiple Tier-2 and Tier-3 cities, with thousands of verified sellers and consistent daily order flow.",
+      vision_1_tag1: "Strong seller adoption",
+      vision_1_tag2: "Multi-city presence",
+      vision_1_tag3: "Consistent order flow",
+      vision_1_tag4: "Trust at scale",
+      vision_2_year: "🚀 10-Year Vision",
+      vision_2_title: "Digital Commerce Infrastructure",
+      vision_2_desc: "Transform NeeVLY into large-scale digital infrastructure for local commerce — expanding beyond construction into supply chains, home services, financial products, and smart procurement systems.",
+      vision_2_tag1: "Finance & credit",
+      vision_2_tag2: "Home services",
+      vision_2_tag3: "Supply chain",
+      vision_2_tag4: "Pan-India",
+      mono_tag: "Business Model",
+      mono_title: "Multiple revenue streams.<br>Scalable from day one.",
+      mono_sub: "NeeVLY's monetization is designed to grow with the platform — starting simple and expanding into a full commerce ecosystem.",
+      mono_1_title: "Transaction Commission",
+      mono_1_desc: "A small percentage on every order placed through the platform. Scales directly with GMV.",
+      mono_2_title: "Premium Seller Plans",
+      mono_2_desc: "Paid subscriptions for better visibility, advanced analytics, and priority placement in search.",
+      mono_3_title: "Sponsored Listings",
+      mono_3_desc: "Sellers pay to appear at the top of search results and category pages for more exposure.",
+      mono_4_title: "Logistics Margin",
+      mono_4_desc: "Revenue from managing hyperlocal delivery through NeeVLY's logistics network.",
+      mono_5_title: "SaaS Seller Tools",
+      mono_5_desc: "Inventory management, credit ledger, and demand forecasting tools as a paid SaaS offering.",
+      mono_6_title: "Financial Services",
+      mono_6_desc: "Future: credit scoring, working capital loans, and BNPL for local sellers and contractors.",
+      faq_tag: "FAQ",
+      faq_title: "Got questions?<br>We've got answers.",
+      faq_1_q: "Is NeeVLY free to use for buyers?",
+      faq_1_a: "Yes, NeeVLY is completely free for buyers. You can search, compare prices, and place orders without any charges. We only earn a small commission from sellers on completed transactions.",
+      faq_2_q: "Which cities is NeeVLY launching in first?",
+      faq_2_a: "We are focused on Tier-2 and Tier-3 cities across Jharkhand, Bihar, and UP for our initial launch. Cities like Ranchi, Patna, Jamshedpur, and Varanasi are our priority targets.",
+      faq_3_q: "How do sellers get verified on NeeVLY?",
+      faq_3_a: "Sellers go through a simple verification process that includes business document upload, phone verification, and a manual review by our team. Verified sellers get a badge that builds buyer trust.",
+      faq_4_q: "What payment methods are supported?",
+      faq_4_a: "At launch, we support Cash on Delivery (COD) and UPI payments. We plan to add card payments, wallets, and buy-now-pay-later options in subsequent releases.",
+      faq_5_q: "Can a seller list multiple stores on NeeVLY?",
+      faq_5_a: "Yes. Sellers with multiple store locations can manage all of them from a single NeeVLY seller account, with separate storefronts, inventory, and order management for each location.",
+      faq_6_q: "When is NeeVLY launching?",
+      faq_6_a: "We are currently in the pre-launch phase building our seller and buyer base. Join the waitlist and you'll be among the first to access NeeVLY when we go live in your city.",
+      waitlist_tag: "Early Access",
+      waitlist_title: "Be the first to use NeeVLY.",
+      waitlist_box_title: "Join the Waitlist",
+      waitlist_box_desc: "NeeVLY is launching soon in select cities. Get early access and help shape the product.",
+      ph_name: "Full name *",
+      ph_phone: "Phone number *",
+      ph_email: "Email address *",
+      ph_city: "Your city *",
+      ph_feature: "What feature interests you most? (optional)",
+      are_you: "Are you a... *",
+      role_buyer: "🏠 Buyer",
+      role_seller: "🏪 Seller",
+      role_contractor: "👷 Contractor",
+      submit_btn: "🚀 Get Early Access",
+      form_note: "No spam. Just a launch notification when NeeVLY is live in your city.",
+      success_msg: "✅ You're on the list! We'll reach out when NeeVLY launches in your city.",
+      footer_desc: "Hyperlocal construction commerce, digitized. Connecting buyers and sellers across India's growing cities.",
+      footer_product: "Product",
+      footer_categories: "Categories",
+      footer_users: "For Users",
+      footer_buyers: "For Buyers",
+      footer_sellers: "For Sellers",
+      footer_contractors: "Contractors",
+      footer_company: "Company",
+      footer_about: "About",
+      footer_privacy: "Privacy Policy",
+      footer_terms: "Terms of Service",
+      footer_contact: "Contact Us",
+      footer_copy: "© 2025 NeeVLY. Built with purpose for India's growing cities.",
+      footer_made: "Made in 🇮🇳 India"
+    },
+    hi: {
+      page_title: "NeeVLY – आपका लोकल मटेरियल मार्केटप्लेस",
+      nav_problem: "समस्या",
+      nav_how: "कैसे काम करता है",
+      nav_features: "फीचर्स",
+      nav_who: "किनके लिए",
+      nav_vision: "विजन",
+      nav_faq: "FAQ",
+      nav_cta: "जल्दी एक्सेस पाएं",
+      hero_badge: "टियर-2 और टियर-3 शहरों में लॉन्च हो रहा है",
+      hero_title: "कंस्ट्रक्शन मटेरियल खरीदें <span class=\"hl\">स्मार्ट तरीके से, लोकली।</span>",
+      hero_desc: "NeeVLY घर मालिकों, ठेकेदारों और मिस्त्रियों को नज़दीकी दुकानों से जोड़ता है — कीमतें तुलना करें, स्टॉक देखें, और मिनटों में ऑर्डर करें। अब बेकार की दौड़-भाग नहीं।",
+      buyer_btn: "🏠 मैं खरीदार हूँ",
+      seller_btn: "🏪 मेरी दुकान जोड़ें",
+      stat_1: "कैटेगरी",
+      stat_2_num: "हाइपरलोकल",
+      stat_2: "पहला प्लेटफॉर्म",
+      stat_3_num: "टियर 2/3",
+      stat_3: "शहरों पर फोकस",
+      phone_search: "🔍 मटेरियल या दुकान खोजें...",
+      phone_categories: "कैटेगरी",
+      cat_cement: "सीमेंट",
+      cat_steel: "स्टील",
+      cat_tiles: "टाइल्स",
+      cat_elec: "इलेक्ट्रिकल",
+      cat_plumb: "प्लंबिंग",
+      cat_paint: "पेंट",
+      cat_tools: "टूल्स",
+      cat_bricks: "ईंटें",
+      nearby_stores: "आस-पास की दुकानें",
+      badge_best: "सबसे अच्छी कीमत",
+      badge_top: "टॉप रेटेड",
+      store_1_meta: "0.8 किमी · सीमेंट, स्टील, टाइल्स",
+      store_2_meta: "1.2 किमी · इलेक्ट्रिकल, प्लंबिंग",
+      problem_tag: "समस्या",
+      problem_title: "निर्माण सामग्री खरीदना<br>भारत के बढ़ते शहरों में टूटा हुआ है।",
+      problem_sub: "टियर-2/3 शहरों में घर मालिक और ठेकेदार एक बिखरे हुए ऑफलाइन मार्केट से जूझते हैं — न पारदर्शिता, न तुलना, न सुविधा।",
+      prob_1_title: "समय की बर्बादी",
+      prob_1_desc: "खरीदार सीमेंट या टाइल्स की कीमत तुलना करने के लिए 4–6 दुकानों में जाते हैं। आधा दिन खत्म, फिर भी सही डील की कोई गारंटी नहीं।",
+      prob_2_title: "कीमत का शोषण",
+      prob_2_desc: "जानकारी न होने की वजह से खरीदार मार्केट प्राइस से 15–30% ज़्यादा देते हैं। लोकल विक्रेता हर दिन इस गैप का फायदा उठाते हैं।",
+      prob_3_title: "स्टॉक की जानकारी नहीं",
+      prob_3_desc: "आप दुकान तक जाते हैं और पता चलता है कि सामान खत्म है। बिना वहाँ जाए उपलब्धता चेक करने का कोई तरीका नहीं।",
+      prob_4_title: "बिखरा हुआ मार्केट",
+      prob_4_desc: "हज़ारों लोकल दुकानें हैं लेकिन डिजिटल रूप से गायब हैं। खरीदार उन्हें ढूंढ नहीं पाते; विक्रेता नए ग्राहक नहीं पहुंचा पाते।",
+      prob_5_title: "ट्रस्ट सिस्टम नहीं",
+      prob_5_desc: "न रेटिंग, न रिव्यू, न वेरिफाइड विक्रेता। खरीदार भरोसेमंद सप्लायर पाने के लिए सिर्फ़ मुंहज़ुबानी और किस्मत पर निर्भर रहते हैं।",
+      prob_6_title: "डिजिटल गैप",
+      prob_6_desc: "टियर-2/3 शहरों में डिजिटल अपनाने की रफ़्तार बढ़ रही है, लेकिन निर्माण व्यापार के लिए अभी भी कोई structured marketplace नहीं है।",
+      how_tag: "कैसे काम करता है",
+      how_title: "सादा। तेज़। पारदर्शी।",
+      how_sub: "NeeVLY सिर्फ कुछ टैप में पूरे निर्माण सामग्री खरीदने के प्रोसेस को डिजिटल बनाता है।",
+      for_buyers: "🏠 खरीदारों के लिए",
+      for_sellers: "🏪 विक्रेताओं के लिए",
+      buyer_step1_title: "साइन अप करें और लोकेशन सेट करें",
+      buyer_step1_desc: "फोन या Google से अकाउंट बनाएं। आसपास की दुकानें देखने के लिए लोकेशन दें।",
+      buyer_step2_title: "खोजें और तुलना करें",
+      buyer_step2_desc: "सीमेंट, टाइल्स, स्टील, पेंट खोजें — आसपास की दुकानों में कीमत और स्टॉक तुरंत तुलना करें।",
+      buyer_step3_title: "ऑर्डर करें या जाएँ",
+      buyer_step3_desc: "डिलीवरी या पिकअप का ऑर्डर सीधे ऐप से करें, या विक्रेता को मैसेज करके बातचीत करें।",
+      buyer_step4_title: "ट्रैक करें और रेट करें",
+      buyer_step4_desc: "ऑर्डर की स्थिति रियल-टाइम में ट्रैक करें। डिलीवरी के बाद स्टोर को रेट करें ताकि कम्युनिटी को मदद मिले।",
+      seller_step1_title: "अपनी दुकान बनाएं",
+      seller_step1_desc: "कुछ ही मिनटों में डिजिटल स्टोरफ्रंट सेट करें। दुकान की जानकारी, फोटो जोड़ें और बिज़नेस वेरिफाई करें।",
+      seller_step2_title: "प्रोडक्ट लिस्ट करें",
+      seller_step2_desc: "प्राइस और स्टॉक के साथ इन्वेंटरी जोड़ें। रियल-टाइम अपडेट करें ताकि खरीदारों को सही जानकारी मिले।",
+      seller_step3_title: "ऑर्डर प्राप्त करें",
+      seller_step3_desc: "ऑर्डर सीधे मिलें। स्वीकार करें, प्रोसेस करें और अपने विक्रेता डैशबोर्ड से भेजें।",
+      seller_step4_title: "बढ़ें और विश्लेषण करें",
+      seller_step4_desc: "रेवेन्यू, लोकप्रिय प्रोडक्ट और ग्राहक इनसाइट्स ट्रैक करें। बेहतर फैसलों के लिए एनालिटिक्स का उपयोग करें।",
+      features_tag: "फीचर्स",
+      features_title: "जो चाहिए, सब कुछ।<br>जो नहीं चाहिए, वो नहीं।",
+      features_sub: "असल निर्माण व्यापार के लिए शुरू से बनाया गया — किसी generic e-commerce से बदला हुआ नहीं।",
+      feat_1_title: "स्मार्ट सर्च और फ़िल्टर",
+      feat_1_desc: "दूरी, कीमत, रेटिंग और उपलब्धता से फ़िल्टर करें। जो चाहिए, जल्दी पाएँ।",
+      feat_2_title: "डिजिटल स्टोरफ्रंट",
+      feat_2_desc: "हर विक्रेता को पूरा स्टोर मिलता है — प्रोडक्ट लिस्टिंग, प्राइसिंग, स्टॉक, डिलीवरी विकल्प और संपर्क।",
+      feat_3_title: "AI प्राइस तुलना",
+      feat_3_desc: "AI इंजन आसपास की दुकानों की तुलना करता है और कीमत, दूरी और स्टॉक के आधार पर सबसे अच्छा विकल्प सुझाता है।",
+      feat_4_title: "ऑर्डर और ट्रैक",
+      feat_4_desc: "ऑर्डर करें, COD या UPI से पे करें, और ऐप में \"Placed\" से \"Delivered\" तक ट्रैक करें।",
+      feat_5_title: "ट्रस्ट और वेरिफिकेशन",
+      feat_5_desc: "रेटिंग, रिव्यू, वेरिफाइड विक्रेता बैज और ट्रांजैक्शन हिस्ट्री — हर इंटरैक्शन सुरक्षित और भरोसेमंद।",
+      feat_6_title: "लचीली डिलीवरी",
+      feat_6_desc: "स्टोर से पिकअप या विक्रेता द्वारा लोकल डिलीवरी। आगे लॉजिस्टिक्स पार्टनरशिप से last-mile डिलीवरी।",
+      feat_7_title: "विक्रेता एनालिटिक्स",
+      feat_7_desc: "दैनिक बिक्री, रेवेन्यू ट्रेंड, लोकप्रिय प्रोडक्ट और low-stock alerts — समझदारी से बिज़नेस चलाने के लिए।",
+      feat_8_title: "स्मार्ट नोटिफिकेशन",
+      feat_8_desc: "ऑर्डर अपडेट, प्राइस ड्रॉप, स्टॉक उपलब्धता और प्रमोशन के रियल-टाइम अलर्ट।",
+      feat_9_title: "खरीदार–विक्रेता चैट",
+      feat_9_desc: "क्वेरी, मोलभाव और क्लैरिफिकेशन के लिए सीधे मैसेज करें। असली लोकल बिज़नेस रिलेशनशिप बनाएं।",
+      who_tag: "किनके लिए",
+      who_title: "असल लोगों के लिए<br>जो असली निर्माण करते हैं।",
+      who_sub: "चाहे आप घर बना रहे हों, प्रोजेक्ट चला रहे हों, या सामग्री बेच रहे हों — NeeVLY आपके लिए है।",
+      who_1_title: "घर मालिक",
+      who_1_desc: "बना रहे हैं या रिनोवेट कर रहे हैं? वेरिफाइड लोकल दुकानों से तुलना करके पैसा और समय बचाएं।",
+      who_1_li1: "खरीदने से पहले कीमत तुलना करें",
+      who_1_li2: "जाए बिना स्टॉक चेक करें",
+      who_1_li3: "साइट तक डिलीवरी ऑर्डर करें",
+      who_1_li4: "खरीद इतिहास ट्रैक करें",
+      who_2_title: "ठेकेदार और मिस्त्री",
+      who_2_desc: "कई प्रोजेक्ट संभाल रहे हैं? भरोसेमंद सप्लायर ढूंढें, bulk pricing लें, और ऑर्डर एक जगह मैनेज करें।",
+      who_2_li1: "बुल्क ऑर्डर मैनेजमेंट",
+      who_2_li2: "सेव की गई पसंदीदा दुकानें",
+      who_2_li3: "तेज़ रीऑर्डर",
+      who_2_li4: "कई साइट एड्रेस",
+      who_3_title: "लोकल विक्रेता",
+      who_3_desc: "हार्डवेयर, टाइल्स, इलेक्ट्रिकल, प्लंबिंग दुकानें — डिजिटल बनें और ज़्यादा ग्राहकों तक पहुँचें।",
+      who_3_li1: "फ्री डिजिटल स्टोरफ्रंट",
+      who_3_li2: "आस-पास के ज़्यादा खरीदारों तक पहुँच",
+      who_3_li3: "इन्वेंटरी और ऑर्डर टूल्स",
+      who_3_li4: "एनालिटिक्स डैशबोर्ड",
+      cat_tag: "मटेरियल कैटेगरी",
+      cat_title: "आपको जो भी सामग्री चाहिए,<br>एक ही प्लेटफॉर्म।",
+      cat_sub: "सीमेंट से लेकर इलेक्ट्रिकल फिटिंग तक — NeeVLY सभी निर्माण और होम इम्प्रूवमेंट कैटेगरी कवर करता है।",
+      cat_1_title: "सीमेंट और कंक्रीट",
+      cat_1_desc: "सभी ब्रांड, सभी ग्रेड, सबसे अच्छी कीमतें",
+      cat_2_title: "स्टील और आयरन",
+      cat_2_desc: "TMT बार, रॉड, स्ट्रक्चरल स्टील",
+      cat_3_title: "टाइल्स और फ़्लोरिंग",
+      cat_3_desc: "सिरेमिक, vitrified, मार्बल, ग्रेनाइट",
+      cat_4_title: "इलेक्ट्रिकल",
+      cat_4_desc: "वायर, स्विच, पैनल, फिटिंग",
+      cat_5_title: "प्लंबिंग",
+      cat_5_desc: "पाइप, फिटिंग, सैनिटरी वेयर",
+      cat_6_title: "पेंट और फ़िनिश",
+      cat_6_desc: "इंटीरियर, एक्सटीरियर, प्राइमर, पुट्टी",
+      cat_7_title: "टूल्स और इक्विपमेंट",
+      cat_7_desc: "हैंड टूल्स, पावर टूल्स, सेफ्टी गियर",
+      cat_8_title: "ईंटें और ब्लॉक्स",
+      cat_8_desc: "रेड ब्रिक्स, AAC ब्लॉक्स, फ्लाई ऐश",
+      band_1: "भारत का निर्माण बाज़ार आकार",
+      band_2: "टियर-2/3 शहर और कस्बे",
+      band_3: "खरीद अभी भी ऑफलाइन होती है",
+      band_4: "तुलना के बिना औसत ज़्यादा भुगतान",
+      testi_tag: "शुरुआती फ़ीडबैक",
+      testi_title: "लोग पहले से ही excited हैं।",
+      testi_sub: "शुरुआती discovery interviews में लोग NeeVLY आइडिया के बारे में क्या कहते हैं, वो यहाँ है।",
+      testi_1_text: "\"मैंने पिछले साल घर बनाया और सिर्फ़ सीमेंट की कीमतें तुलना करने में 2 हफ़्ते बर्बाद कर दिए। अगर NeeVLY तब होता, तो कम से कम ₹40,000 और हफ़्तों का तनाव बच जाता।\"",
+      testi_1_role: "घर मालिक · रांची",
+      testi_2_text: "\"एक ठेकेदार के तौर पर मैं एक साथ 3-4 साइट मैनेज करता हूँ। वेरिफाइड लोकल दुकानों से एक ही ऐप में सब सामग्री ऑर्डर करना हर हफ़्ते घंटों बचाएगा।\"",
+      testi_2_role: "सिविल ठेकेदार · पटना",
+      testi_3_text: "\"मेरी हार्डवेयर दुकान 15 साल से चल रही है लेकिन मेरी ऑनलाइन मौजूदगी नहीं है। मैं और ग्राहकों तक पहुँचना चाहता हूँ। हमारे बाज़ार को यही चाहिए।\"",
+      testi_3_role: "हार्डवेयर दुकान मालिक · जमशेदपुर",
+      vision_tag: "विजन",
+      vision_title: "NeeVLY सिर्फ़ एक ऐप से बड़ा है।",
+      vision_sub: "IndiaMart + Swiggy + Local Stores — सबको एक hyperlocal commerce ecosystem में सोचिए।",
+      vision_1_year: "🎯 3-वर्षीय विजन",
+      vision_1_title: "हाइपरलोकल मार्केट लीडर",
+      vision_1_desc: "कई टियर-2 और टियर-3 शहरों में निर्माण और घरेलू ज़रूरतों के लिए सबसे भरोसेमंद marketplace बनना, हज़ारों वेरिफाइड विक्रेताओं और लगातार daily order flow के साथ।",
+      vision_1_tag1: "मज़बूत विक्रेता अपनापन",
+      vision_1_tag2: "कई शहरों में मौजूदगी",
+      vision_1_tag3: "नियमित ऑर्डर फ्लो",
+      vision_1_tag4: "स्केल पर ट्रस्ट",
+      vision_2_year: "🚀 10-वर्षीय विजन",
+      vision_2_title: "डिजिटल कॉमर्स इंफ्रास्ट्रक्चर",
+      vision_2_desc: "NeeVLY को लोकल कॉमर्स के लिए बड़े स्तर का डिजिटल इंफ्रास्ट्रक्चर बनाना — निर्माण से आगे सप्लाई चेन, होम सर्विस, फाइनेंशियल प्रोडक्ट और स्मार्ट procurement systems तक विस्तार।",
+      vision_2_tag1: "फाइनेंस और क्रेडिट",
+      vision_2_tag2: "होम सर्विस",
+      vision_2_tag3: "सप्लाई चेन",
+      vision_2_tag4: "पैन-इंडिया",
+      mono_tag: "बिज़नेस मॉडल",
+      mono_title: "कई रेवेन्यू स्ट्रीम।<br>पहले दिन से scalable।",
+      mono_sub: "NeeVLY की monetization प्लेटफॉर्म के साथ बढ़ने के लिए डिज़ाइन की गई है — सरल शुरुआत और बाद में full commerce ecosystem।",
+      mono_1_title: "ट्रांजैक्शन कमीशन",
+      mono_1_desc: "प्लेटफ़ॉर्म से होने वाले हर ऑर्डर पर छोटा प्रतिशत। GMV के साथ सीधे स्केल होता है।",
+      mono_2_title: "प्रीमियम विक्रेता प्लान",
+      mono_2_desc: "बेहतर visibility, advanced analytics, और search में priority placement के लिए paid subscriptions।",
+      mono_3_title: "स्पॉन्सर्ड लिस्टिंग",
+      mono_3_desc: "ज़्यादा exposure के लिए विक्रेता search results और category pages के top पर दिखने के लिए भुगतान करते हैं।",
+      mono_4_title: "लॉजिस्टिक्स मार्जिन",
+      mono_4_desc: "NeeVLY के hyperlocal delivery network को मैनेज करके रेवेन्यू।",
+      mono_5_title: "SaaS विक्रेता टूल्स",
+      mono_5_desc: "इन्वेंटरी मैनेजमेंट, क्रेडिट लेजर, और demand forecasting tools paid SaaS के रूप में।",
+      mono_6_title: "फाइनेंशियल सर्विसेज",
+      mono_6_desc: "भविष्य: local sellers और contractors के लिए credit scoring, working capital loans, और BNPL।",
+      faq_tag: "FAQ",
+      faq_title: "सवाल हैं?<br>जवाब हैं।",
+      faq_1_q: "क्या खरीदारों के लिए NeeVLY मुफ़्त है?",
+      faq_1_a: "हाँ, NeeVLY खरीदारों के लिए पूरी तरह मुफ़्त है। आप बिना किसी शुल्क के search, compare और order कर सकते हैं। हम सिर्फ़ completed transactions पर विक्रेताओं से छोटा commission लेते हैं।",
+      faq_2_q: "NeeVLY किन शहरों में पहले लॉन्च हो रहा है?",
+      faq_2_a: "हम अपने initial launch के लिए Jharkhand, Bihar, और UP के टियर-2 और टियर-3 शहरों पर फोकस कर रहे हैं। Ranchi, Patna, Jamshedpur, और Varanasi जैसे शहर priority targets हैं।",
+      faq_3_q: "विक्रेता NeeVLY पर कैसे verified होते हैं?",
+      faq_3_a: "विक्रेता एक सरल verification process से गुजरते हैं जिसमें business document upload, phone verification, और हमारी टीम की manual review शामिल है। Verified sellers को buyer trust बढ़ाने वाला badge मिलता है।",
+      faq_4_q: "कौन-कौन से payment methods supported हैं?",
+      faq_4_a: "लॉन्च पर Cash on Delivery (COD) और UPI payments support होंगे। बाद में card payments, wallets, और buy-now-pay-later options जोड़ने की योजना है।",
+      faq_5_q: "क्या एक विक्रेता NeeVLY पर कई stores list कर सकता है?",
+      faq_5_a: "हाँ। जिन विक्रेताओं के कई store locations हैं, वे सबको एक ही seller account से manage कर सकते हैं — अलग storefronts, inventory, और order management के साथ।",
+      faq_6_q: "NeeVLY कब लॉन्च हो रहा है?",
+      faq_6_a: "हम अभी pre-launch phase में हैं और buyer-seller base बना रहे हैं। Waitlist join करें और अपने शहर में live होने पर सबसे पहले access पाने वालों में रहें।",
+      waitlist_tag: "Early Access",
+      waitlist_title: "NeeVLY का पहला उपयोग करने वालों में रहें।",
+      waitlist_box_title: "Waitlist में जुड़ें",
+      waitlist_box_desc: "NeeVLY जल्द ही चुनिंदा शहरों में लॉन्च हो रहा है। जल्दी access पाएं और प्रोडक्ट को shape करने में मदद करें।",
+      ph_name: "पूरा नाम *",
+      ph_phone: "फोन नंबर *",
+      ph_email: "ईमेल पता *",
+      ph_city: "आपका शहर *",
+      ph_feature: "आपको कौन सा फीचर सबसे ज़्यादा पसंद है? (optional)",
+      are_you: "आप कौन हैं... *",
+      role_buyer: "🏠 खरीदार",
+      role_seller: "🏪 विक्रेता",
+      role_contractor: "👷 ठेकेदार",
+      submit_btn: "🚀 जल्दी एक्सेस पाएं",
+      form_note: "कोई spam नहीं। बस launch notification जब NeeVLY आपके शहर में live होगा।",
+      success_msg: "✅ आपका नाम list में है! NeeVLY आपके शहर में launch होने पर हम संपर्क करेंगे।",
+      footer_desc: "हाइपरलोकल निर्माण कॉमर्स, डिजिटल रूप में। भारत के बढ़ते शहरों में खरीदारों और विक्रेताओं को जोड़ना।",
+      footer_product: "प्रोडक्ट",
+      footer_categories: "कैटेगरी",
+      footer_users: "यूज़र्स के लिए",
+      footer_buyers: "खरीदारों के लिए",
+      footer_sellers: "विक्रेताओं के लिए",
+      footer_contractors: "ठेकेदार",
+      footer_company: "कंपनी",
+      footer_about: "हमारे बारे में",
+      footer_privacy: "गोपनीयता नीति",
+      footer_terms: "सेवा की शर्तें",
+      footer_contact: "संपर्क करें",
+      footer_copy: "© 2025 NeeVLY. भारत के बढ़ते शहरों के लिए उद्देश्य के साथ बनाया गया।",
+      footer_made: "भारत में 🇮🇳 बनाया गया"
+    }
+  };
+
+  function setText(selector, value) {
+    document.querySelectorAll(selector).forEach(el => {
+      if (el) el.innerHTML = value;
+    });
+  }
+
+  function setPlaceholders(langObj) {
+    document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-translate-placeholder');
+      if (langObj[key]) el.placeholder = langObj[key];
+    });
+  }
+
+  function changeLanguage(lang) {
+    const t = translations[lang] || translations.en;
+
+    document.documentElement.lang = lang;
+    document.title = t.page_title;
+
+    document.querySelectorAll('[data-translate]').forEach(el => {
+      const key = el.getAttribute('data-translate');
+      if (t[key] !== undefined) {
+        el.innerHTML = t[key];
+      }
+    });
+
+    setPlaceholders(t);
+    localStorage.setItem('selectedLanguage', lang);
+  }
+
   // ── Tab switcher (How It Works) ──
   function switchTab(el, role) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -654,8 +1165,10 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
     setTimeout(() => {
       const btn = role === 'buyer'
         ? document.getElementById('role-buyer')
-        : document.getElementById('role-seller');
-      setRole(btn, role);
+        : role === 'seller'
+          ? document.getElementById('role-seller')
+          : document.getElementById('role-contractor');
+      if (btn) setRole(btn, role);
     }, 600);
   }
 
@@ -667,13 +1180,15 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
     const city    = document.getElementById('wl-city').value.trim();
     const roleBtn = document.querySelector('.role-btn.active');
     const role    = roleBtn ? roleBtn.dataset.role : '';
-    const feature = document.getElementById('wl-feature').value.trim();
+    const feature  = document.getElementById('wl-feature').value.trim();
 
     if (!name || !phone || !email || !city || !role) {
-      alert('Please fill in all required fields.'); return;
+      alert(localStorage.getItem('selectedLanguage') === 'hi'
+        ? 'कृपया सभी ज़रूरी फ़ील्ड भरें।'
+        : 'Please fill in all required fields.');
+      return;
     }
 
-    // Copy values into hidden Google Form
     document.getElementById('g-name').value    = name;
     document.getElementById('g-phone').value   = phone;
     document.getElementById('g-email').value   = email;
@@ -681,15 +1196,15 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
     document.getElementById('g-role').value    = role;
     document.getElementById('g-feature').value = feature;
 
-    // Submit the hidden form to Google (targets hidden iframe)
     document.getElementById('g-submit').click();
 
-    // Show success UI
     const btn = document.querySelector('.form-submit');
-    btn.textContent = '✅ You\'re on the list!';
+    const lang = localStorage.getItem('selectedLanguage') || 'en';
+    btn.textContent = lang === 'hi' ? '✅ आप list में हैं!' : '✅ You\'re on the list!';
     btn.style.background = '#0F766E';
     btn.disabled = true;
     document.getElementById('success-msg').style.display = 'block';
+
     document.getElementById('wl-name').value    = '';
     document.getElementById('wl-phone').value   = '';
     document.getElementById('wl-email').value   = '';
@@ -714,6 +1229,13 @@ footer{background:var(--navy);padding:4rem 5% 2rem}
     document.querySelectorAll('.nav-links a').forEach(a => {
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+    const switcher = document.getElementById('languageSwitcher');
+    if (switcher) switcher.value = savedLang;
+    changeLanguage(savedLang);
   });
 </script>
 </body>
