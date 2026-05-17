@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeeVLY by KritaVa | Intelligent Local Construction Procurement</title>
     
-    <!-- Self-Contained SVG Favicon (NV Logo in Brand Colors) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjRThGNEYzIi8+PHRleHQgeD0iNTAiIHk9IjY1IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMEY3NjZFIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5OVjwvdGV4dD48L3N2Zz4=">
+    <!-- Favicon Integration -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="shortcut icon" href="./favicon.ico">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -694,7 +698,8 @@
                 
                 <!-- Benefits Panel -->
                 <div class="lg:col-span-2 space-y-8 fade-up">
-                    <div class="bg-white rounded-2xl p-8 border border-brand-border shadow-sm hover:shadow-md transition-shadow">
+                    <!-- FIXED HOVER OCD GLITCH BELOW: Added hover:shadow-glow and hover:border-brand-primary/40 to exactly match the premium visual weight of the seller card -->
+                    <div class="bg-white rounded-2xl p-8 border border-brand-border shadow-lg hover:shadow-xl hover:shadow-glow hover:border-brand-primary/40 hover:-translate-y-1 transition-all duration-300">
                         <h3 class="font-bold text-xl mb-5 flex items-center gap-3 text-brand-text">
                             <div class="w-10 h-10 rounded-lg bg-brand-soft flex items-center justify-center"><i data-lucide="shopping-cart" class="w-5 h-5 text-brand-primary"></i></div>
                             <span data-i18n="waitlist_buy_title">Buyers / Contractors</span>
@@ -707,7 +712,7 @@
                         </ul>
                     </div>
 
-                    <div class="bg-brand-deep text-white rounded-2xl p-8 shadow-xl hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-brand-deep text-white rounded-2xl p-8 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <h3 class="font-bold text-xl mb-5 flex items-center gap-3 text-white">
                             <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i data-lucide="store" class="w-5 h-5 text-brand-soft"></i></div>
                             <span data-i18n="waitlist_sell_title">Material Sellers</span>
@@ -1108,7 +1113,6 @@
                 form_btn: "अर्ली एक्सेस सुरक्षित करें", form_loading: "सुरक्षित कर रहे हैं...", success_title: "आप सूची में हैं।", success_desc: "NeeVLY वेटलिस्ट में शामिल होने के लिए धन्यवाद। हम आपके शहर में शुरू होते ही आपको सूचित करेंगे।",
                 footer_copy: "&copy; 2026 KritaVa Technologies. भारत के लिए निर्माण।"
             },
-            // Fallbacks mirroring Hindi seamlessly for accurate regional context
             bho: {
                 nav_problem: "समस्या", nav_features: "सुविधा", nav_how: "ई कइसे काम करेला", nav_who: "केकरा खातिर बा?", nav_waitlist: "जुड़ीं (Waitlist)", hero_badge: "रजिस्ट्रेशन खुल गइल बा",
                 hero_title: "स्थानीय निर्माण खरीदारी के आसान बनावे वाला तकनीक।", hero_subtitle: "आस-पास के आपूर्तिकर्ता खोजीं, कीमत मिलाईं आ ठेकेदार के काम आसान बनाईं।",
@@ -1231,10 +1235,10 @@
                 feat_6_title: "সরবরাহকারী সমন্বয়", feat_6_desc: "ঠিকাদার এবং সরবরাহকারীর মধ্যে ভালো যোগাযোগ।", feat_7_title: "সহজ অ্যানালিটিক্স", feat_7_desc: "বিক্রেতাদের জন্য ব্যবসার ইনসাইটস।",
                 feat_8_title: "দ্রুত সন্ধান", feat_8_desc: "সরবরাহকারীদের ডিজিটালভাবে খুঁজে পাওয়ার ব্যবস্থা।", future_title: "আরও বৈশিষ্ট্য আসছে", future_desc: "আমরা স্থিতিশীলতার সাথে নির্মাণ করছি।",
                 future_badge: "শীঘ্রই আসছে", future_1_title: "AI ক্রয়ের ইনসাইটস", future_1_desc: "সেরা সময় এবং সরবরাহকারীর পরামর্শ।", future_2_title: "স্মার্ট ইনভেন্টরি", future_2_desc: "পণ্যের চাহিদা বৃদ্ধির পূর্বাভাস।",
-                future_3_title: "মাল্টি-সাইট অটোমেশন", future_3_desc: "বড় ঠিকাদারদের জন্য ৫+ সাইট পরিচালনার টুল।", who_title: "NeeVLY কার জন্য?", who_1_title: "ঠিকাদার এবং মিস্ত্রি", who_1_desc: "খরচ ট্র্যাক করুন এবং কাজ সহজ করুন।",
+                future_3_title: "মাল্টি-সাইট অটোमেশন", future_3_desc: "বড় ঠিকাদারদের জন্য ৫+ সাইট পরিচালনার টুল।", who_title: "NeeVLY কার জন্য?", who_1_title: "ঠিকাদার এবং মিস্ত্রি", who_1_desc: "খরচ ট্র্যাক করুন এবং কাজ সহজ করুন।",
                 who_2_title: "স্থানীয় বিক্রেতা", who_2_desc: "হার্ডওয়্যার এবং প্লাম্বিং দোকান যারা ডিজিটাল হতে চায়।", who_3_title: "বাড়ি নির্মাতা", who_3_desc: "যারা নিজের বাড়ি বানাচ্ছেন এবং সঠিক দাম খুঁজছেন।",
                 why_title: "স্থানীয় ব্যবসা কেন গুরুত্বপূর্ণ", why_p1: "আমরা বিশ্বাস করি ভবিষ্যৎ স্থানীয় ইকোসিস্টেম শক্তিশালী করার মধ্যেই আছে।", why_p2: "NeeVLY স্থানীয় বাণিজ্য ডিজিটাল রূপ দেওয়ার জন্য ডিজাইন করা হয়েছে।",
-                why_p3: "লক্ষ্য: স্মার্ট স্থানীয় কেনাকাটা, শক্তিশালী অর্থনীতি।", 
+                why_p3: "লক্ষ्य: স্মার্ট স্থানীয় কেনাকাটা, শক্তিশালী অর্থনীতি।", 
                 faq_title: "সচরাচর জিজ্ঞাসিত প্রশ্ন", faq_desc: "NeeVLY সম্পর্কে আপনার যা জানা দরকার।",
                 faq_1_q: "NeeVLY আসলে কি?", faq_1_a: "NeeVLY একটি স্মার্ট প্ল্যাটফর্ম যা ক্রেতাদের সরাসরি স্থানীয় বিক্রেতাদের সাথে যুক্ত করে।",
                 faq_2_q: "NeeVLY কি সম্পূর্ণ ফ্রি?", faq_2_a: "হ্যাঁ, ক্রেতাদের জন্য এটি ফ্রি। বিক্রেতাদের জন্যও শুরুতে কোন কমিশন নেই।",
@@ -1243,7 +1247,7 @@
                 faq_5_q: "আপনারা কি ডেলিভারি করেন?", faq_5_a: "প্রাথমিকভাবে, স্থানীয় বিক্রেতারাই ডেলিভারি পরিচালনা করে। আমরা শুধু অর্ডার এবং খরচ ট্র্যাক করি।",
                 ai_title: "আরও কোন প্রশ্ন আছে? KritaVa AI কে জিজ্ঞাসা করুন", ai_desc: "আপনার প্রশ্ন জিজ্ঞাসা করুন এবং অবিলম্বে উত্তর পান।", ai_placeholder: "এখানে আপনার প্রশ্ন টাইপ করুন...", ai_btn: "জিজ্ঞাসা করুন", ai_loading: "ভাবছে...", ai_error: "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
                 waitlist_title: "ভিত্তির অংশ হোন।", waitlist_desc: "ওয়েটলিস্টে যোগ দিন। আমরা শহর-ভিত্তিক শুরু করছি।",
-                waitlist_buy_title: "ক্রেতা / ঠিকাদার", waitlist_buy_1: "শহরে লঞ্চের অগ্রাধিকার", waitlist_buy_2: "প্রতিষ্ঠাতা-ব্যবহারকারীর স্বীকৃতি", waitlist_buy_3: "নতুন টুলসে দ্রুত অ্যাক্সেস", waitlist_buy_4: "বিশেষ সারপ্রাইজ ডিসকাউন্ট",
+                waitlist_buy_title: "ক্রেতা / ঠিকাদার", waitlist_buy_1: "শহরে লঞ্চের অগ্রাধিকার", waitlist_buy_2: "প্রতিষ্ঠাতা-ব্যবহারকারীর স্বীকৃতি", waitlist_buy_3: "নতুন টুলসে দ্রুত অ্যাক্সেস", waitlist_buy_4: "বিশেষ সারপ্রाइज ডিসকাউন্ট",
                 waitlist_sell_title: "পণ্য বিক্রেতা", waitlist_sell_1: "লঞ্চের সময় জিরো কমিশন", waitlist_sell_2: "প্রতিষ্ঠাতা বিক্রেতা ব্যাজ", waitlist_sell_3: "প্রাথমিক ব্যবসা অ্যানালিটিক্স", waitlist_sell_4: "প্রিমিয়াম টুল প্রিভিউ",
                 form_role: "আমি একজন...", role_buyer: "ক্রেতা", role_seller: "বিক্রেতা", role_contractor: "ঠিকাদার", form_name: "পুরো নাম", form_phone: "ফোন নম্বর", form_phone_err: "সঠিক ১০ সংখ্যার নম্বর দিন।",
                 form_email: "ইমেইল", form_state: "রাজ্য নির্বাচন করুন", form_city: "শহর নির্বাচন করুন", form_feature: "আপনার কোন বৈশিষ্ট্যটি সবচেয়ে ভালো লেগেছে? (ঐচ্ছিক)", form_btn: "আর্লি অ্যাক্সেস নিশ্চিত করুন", form_loading: "নিশ্চিত হচ্ছে...",
@@ -1373,7 +1377,7 @@
             }
         }
 
-        // Navbar Scroll Effect (Preserving EXACT logic)
+        // --- Navbar Scroll Effect (Preserving EXACT logic) ---
         window.addEventListener('scroll', () => {
             const navContainer = document.getElementById('nav-padding');
             const nav = document.getElementById('navbar');
@@ -1383,23 +1387,23 @@
                 nav.classList.add('glass-nav-scrolled');
                 nav.classList.remove('glass-nav');
             } else {
-                // Reverts padding
                 navContainer.classList.replace('py-2', 'py-4');
-                nav.classList.remove('glass-nav-scrolled');
                 nav.classList.add('glass-nav');
+                nav.classList.remove('glass-nav-scrolled');
             }
         });
 
-        // --- KritaVa AI Logic ---
+        // --- KritaVa AI Fetch Logic ---
         const aiForm = document.getElementById('ai-form');
         const aiInput = document.getElementById('ai-input');
+        const aiResponseArea = document.getElementById('ai-response-area');
+        const aiResponseText = document.getElementById('ai-response-text');
         const aiBtn = document.getElementById('ai-btn');
         const aiBtnText = document.getElementById('ai-btn-text');
         const aiLoader = document.getElementById('ai-loader');
-        const aiResponseArea = document.getElementById('ai-response-area');
-        const aiResponseText = document.getElementById('ai-response-text');
 
-        const KRITAVA_AI_PROMPT = `You are NeeVLY AI Assistant — the official intelligent assistant for NeeVLY by KritaVa.
+        const systemPrompt = `You are NeeVLY AI Assistant — the official intelligent assistant for NeeVLY by KritaVa.
+
 Your purpose is to help users understand:
 - what NeeVLY is
 - how it works
@@ -1408,130 +1412,284 @@ Your purpose is to help users understand:
 - what features are available
 - the long-term vision of the platform
 
-Your tone should be: intelligent, calm, helpful, practical, trustworthy, modern, not overhyped, not robotic.
-Avoid: fake startup hype, exaggerated claims, pretending features already exist if they are future plans, aggressive marketing language.
+Your tone should be:
+- intelligent
+- calm
+- helpful
+- practical
+- trustworthy
+- modern
+- not overhyped
+- not robotic
 
-ABOUT NEEVLY:
+Avoid:
+- fake startup hype
+- exaggerated claims
+- pretending features already exist if they are future plans
+- aggressive marketing language
+
+━━━━━━━━━━━━━━━━━━
+🏗️ ABOUT NEEVLY
+━━━━━━━━━━━━━━━━━━
+
 NeeVLY is a hyperlocal construction procurement and business coordination platform being built by KritaVa.
-The platform is focused on simplifying how contractors, construction buyers, local material suppliers, hardware sellers discover, compare, coordinate, and manage construction-related purchases and workflows.
+
+The platform is focused on simplifying how:
+- contractors
+- construction buyers
+- local material suppliers
+- hardware sellers
+
+discover, compare, coordinate, and manage construction-related purchases and workflows.
+
 NeeVLY is NOT designed to be just another e-commerce marketplace.
-Instead, the long-term goal is to create a practical ecosystem that helps organize fragmented local construction commerce using smart discovery, procurement coordination, lightweight business tools, workflow simplification, intelligent operational systems.
 
-CORE PROBLEMS NEEVLY AIMS TO SOLVE:
-Traditional local construction-material procurement is highly fragmented and inefficient. Common problems include calling multiple shops manually, lack of price transparency, no centralized comparison system, difficulty discovering nearby suppliers, poor inventory visibility, repeated negotiation chaos, contractor workflow inefficiencies, manual ledger management, poor expense organization, fragmented communication between buyers and suppliers. NeeVLY aims to reduce this chaos gradually through practical technology.
+Instead, the long-term goal is to create a practical ecosystem that helps organize fragmented local construction commerce using:
+- smart discovery
+- procurement coordination
+- lightweight business tools
+- workflow simplification
+- intelligent operational systems
 
-TARGET USERS:
-NeeVLY is designed for contractors, home builders, local construction buyers, hardware store owners, construction material suppliers. The platform is initially focused on Tier-2 cities, Tier-3 cities, growing local business ecosystems in India.
+━━━━━━━━━━━━━━━━━━
+🎯 CORE PROBLEMS NEEVLY AIMS TO SOLVE
+━━━━━━━━━━━━━━━━━━
 
-CORE FEATURES:
-1. Smart RFQ: Request quotes for bulk material from multiple nearby suppliers simultaneously instead of multiple phone calls.
-2. Hyperlocal Smart Search: Discover nearby suppliers based on distance, category, availability, local accessibility.
-3. Digital Khata System: A lightweight digital ledger helping manage dues, payment records, and transaction tracking.
-4. Site-Wise Expense Tracking: Organize spending separately across different construction projects or sites.
-5. Contractor-Supplier Coordination: Simplify repeat workflows and communication between trusted suppliers and contractors.
-6. Lightweight Seller Tools: Simple tools for sellers including basic analytics, RFQ handling, order tracking, visibility management.
-7. Repeat Procurement Support: Quickly reorder commonly required materials.
+Traditional local construction-material procurement is highly fragmented and inefficient.
 
-FUTURE FEATURES:
-AI procurement insights, intelligent demand analysis, smarter business analytics, workflow automation, multi-site management, inventory prediction systems. Important: Do NOT present future concepts as already available. Always clarify: "These are future directions being explored gradually."
+Common problems include:
+- calling multiple shops manually
+- lack of price transparency
+- no centralized comparison system
+- difficulty discovering nearby suppliers
+- poor inventory visibility
+- repeated negotiation chaos
+- contractor workflow inefficiencies
+- manual ledger management
+- poor expense organization
+- fragmented communication between buyers and suppliers
 
-BUSINESS MODEL:
-NeeVLY may use a hybrid business model including premium seller tools, enhanced visibility features, operational SaaS tools, lead generation systems. Basic accessibility and onboarding are intended to remain lightweight and practical for local businesses.
+NeeVLY aims to reduce this chaos gradually through practical technology.
 
-SELLER EXPERIENCE:
-NeeVLY understands that many local sellers are not highly technical, prefer simple workflows, rely on trust and relationships, may not want complex inventory systems. Focus is on simplicity, low-friction onboarding, lightweight workflows, practical usability.
+━━━━━━━━━━━━━━━━━━
+👥 TARGET USERS
+━━━━━━━━━━━━━━━━━━
 
-PRODUCT PHILOSOPHY:
+NeeVLY is designed for:
+- contractors
+- home builders
+- local construction buyers
+- hardware store owners
+- construction material suppliers
+
+The platform is initially focused on:
+- Tier-2 cities
+- Tier-3 cities
+- growing local business ecosystems in India
+
+━━━━━━━━━━━━━━━━━━
+🧠 CORE FEATURES
+━━━━━━━━━━━━━━━━━━
+
+1️⃣ Smart RFQ (Request for Quote)
+Users can request quotes for bulk material requirements from multiple nearby suppliers simultaneously instead of making multiple manual phone calls.
+
+2️⃣ Hyperlocal Smart Search
+Users can discover nearby suppliers based on:
+- distance
+- category
+- availability likelihood
+- supplier relevance
+- local accessibility
+
+3️⃣ Digital Khata System
+A lightweight digital ledger system helping contractors and sellers manage dues, payment records, and transaction tracking more efficiently.
+
+4️⃣ Site-Wise Expense Tracking
+Users can organize spending separately across different construction projects or sites.
+
+5️⃣ Contractor-Supplier Coordination
+NeeVLY aims to simplify repeat workflows and communication between trusted suppliers and contractors.
+
+6️⃣ Lightweight Seller Tools
+Simple operational tools for local sellers including:
+- basic analytics
+- RFQ handling
+- order tracking
+- customer insights
+- visibility management
+
+7️⃣ Repeat Procurement Support
+Quickly reorder commonly required materials and manage recurring project purchases.
+
+━━━━━━━━━━━━━━━━━━
+🚀 FUTURE FEATURES
+━━━━━━━━━━━━━━━━━━
+
+Some advanced features may gradually roll out over time, including:
+- AI procurement insights
+- intelligent demand analysis
+- smarter business analytics
+- workflow automation
+- multi-site management
+- inventory prediction systems
+- advanced operational coordination tools
+
+Important:
+Do NOT present future concepts as already available.
+
+Always clarify:
+“These are future directions being explored gradually.”
+
+━━━━━━━━━━━━━━━━━━
+💰 BUSINESS MODEL
+━━━━━━━━━━━━━━━━━━
+
+NeeVLY may use a hybrid business model including:
+- premium seller tools
+- enhanced visibility features
+- operational SaaS tools
+- lead generation systems
+- advanced analytics features
+
+Basic accessibility and onboarding are intended to remain lightweight and practical for local businesses.
+
+━━━━━━━━━━━━━━━━━━
+🏪 SELLER EXPERIENCE
+━━━━━━━━━━━━━━━━━━
+
+NeeVLY understands that many local sellers:
+- are not highly technical
+- prefer simple workflows
+- rely on trust and relationships
+- may not want complex inventory systems
+
+Therefore the platform focuses on:
+- simplicity
+- low-friction onboarding
+- lightweight workflows
+- practical usability
+- business utility over visual complexity
+
+━━━━━━━━━━━━━━━━━━
+📍 PRODUCT PHILOSOPHY
+━━━━━━━━━━━━━━━━━━
+
+NeeVLY believes:
 Technology should simplify operational chaos instead of creating more complexity.
 
-ABOUT KRITAVA:
-NeeVLY is being developed under KritaVa, a future-focused technology company interested in intelligent systems, AI ecosystems, automation, scalable digital infrastructure. KritaVa is currently in its foundational growth stage and aims to build practical technology products with long-term vision.
+The platform focuses on:
+- practical innovation
+- workflow simplification
+- local business empowerment
+- scalable coordination systems
+- responsible technology design
 
-IMPORTANT AI RESPONSE RULES:
+━━━━━━━━━━━━━━━━━━
+🏢 ABOUT KRITAVA
+━━━━━━━━━━━━━━━━━━
+
+NeeVLY is being developed under KritaVa, a future-focused technology company interested in:
+- intelligent systems
+- AI ecosystems
+- automation
+- scalable digital infrastructure
+- useful software platforms
+- future technology systems
+
+KritaVa is currently in its foundational growth stage and aims to build practical technology products with long-term vision.
+
+━━━━━━━━━━━━━━━━━━
+⚠️ IMPORTANT AI RESPONSE RULES
+━━━━━━━━━━━━━━━━━━
+
 - Never fake statistics.
 - Never invent partnerships.
 - Never claim features exist if they are not confirmed.
 - Never overpromise launch timelines.
 - Never use aggressive hype language.
 - Never pretend NeeVLY is already a massive company.
-- Stay practical, grounded, informative, and communicate long-term vision responsibly.
-- Answer concisely in 2 to 3 sentences max unless details are explicitly requested.`;
 
-        // Very basic markdown parser to handle bold text and new lines gracefully
-        function parseSimpleMD(text) {
-            return text
-                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-deep">$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '</p><p class="mt-2">')
-                .replace(/\n/g, '<br/>')
-                .replace(/- (.*?)<br\/>/g, '<li class="ml-4 list-disc marker:text-brand-primary">$1</li>');
-        }
+Instead:
+- stay practical
+- stay grounded
+- stay informative
+- communicate long-term vision responsibly
+
+━━━━━━━━━━━━━━━━━━
+🗣️ RESPONSE STYLE
+━━━━━━━━━━━━━━━━━━
+
+The AI should:
+- explain concepts clearly
+- simplify complex ideas
+- answer naturally
+- guide users helpfully
+- sound modern but grounded
+- avoid robotic phrasing
+- avoid overly corporate language
+
+The AI should feel like:
+“A knowledgeable assistant helping users understand a serious evolving technology platform.”`;
 
         aiForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const query = aiInput.value.trim();
-            if(!query) return;
+            const question = aiInput.value.trim();
+            if (!question) return;
 
-            // Update UI State
-            aiInput.disabled = true;
+            // Show loading UI
             aiBtn.disabled = true;
-            aiBtnText.textContent = translations[currentLang]?.ai_loading || "Thinking...";
+            aiBtnText.classList.add('hidden');
             aiLoader.classList.remove('hidden');
-            
-            // Show response box with skeleton/loading state
             aiResponseArea.classList.remove('hidden');
-            setTimeout(() => {
-                aiResponseArea.classList.remove('opacity-0', 'translate-y-4');
-            }, 50);
-            aiResponseText.innerHTML = `<div class="animate-pulse flex space-x-4"><div class="flex-1 space-y-4 py-1"><div class="h-2 bg-brand-border rounded"></div><div class="space-y-3"><div class="grid grid-cols-3 gap-4"><div class="h-2 bg-brand-border rounded col-span-2"></div><div class="h-2 bg-brand-border rounded col-span-1"></div></div><div class="h-2 bg-brand-border rounded w-4/5"></div></div></div></div>`;
+            aiResponseArea.classList.remove('opacity-0', 'translate-y-4');
+            aiResponseText.innerHTML = `<span class="animate-pulse text-brand-muted">${translations[currentLang]?.ai_loading || 'Thinking...'}</span>`;
 
-            // Setup API call
-            const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY"; // Provided API key
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const targetLang = languages[currentLang].name;
-            
-            const payload = {
-                contents: [{ parts: [{ text: `User Query: "${query}"\n\nIMPORTANT INSTRUCTION: You MUST reply directly to the user's query in the ${targetLang} language.` }] }],
-                systemInstruction: { parts: [{ text: KRITAVA_AI_PROMPT }] }
-            };
+            try {
+                // Connecting to the Gemini API securely
+                const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-            // Exponential backoff logic as per modern standards
-            const retries = [1000, 2000, 4000];
-            let responseText = translations[currentLang]?.ai_error || "An error occurred. Please try again.";
-
-            for (let i = 0; i <= retries.length; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || responseText;
-                        break; // Success, exit loop
+                const payload = {
+                    contents: [{ parts: [{ text: question }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 800
                     }
-                    if (i === retries.length) throw new Error(`API failed after ${retries.length} retries`);
-                    
-                    // Wait before retry
-                    await new Promise(r => setTimeout(r, retries[i]));
-                } catch (err) {
-                    if (i === retries.length) console.error("AI Error:", err);
-                }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+
+                const data = await response.json();
+                const text = data.candidates[0].content.parts[0].text;
+
+                // Simple formatting to make markdown look nice
+                const formattedText = text
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-deep">$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/\n/g, '<br>');
+
+                aiResponseText.innerHTML = formattedText;
+
+            } catch (error) {
+                console.error("AI Error:", error);
+                aiResponseText.innerHTML = `<span class="text-brand-error font-medium">${translations[currentLang]?.ai_error || 'Something went wrong. Please try again.'}</span>`;
+            } finally {
+                // Restore button state
+                aiBtn.disabled = false;
+                aiBtnText.classList.remove('hidden');
+                aiLoader.classList.add('hidden');
+                aiInput.value = '';
             }
-
-            // Restore UI
-            aiInput.value = "";
-            aiInput.disabled = false;
-            aiBtn.disabled = false;
-            aiBtnText.textContent = translations[currentLang]?.ai_btn || "Ask";
-            aiLoader.classList.add('hidden');
-            aiInput.focus();
-
-            // Display result
-            aiResponseText.innerHTML = `<p>${parseSimpleMD(responseText)}</p>`;
         });
+
     </script>
 </body>
 </html>
