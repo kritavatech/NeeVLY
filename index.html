@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeeVLY by KritaVa | Intelligent Local Construction Procurement</title>
     
-    <!-- Favicon Integration -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Self-Contained SVG Favicon (NV Logo in Brand Colors) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjRThGNEYzIi8+PHRleHQgeD0iNTAiIHk9IjY1IiBmb250LWZhbWlseT0iSW50ZXIsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMEY3NjZFIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5OVjwvdGV4dD48L3N2Zz4=">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +52,7 @@
         
         /* True Translucent Glassmorphism */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.4); /* Highly transparent */
+            background: rgba(255, 255, 255, 0.4); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -64,7 +60,7 @@
         }
         
         .glass-nav-scrolled {
-            background: rgba(255, 255, 255, 0.65); /* Slightly less transparent for readability over text */
+            background: rgba(255, 255, 255, 0.65); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.8); 
@@ -575,8 +571,8 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-24 bg-white border-t border-brand-border">
+    <!-- FAQ & AI Assistant Section -->
+    <section class="py-24 bg-white border-t border-brand-border relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-up">
                 <h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="faq_title">Frequently Asked Questions</h2>
@@ -649,6 +645,39 @@
                     </div>
                 </div>
             </div>
+
+            <!-- KritaVa AI Section -->
+            <div class="mt-20 pt-16 border-t border-brand-border fade-up relative">
+                <!-- Soft Glow -->
+                <div class="absolute left-1/2 top-10 -translate-x-1/2 w-full max-w-lg h-32 bg-brand-primary/10 blur-[60px] rounded-full pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-2xl mx-auto text-center">
+                    <h3 class="text-2xl font-bold text-brand-text mb-3" data-i18n="ai_title">Any other doubts? Ask KritaVa AI</h3>
+                    <p class="text-brand-muted mb-8" data-i18n="ai_desc">Get instant, intelligent answers about NeeVLY in your selected language.</p>
+
+                    <form id="ai-form" class="relative group mb-6">
+                        <input type="text" id="ai-input" class="block w-full pl-6 pr-32 py-4 min-h-[64px] text-brand-text bg-white rounded-full border border-brand-border shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all duration-300" placeholder="Type your question here..." required>
+                        <button type="submit" id="ai-btn" class="absolute right-2 top-2 bottom-2 px-6 flex items-center justify-center bg-brand-primary hover:bg-brand-deep text-white font-bold rounded-full transition-all duration-300 shadow-sm disabled:opacity-70 disabled:cursor-not-allowed">
+                            <span id="ai-btn-text" data-i18n="ai_btn">Ask</span>
+                            <i data-lucide="loader-2" id="ai-loader" class="w-5 h-5 ml-2 animate-spin hidden"></i>
+                        </button>
+                    </form>
+
+                    <!-- AI Response Area -->
+                    <div id="ai-response-area" class="hidden text-left bg-brand-bg p-6 rounded-3xl border border-brand-border shadow-sm transition-all duration-500 opacity-0 transform translate-y-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20">
+                                <i data-lucide="bot" class="w-4 h-4"></i>
+                            </div>
+                            <span class="font-bold text-sm text-brand-text">KritaVa AI</span>
+                        </div>
+                        <div id="ai-response-text" class="text-brand-text text-sm md:text-base leading-relaxed space-y-3">
+                            <!-- Response injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -913,7 +942,7 @@
             }
         });
 
-        // --- Form Submission to Google Forms ---
+        // --- Waitlist Submission to Google Forms ---
         const waitlistForm = document.getElementById('waitlist-form');
         const formSuccess = document.getElementById('form-success');
         const submitBtn = document.getElementById('submit-btn');
@@ -1020,6 +1049,7 @@
                 faq_3_q: "Which cities are you launching in first?", faq_3_a: "We are focusing on Tier-2 and Tier-3 cities in India, starting with key regions in Jharkhand and expanding gradually based on waitlist demand.",
                 faq_4_q: "How is this better than calling shops manually?", faq_4_a: "Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sellers respond to you, allowing you to compare prices and distance instantly.",
                 faq_5_q: "Do you handle the delivery?", faq_5_a: "Initially, we connect you with local sellers who manage their own logistics. We track the order and expense, while local relationships remain intact.",
+                ai_title: "Any other doubts? Ask KritaVa AI", ai_desc: "Get instant, intelligent answers about NeeVLY in your selected language.", ai_placeholder: "Type your question here...", ai_btn: "Ask", ai_loading: "Thinking...", ai_error: "Something went wrong. Please try again.",
                 waitlist_title: "Be Part of the Foundation.", waitlist_desc: "Join the waitlist. We are rolling out city by city, prioritizing our earliest supporters.",
                 waitlist_buy_title: "Buyers / Contractors", waitlist_buy_1: "Priority city rollout access", waitlist_buy_2: "Founding-user recognition", waitlist_buy_3: "Early workflow tools access", waitlist_buy_4: "Special surprise discount",
                 waitlist_sell_title: "Material Sellers", waitlist_sell_1: "Zero commission launch phase", waitlist_sell_2: "Founding seller badge & priority visibility", waitlist_sell_3: "Basic operational analytics", waitlist_sell_4: "Premium SaaS tool preview",
@@ -1069,6 +1099,7 @@
                 faq_3_q: "आप सबसे पहले किन शहरों में लॉन्च कर रहे हैं?", faq_3_a: "हम भारत के टियर-2 और टियर-3 शहरों पर ध्यान केंद्रित कर रहे हैं, जिनकी शुरुआत झारखंड से होगी।",
                 faq_4_q: "यह खुद दुकानों पर कॉल करने से बेहतर कैसे है?", faq_4_a: "5 अलग-अलग दुकानों को कॉल करने के बजाय, आप NeeVLY पर एक बार अपनी जरूरत डालते हैं। विक्रेता आपको अपनी कीमतें भेजते हैं, जिससे आप तुरंत तुलना कर सकते हैं।",
                 faq_5_q: "क्या आप डिलीवरी भी करते हैं?", faq_5_a: "शुरुआत में, हम आपको स्थानीय विक्रेताओं से जोड़ते हैं जो अपनी डिलीवरी खुद संभालते हैं। हम केवल ऑर्डर और खर्च को ट्रैक करते हैं।",
+                ai_title: "कोई और संदेह? KritaVa AI से पूछें", ai_desc: "NeeVLY के बारे में अपने प्रश्न पूछें और तुरंत अपनी भाषा में उत्तर पाएं।", ai_placeholder: "अपना प्रश्न यहाँ लिखें...", ai_btn: "पूछें", ai_loading: "सोच रहा है...", ai_error: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
                 waitlist_title: "नींव का हिस्सा बनें।", waitlist_desc: "वेटलिस्ट में शामिल हों। हम शहर-दर-शहर शुरुआत कर रहे हैं, शुरुआती समर्थकों को प्राथमिकता दी जाएगी।",
                 waitlist_buy_title: "खरीदार / ठेकेदार", waitlist_buy_1: "शहर में लॉन्च पर प्राथमिकता", waitlist_buy_2: "संस्थापक-उपयोगकर्ता की पहचान", waitlist_buy_3: "नए टूल्स तक जल्दी पहुँच", waitlist_buy_4: "विशेष सरप्राइज डिस्काउंट",
                 waitlist_sell_title: "सामग्री विक्रेता", waitlist_sell_1: "लॉन्च के समय जीरो कमीशन", waitlist_sell_2: "संस्थापक विक्रेता बैज और प्राथमिकता", waitlist_sell_3: "बुनियादी व्यापार एनालिटिक्स", waitlist_sell_4: "प्रीमियम SaaS टूल का पूर्वावलोकन",
@@ -1105,6 +1136,7 @@
                 faq_3_q: "रउआ सबसे पहिले कवन शहर में आवत बानी?", faq_3_a: "हमनी टियर-2 अउर टियर-3 शहर में ध्यान देत बानी, शुरुआत झारखंड से हो रहल बा।",
                 faq_4_q: "दुकान पर कॉल कइले से ई बढ़िया कइसे बा?", faq_4_a: "5 दुकान पर कॉल करे के जगह, NeeVLY पर एक बार जरूरत डालीं। दुकानदार खुद रउआ के दाम भेजी।",
                 faq_5_q: "का रउआ डिलीवरी भी करेनी?", faq_5_a: "शुरुआत में, डिलीवरी स्थानीय विक्रेता ही करीहे, हमनी खाली ऑर्डर आ खर्च के ट्रैक करब।",
+                ai_title: "कवनो अउर शंका बा? KritaVa AI से पूछीं", ai_desc: "NeeVLY के बारे में रउआ आपन सवाल पूछीं अउर जवाब पाईं।", ai_placeholder: "आपन सवाल हिंया लिखीं...", ai_btn: "पूछीं", ai_loading: "सोचत बा...", ai_error: "कुछ गलत हो गइल। कृपया फिर से कोशिश करीं।",
                 waitlist_title: "नींव के हिस्सा बनीं।", waitlist_desc: "वेटलिस्ट में जुड़ीं। हमनी शहर-दर-शहर शुरुआत कर रहल बानी।",
                 waitlist_buy_title: "खरीदार / ठेकेदार", waitlist_buy_1: "शहर में लॉन्च पर प्राथमिकता", waitlist_buy_2: "संस्थापक-उपयोगकर्ता के पहचान", waitlist_buy_3: "नया टूल्स जल्दी मिली", waitlist_buy_4: "विशेष सरप्राइज डिस्काउंट",
                 waitlist_sell_title: "सामग्री विक्रेता", waitlist_sell_1: "लॉन्च पर जीरो कमीशन", waitlist_sell_2: "प्राथमिकता दृश्यता", waitlist_sell_3: "व्यापार एनालिटिक्स", waitlist_sell_4: "प्रीमियम टूल पूर्वावलोकन",
@@ -1139,6 +1171,7 @@
                 faq_3_q: "अहाँ सब सँ पहिने कोन शहर मे आबि रहल छी?", faq_3_a: "हम सब टियर-2 आ टियर-3 शहर पर ध्यान दऽ रहल छी, शुरुआत झारखंड सँ भऽ रहल अछि।",
                 faq_4_q: "दुकान पर कॉल करबा सँ ई बेस नीक कोना अछि?", faq_4_a: "5 दुकान पर कॉल करबाक बदला, NeeVLY पर एक बेर अपन जरूरत दियौ। दुकानदार खुद अपन दाम पठाओत।",
                 faq_5_q: "की अहाँ डिलीवरी सेहो करैत छी?", faq_5_a: "शुरुआत मे, डिलीवरी स्थानीय विक्रेता हे करताह, हम सब मात्र ऑर्डर आ खर्च केँ ट्रैक करब।",
+                ai_title: "कोनो आउर शंका अछि? KritaVa AI सँ पुछू", ai_desc: "NeeVLY क विषय मे अपन प्रश्न पुछू आ तुरंत जवाब पाबू।", ai_placeholder: "अपन प्रश्न एतय लिखू...", ai_btn: "पुछू", ai_loading: "सोचि रहल अछि...", ai_error: "किछु गलत भऽ गेल। कृप्या फेर सँ प्रयास करू।",
                 waitlist_title: "नींवक हिस्सा बनू।", waitlist_desc: "वेटलिस्ट मे जुड़ू। हम सब शहर-दर-शहर शुरुआत कऽ रहल छी।",
                 waitlist_buy_title: "क्रेता / ठेकेदार", waitlist_buy_1: "शहर मे लॉन्च पर प्राथमिकता", waitlist_buy_2: "संस्थापक-उपयोगकर्ता केँ पहचान", waitlist_buy_3: "नबका टूल्स जल्दी भेटत", waitlist_buy_4: "विशेष सरप्राइज डिस्काउंट",
                 waitlist_sell_title: "सामग्री विक्रेता", waitlist_sell_1: "लॉन्च पर जीरो कमीशन", waitlist_sell_2: "प्राथमिकता दृश्यता", waitlist_sell_3: "व्यापार एनालिटिक्स", waitlist_sell_4: "प्रीमियम टूल पूर्वावलोकन",
@@ -1173,6 +1206,7 @@
                 faq_3_q: "तुम्ही कोणत्या शहरांमध्ये सुरुवात करत आहात?", faq_3_a: "आम्ही टियर-2 आणि टियर-3 शहरांवर लक्ष केंद्रित करत आहोत, ज्याची सुरुवात झारखंडमधून होईल.",
                 faq_4_q: "हे स्वतः दुकानांना कॉल करण्यापेक्षा कसे चांगले आहे?", faq_4_a: "5 दुकानांना कॉल करण्याऐवजी, तुम्ही NeeVLY वर फक्त एकदा तुमची गरज टाकता. विक्रेते तुम्हाला त्यांच्या किमती पाठवतात.",
                 faq_5_q: "तुम्ही डिलिव्हरी करता का?", faq_5_a: "सुरुवातीला, स्थानिक विक्रेतेच डिलिव्हरी हाताळतात. आम्ही फक्त ऑर्डर आणि खर्च ट्रॅक करतो.",
+                ai_title: "आणखी काही शंका आहेत? KritaVa AI ला विचारा", ai_desc: "तुमचे प्रश्न विचारा आणि त्वरित उत्तरे मिळवा.", ai_placeholder: "तुमचा प्रश्न येथे टाइप करा...", ai_btn: "विचारा", ai_loading: "विचार करत आहे...", ai_error: "काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.",
                 waitlist_title: "पायाचा भाग व्हा.", waitlist_desc: "वेटलिस्टमध्ये सामील व्हा. आम्ही शहरा-शहरात सुरुवात करत आहोत.",
                 waitlist_buy_title: "खरेदीदार / कंत्राटदार", waitlist_buy_1: "शहरातील लॉन्चला प्राधान्य", waitlist_buy_2: "संस्थापक-वापरकर्ता ओळख", waitlist_buy_3: "नवीन टूल्समध्ये लवकर प्रवेश", waitlist_buy_4: "विशेष सरप्राइज सवलत",
                 waitlist_sell_title: "सामग्री विक्रेते", waitlist_sell_1: "लॉन्चवेळी शून्य कमिशन", waitlist_sell_2: "संस्थापक विक्रेता बॅज", waitlist_sell_3: "मूलभूत व्यवसाय विश्लेषण", waitlist_sell_4: "प्रीमियम SaaS टूल पूर्वावलोकन",
@@ -1207,6 +1241,7 @@
                 faq_3_q: "আপনারা প্রথমে কোন শহরে শুরু করছেন?", faq_3_a: "আমরা টিয়ার-২ এবং টিয়ার-৩ শহরে ফোকাস করছি, ঝাড়খণ্ড থেকে শুরু করে।",
                 faq_4_q: "দোকানে কল করার চেয়ে এটি কীভাবে ভালো?", faq_4_a: "৫টি দোকানে কল করার পরিবর্তে, আপনি NeeVLY তে একবার প্রয়োজন জানান। বিক্রেতারাই আপনাকে দাম পাঠাবে।",
                 faq_5_q: "আপনারা কি ডেলিভারি করেন?", faq_5_a: "প্রাথমিকভাবে, স্থানীয় বিক্রেতারাই ডেলিভারি পরিচালনা করে। আমরা শুধু অর্ডার এবং খরচ ট্র্যাক করি।",
+                ai_title: "আরও কোন প্রশ্ন আছে? KritaVa AI কে জিজ্ঞাসা করুন", ai_desc: "আপনার প্রশ্ন জিজ্ঞাসা করুন এবং অবিলম্বে উত্তর পান।", ai_placeholder: "এখানে আপনার প্রশ্ন টাইপ করুন...", ai_btn: "জিজ্ঞাসা করুন", ai_loading: "ভাবছে...", ai_error: "কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
                 waitlist_title: "ভিত্তির অংশ হোন।", waitlist_desc: "ওয়েটলিস্টে যোগ দিন। আমরা শহর-ভিত্তিক শুরু করছি।",
                 waitlist_buy_title: "ক্রেতা / ঠিকাদার", waitlist_buy_1: "শহরে লঞ্চের অগ্রাধিকার", waitlist_buy_2: "প্রতিষ্ঠাতা-ব্যবহারকারীর স্বীকৃতি", waitlist_buy_3: "নতুন টুলসে দ্রুত অ্যাক্সেস", waitlist_buy_4: "বিশেষ সারপ্রাইজ ডিসকাউন্ট",
                 waitlist_sell_title: "পণ্য বিক্রেতা", waitlist_sell_1: "লঞ্চের সময় জিরো কমিশন", waitlist_sell_2: "প্রতিষ্ঠাতা বিক্রেতা ব্যাজ", waitlist_sell_3: "প্রাথমিক ব্যবসা অ্যানালিটিক্স", waitlist_sell_4: "প্রিমিয়াম টুল প্রিভিউ",
@@ -1241,6 +1276,7 @@
                 faq_3_q: "முதலில் எந்த நகரங்களில் தொடங்குகிறீர்கள்?", faq_3_a: "நாங்கள் ஜார்கண்டில் தொடங்கி டயர்-2 மற்றும் டயர்-3 நகரங்களில் கவனம் செலுத்துகிறோம்.",
                 faq_4_q: "கடைகளுக்கு அழைப்பதை விட இது எவ்வாறு சிறந்தது?", faq_4_a: "5 கடைகளை அழைப்பதற்குப் பதிலாக, NeeVLY இல் ஒரு முறை உங்கள் தேவையை உள்ளிடுங்கள். விற்பனையாளர்களே விலைகளை அனுப்புவார்கள்.",
                 faq_5_q: "டெலிவரியை நீங்கள் செய்கிறீர்களா?", faq_5_a: "ஆரம்பத்தில், டெலிவரியை உள்ளூர் விற்பனையாளர்களே செய்கிறார்கள். நாங்கள் ஆர்டரை மட்டும் கண்காணிக்கிறோம்.",
+                ai_title: "வேறு ஏதேனும் சந்தேகங்கள் உள்ளதா? KritaVa AI இடம் கேளுங்கள்", ai_desc: "உங்கள் கேள்விகளைக் கேளுங்கள் மற்றும் உடனடியாக பதில்களைப் பெறுங்கள்.", ai_placeholder: "உங்கள் கேள்வியை இங்கே தட்டச்சு செய்யவும்...", ai_btn: "கேளுங்கள்", ai_loading: "சிந்திக்கிறது...", ai_error: "ஏதோ தவறு நடந்துவிட்டது. மீண்டும் முயற்சிக்கவும்.",
                 waitlist_title: "அடித்தளத்தின் ஒரு பகுதியாக இருங்கள்.", waitlist_desc: "பட்டியலில் சேரவும். நாங்கள் நகர வாரியாக தொடங்குகிறோம்.",
                 waitlist_buy_title: "வாங்குபவர்கள் / ஒப்பந்தக்காரர்கள்", waitlist_buy_1: "முன்னுரிமை அணுகல்", waitlist_buy_2: "நிறுவனர் பயனர் அங்கீகாரம்", waitlist_buy_3: "புதிய கருவிகளுக்கு அணுகல்", waitlist_buy_4: "சிறப்பு தள்ளுபடி",
                 waitlist_sell_title: "பொருள் விற்பனையாளர்கள்", waitlist_sell_1: "பூஜ்ஜிய கமிஷன்", waitlist_sell_2: "நிறுவனர் விற்பனையாளர் பேட்ஜ்", waitlist_sell_3: "அடிப்படை வணிக பகுப்பாய்வு", waitlist_sell_4: "பிரீமியம் கருவி முன்னோட்டம்",
@@ -1275,6 +1311,7 @@
                 faq_3_q: "ముందుగా ఏ నగరాల్లో ప్రారంభిస్తున్నారు?", faq_3_a: "మేము టైర్-2 మరియు టైర్-3 నగరాలపై దృష్టి పెడుతున్నాము, జార్ఖండ్ నుండి ప్రారంభిస్తాము.",
                 faq_4_q: "దుకాణాలకు కాల్ చేయడం కంటే ఇది ఎలా మెరుగైనది?", faq_4_a: "5 దుకాణాలకు కాల్ చేయడానికి బదులుగా, NeeVLY లో ఒకసారి మీ అవసరాన్ని ఉంచండి. విక్రేతలే మీకు ధరలు పంపుతారు.",
                 faq_5_q: "డెలివరీ మీరే చేస్తారా?", faq_5_a: "ప్రారంభంలో, స్థానిక విక్రేతలే డెలివరీ చేస్తారు. మేము ఆర్డర్ మరియు ఖర్చును మాత్రమే ట్రాక్ చేస్తాము.",
+                ai_title: "ఇంకా ఏమైనా సందేహాలు ఉన్నాయా? KritaVa AI ని అడగండి", ai_desc: "మీ ప్రశ్నలను అడగండి మరియు వెంటనే సమాధానాలు పొందండి.", ai_placeholder: "మీ ప్రశ్నను ఇక్కడ టైప్ చేయండి...", ai_btn: "అడగండి", ai_loading: "ఆలోచిస్తోంది...", ai_error: "ఏదో తప్పు జరిగింది. దయచేసి మళ్ళీ ప్రయత్నించండి.",
                 waitlist_title: "పునాదిలో భాగం అవ్వండి.", waitlist_desc: "వెయిట్‌లిస్ట్‌లో చేరండి. మేము నగరాల వారీగా ప్రారంభిస్తున్నాము.",
                 waitlist_buy_title: "కొనుగోలుదారులు / కాంట్రాక్టర్లు", waitlist_buy_1: "ప్రాధాన్యతా యాక్సెస్", waitlist_buy_2: "ఫౌండర్ యూజర్ గుర్తింపు", waitlist_buy_3: "కొత్త టూల్స్ యాక్సెస్", waitlist_buy_4: "ప్రత్యేక డిస్కౌంట్",
                 waitlist_sell_title: "వస్తువుల విక్రేతలు", waitlist_sell_1: "జీరో కమిషన్", waitlist_sell_2: "ఫౌండర్ సెల్లర్ బ్యాడ్జ్", waitlist_sell_3: "ప్రాథమిక వ్యాపార విశ్లేషణ", waitlist_sell_4: "ప్రీమియం టూల్ ప్రివ్యూ",
@@ -1319,12 +1356,16 @@
                 
                 if (text) {
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        // Handled by targeting the label next to it via the DOM structure
+                        // Inputs are handled by adjacent labels.
                     } else {
                         el.innerHTML = text;
                     }
                 }
             });
+
+            // Update Input Placeholders manually if needed
+            const aiInput = document.getElementById('ai-input');
+            if(aiInput) aiInput.placeholder = translations[langCode]?.ai_placeholder || translations['en']['ai_placeholder'];
             
             // Re-trigger select updates for translated placeholders
             if(!citySelect.value) {
@@ -1347,6 +1388,149 @@
                 nav.classList.remove('glass-nav-scrolled');
                 nav.classList.add('glass-nav');
             }
+        });
+
+        // --- KritaVa AI Logic ---
+        const aiForm = document.getElementById('ai-form');
+        const aiInput = document.getElementById('ai-input');
+        const aiBtn = document.getElementById('ai-btn');
+        const aiBtnText = document.getElementById('ai-btn-text');
+        const aiLoader = document.getElementById('ai-loader');
+        const aiResponseArea = document.getElementById('ai-response-area');
+        const aiResponseText = document.getElementById('ai-response-text');
+
+        const KRITAVA_AI_PROMPT = `You are NeeVLY AI Assistant — the official intelligent assistant for NeeVLY by KritaVa.
+Your purpose is to help users understand:
+- what NeeVLY is
+- how it works
+- who it is for
+- what problems it solves
+- what features are available
+- the long-term vision of the platform
+
+Your tone should be: intelligent, calm, helpful, practical, trustworthy, modern, not overhyped, not robotic.
+Avoid: fake startup hype, exaggerated claims, pretending features already exist if they are future plans, aggressive marketing language.
+
+ABOUT NEEVLY:
+NeeVLY is a hyperlocal construction procurement and business coordination platform being built by KritaVa.
+The platform is focused on simplifying how contractors, construction buyers, local material suppliers, hardware sellers discover, compare, coordinate, and manage construction-related purchases and workflows.
+NeeVLY is NOT designed to be just another e-commerce marketplace.
+Instead, the long-term goal is to create a practical ecosystem that helps organize fragmented local construction commerce using smart discovery, procurement coordination, lightweight business tools, workflow simplification, intelligent operational systems.
+
+CORE PROBLEMS NEEVLY AIMS TO SOLVE:
+Traditional local construction-material procurement is highly fragmented and inefficient. Common problems include calling multiple shops manually, lack of price transparency, no centralized comparison system, difficulty discovering nearby suppliers, poor inventory visibility, repeated negotiation chaos, contractor workflow inefficiencies, manual ledger management, poor expense organization, fragmented communication between buyers and suppliers. NeeVLY aims to reduce this chaos gradually through practical technology.
+
+TARGET USERS:
+NeeVLY is designed for contractors, home builders, local construction buyers, hardware store owners, construction material suppliers. The platform is initially focused on Tier-2 cities, Tier-3 cities, growing local business ecosystems in India.
+
+CORE FEATURES:
+1. Smart RFQ: Request quotes for bulk material from multiple nearby suppliers simultaneously instead of multiple phone calls.
+2. Hyperlocal Smart Search: Discover nearby suppliers based on distance, category, availability, local accessibility.
+3. Digital Khata System: A lightweight digital ledger helping manage dues, payment records, and transaction tracking.
+4. Site-Wise Expense Tracking: Organize spending separately across different construction projects or sites.
+5. Contractor-Supplier Coordination: Simplify repeat workflows and communication between trusted suppliers and contractors.
+6. Lightweight Seller Tools: Simple tools for sellers including basic analytics, RFQ handling, order tracking, visibility management.
+7. Repeat Procurement Support: Quickly reorder commonly required materials.
+
+FUTURE FEATURES:
+AI procurement insights, intelligent demand analysis, smarter business analytics, workflow automation, multi-site management, inventory prediction systems. Important: Do NOT present future concepts as already available. Always clarify: "These are future directions being explored gradually."
+
+BUSINESS MODEL:
+NeeVLY may use a hybrid business model including premium seller tools, enhanced visibility features, operational SaaS tools, lead generation systems. Basic accessibility and onboarding are intended to remain lightweight and practical for local businesses.
+
+SELLER EXPERIENCE:
+NeeVLY understands that many local sellers are not highly technical, prefer simple workflows, rely on trust and relationships, may not want complex inventory systems. Focus is on simplicity, low-friction onboarding, lightweight workflows, practical usability.
+
+PRODUCT PHILOSOPHY:
+Technology should simplify operational chaos instead of creating more complexity.
+
+ABOUT KRITAVA:
+NeeVLY is being developed under KritaVa, a future-focused technology company interested in intelligent systems, AI ecosystems, automation, scalable digital infrastructure. KritaVa is currently in its foundational growth stage and aims to build practical technology products with long-term vision.
+
+IMPORTANT AI RESPONSE RULES:
+- Never fake statistics.
+- Never invent partnerships.
+- Never claim features exist if they are not confirmed.
+- Never overpromise launch timelines.
+- Never use aggressive hype language.
+- Never pretend NeeVLY is already a massive company.
+- Stay practical, grounded, informative, and communicate long-term vision responsibly.
+- Answer concisely in 2 to 3 sentences max unless details are explicitly requested.`;
+
+        // Very basic markdown parser to handle bold text and new lines gracefully
+        function parseSimpleMD(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-deep">$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '</p><p class="mt-2">')
+                .replace(/\n/g, '<br/>')
+                .replace(/- (.*?)<br\/>/g, '<li class="ml-4 list-disc marker:text-brand-primary">$1</li>');
+        }
+
+        aiForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = aiInput.value.trim();
+            if(!query) return;
+
+            // Update UI State
+            aiInput.disabled = true;
+            aiBtn.disabled = true;
+            aiBtnText.textContent = translations[currentLang]?.ai_loading || "Thinking...";
+            aiLoader.classList.remove('hidden');
+            
+            // Show response box with skeleton/loading state
+            aiResponseArea.classList.remove('hidden');
+            setTimeout(() => {
+                aiResponseArea.classList.remove('opacity-0', 'translate-y-4');
+            }, 50);
+            aiResponseText.innerHTML = `<div class="animate-pulse flex space-x-4"><div class="flex-1 space-y-4 py-1"><div class="h-2 bg-brand-border rounded"></div><div class="space-y-3"><div class="grid grid-cols-3 gap-4"><div class="h-2 bg-brand-border rounded col-span-2"></div><div class="h-2 bg-brand-border rounded col-span-1"></div></div><div class="h-2 bg-brand-border rounded w-4/5"></div></div></div></div>`;
+
+            // Setup API call
+            const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY"; // Provided API key
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const targetLang = languages[currentLang].name;
+            
+            const payload = {
+                contents: [{ parts: [{ text: `User Query: "${query}"\n\nIMPORTANT INSTRUCTION: You MUST reply directly to the user's query in the ${targetLang} language.` }] }],
+                systemInstruction: { parts: [{ text: KRITAVA_AI_PROMPT }] }
+            };
+
+            // Exponential backoff logic as per modern standards
+            const retries = [1000, 2000, 4000];
+            let responseText = translations[currentLang]?.ai_error || "An error occurred. Please try again.";
+
+            for (let i = 0; i <= retries.length; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || responseText;
+                        break; // Success, exit loop
+                    }
+                    if (i === retries.length) throw new Error(`API failed after ${retries.length} retries`);
+                    
+                    // Wait before retry
+                    await new Promise(r => setTimeout(r, retries[i]));
+                } catch (err) {
+                    if (i === retries.length) console.error("AI Error:", err);
+                }
+            }
+
+            // Restore UI
+            aiInput.value = "";
+            aiInput.disabled = false;
+            aiBtn.disabled = false;
+            aiBtnText.textContent = translations[currentLang]?.ai_btn || "Ask";
+            aiLoader.classList.add('hidden');
+            aiInput.focus();
+
+            // Display result
+            aiResponseText.innerHTML = `<p>${parseSimpleMD(responseText)}</p>`;
         });
     </script>
 </body>
