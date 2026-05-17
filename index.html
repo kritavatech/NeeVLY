@@ -1647,7 +1647,8 @@ The AI should feel like:
 
             try {
                 // Connecting to the Gemini API securely
-                const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY";
+                // TODO: PUT YOUR NEW API KEY HERE
+                const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY"; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
                 const payload = {
@@ -1665,9 +1666,18 @@ The AI should feel like:
                     body: JSON.stringify(payload)
                 });
 
-                if (!response.ok) throw new Error('API request failed');
+                if (!response.ok) {
+                    // Extract exact error from Google to know exactly why it failed
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || `HTTP Error: ${response.status}`);
+                }
 
                 const data = await response.json();
+                
+                if (!data.candidates || !data.candidates[0].content) {
+                    throw new Error("Received empty or invalid response from AI.");
+                }
+                
                 const text = data.candidates[0].content.parts[0].text;
 
                 // Simple formatting to make markdown look nice
@@ -1679,8 +1689,9 @@ The AI should feel like:
                 aiResponseText.innerHTML = formattedText;
 
             } catch (error) {
-                console.error("AI Error:", error);
-                aiResponseText.innerHTML = `<span class="text-brand-error font-medium">${translations[currentLang]?.ai_error || 'Something went wrong. Please try again.'}</span>`;
+                console.error("AI Error Detailed:", error);
+                // Now printing the EXACT error message to the screen so we aren't guessing
+                aiResponseText.innerHTML = `<span class="text-brand-error font-medium">Error: ${error.message}</span>`;
             } finally {
                 // Restore button state
                 aiBtn.disabled = false;
