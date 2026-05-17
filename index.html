@@ -1649,8 +1649,8 @@ The AI should feel like:
                 // Connecting to the Gemini API securely
                 // TODO: PUT YOUR NEW API KEY HERE
                 const apiKey = "AIzaSyDUsmFy7-g5YL4aU29d0ga_IScIAwkwUPY"; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                
                 const payload = {
                     contents: [{ parts: [{ text: question }] }],
                     systemInstruction: { parts: [{ text: systemPrompt }] },
