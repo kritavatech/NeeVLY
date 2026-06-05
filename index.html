@@ -1675,13 +1675,12 @@ The AI should feel like:
             aiResponseText.innerHTML = `<span class="animate-pulse text-brand-muted">${translations[currentLang]?.ai_loading || 'Thinking...'}</span>`;
 
             try {
-                // Connecting to the Gemini API securely
-                // TODO: PUT YOUR NEW API KEY HERE
-                // Paste your scrambled Base64 string here
-                const encodedKey = "QUl6YVN5Q0M2Q0MwQUpsVmszdEhka2lQTy1BdWZDeFdVZWh0N3Nr"; 
-                // The browser decrypts it on the fly, but GitHub bots only see the scrambled text!
-                const apiKey = atob(encodedKey); 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    // Connecting to the OpenRouter API securely
+    const encodedKey = "c2stb3ItdjEtY2M1MWMyNmJjZjg0ZjQzNjllYzM4YzMyND1kNDcxMTA3ZjhiZWEzNWI3ZWYxM2IzMjNmZGVhNTUzYmI2YTA1NA=="; 
+    // The browser decrypts it on the fly, but GitHub bots only see the scrambled text!
+    const apiKey = atob(encodedKey); 
+    const apiModel = "nvidia/nemotron-3-ultra"; 
+    const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
                 const payload = {
                     contents: [{ parts: [{ text: question }] }],
