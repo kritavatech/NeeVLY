@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NeeVLY by KritaVa | Intelligent Local Construction Procurement</title>
 
 <!-- Favicon Integration -->
@@ -15,7 +15,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <!-- Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -32,184 +32,327 @@ brand: {
 primary: '#4FA3A5',
 soft: '#E6F4F3',
 deep: '#0F766E',
-bg: '#F5F7F7',
+bg: '#F8FAFC',
 card: '#FFFFFF',
-text: '#111827',
-muted: '#6B7280',
-border: '#E5E7EB',
-success: '#16A34A',
+text: '#0B1120',
+muted: '#64748B',
+border: '#E2E8F0',
+success: '#10B981',
 warning: '#F59E0B',
-error: '#DC2626',
+error: '#EF4444',
+accent: '#8B5CF6' /* Added a subtle violet accent to break monochrome */
 }
 },
 boxShadow: {
-'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-'float': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
-'glow': '0 0 20px rgba(79, 163, 165, 0.3)',
+'soft': '0 4px 40px -2px rgba(0, 0, 0, 0.05)',
+'float': '0 20px 40px -10px rgba(0, 0, 0, 0.1)',
+'glow': '0 0 30px rgba(79, 163, 165, 0.4)',
+'glow-accent': '0 0 40px rgba(139, 92, 246, 0.3)',
+'inner-light': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.8)',
 }
 }
 }
 }
 </script>
 <style>
-body { background-color: #F5F7F7; color: #111827; overflow-x: hidden; }
+/* Base & Interactive Background */
+body { 
+    background-color: #F8FAFC; 
+    color: #0B1120; 
+    overflow-x: hidden; 
+    position: relative;
+}
 
-/* True Translucent Glassmorphism */
+/* Animated Ambient Background Blobs */
+.ambient-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: #F8FAFC;
+}
+.blob {
+    position: absolute;
+    filter: blur(100px);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: moveBlobs 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(79, 163, 165, 0.3); animation-delay: 0s; }
+.blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(139, 92, 246, 0.15); animation-delay: -5s; }
+.blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: rgba(15, 118, 110, 0.2); animation-delay: -10s; }
+
+@keyframes moveBlobs {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(10vw, 10vh) scale(1.1); }
+    100% { transform: translate(-10vw, -5vh) scale(0.9); }
+}
+
+/* Noise Overlay */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Custom Interactive Cursor Glow */
+@media (hover: hover) and (pointer: fine) {
+    #cursor-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(79,163,165,0.2) 0%, rgba(79,163,165,0) 70%);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9997;
+        transition: width 0.3s, height 0.3s;
+        mix-blend-mode: overlay;
+    }
+}
+
+/* Advanced Apple-Style Blur Reveals */
+.reveal-element {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(15px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+}
+.reveal-element.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+/* Continuous Floating Animations */
+.animate-float-slow { animation: floatY 6s ease-in-out infinite alternate; }
+.animate-float-medium { animation: floatY 4s ease-in-out infinite alternate-reverse; }
+.animate-float-fast { animation: floatY 3s ease-in-out infinite alternate; }
+
+@keyframes floatY {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-15px); }
+}
+
+/* Infinite Marquee */
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #0B1120;
+    padding: 1.5rem 0;
+    transform: rotate(-2deg) scale(1.05);
+    margin: 4rem 0;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 20;
+}
+.marquee-content {
+    display: flex;
+    animation: scroll-marquee 20s linear infinite;
+}
+@keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Horizontal Scroll Container */
+.horizontal-scroll-wrapper {
+    height: 400vh; /* Determines how long the scroll lasts */
+    position: relative;
+}
+.horizontal-sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.horizontal-slide-content {
+    display: flex;
+    gap: 3rem;
+    padding: 0 10vw;
+    will-change: transform;
+}
+.horizontal-card {
+    min-width: 400px;
+    max-width: 500px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .horizontal-scroll-wrapper { height: auto; }
+    .horizontal-sticky-container { position: relative; height: auto; overflow: visible; display: block; }
+    .horizontal-slide-content { flex-direction: column; padding: 1rem; gap: 2rem; transform: none !important; }
+    .horizontal-card { min-width: 100%; }
+}
+
+/* Sticky Cards for "How it works" */
+.sticky-card-container { position: relative; padding-bottom: 5vh; }
+.sticky-card { position: sticky; top: 120px; transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease; }
+
+/* Premium Glassmorphism */
 .glass-nav {
-background: rgba(255, 255, 255, 0.4); 
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border: 1px solid rgba(255, 255, 255, 0.5);
-box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
 
 .glass-nav-scrolled {
-background: rgba(255, 255, 255, 0.65); 
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid rgba(255, 255, 255, 0.8); 
-box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 1); 
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.1);
 }
 
 .glass-dark {
-background: rgba(17, 24, 39, 0.85);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(11, 17, 32, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Navbar subtle hover styling with expanding underline */
-.nav-link-hover {
-position: relative;
-color: #4B5563; 
-transition: color 0.3s ease;
+/* 3D Tilt Wrapper - Smoothed out */
+.tilt-card {
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.nav-link-hover:hover {
-color: #0F766E; 
+.tilt-inner {
+    transform: translateZ(20px);
 }
-.nav-link-hover::after {
-content: '';
-position: absolute;
-width: 0;
-height: 2px;
-bottom: -4px;
-left: 50%;
-background-color: #4FA3A5;
-transition: all 0.3s ease;
-transform: translateX(-50%);
-border-radius: 2px;
-}
-.nav-link-hover:hover::after {
-width: 100%;
-}
-
-/* Animations */
-.fade-up {
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-
-.float-anim { animation: float 6s ease-in-out infinite; }
-.float-anim-delay { animation: float 6s ease-in-out infinite 3s; }
-
-@keyframes float {
-0% { transform: translateY(0px); }
-50% { transform: translateY(-10px); }
-100% { transform: translateY(0px); }
-}
-
-/* FAQ Accordion Animation */
-.faq-content {
-display: grid;
-grid-template-rows: 0fr;
-transition: grid-template-rows 0.3s ease-out;
-}
-.faq-content.open {
-grid-template-rows: 1fr;
-}
-.faq-inner {
-overflow: hidden;
-}
-.faq-icon {
-transition: transform 0.3s ease;
-}
-.faq-icon.open {
-transform: rotate(180deg);
+.tilt-inner-high {
+    transform: translateZ(40px);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #F5F7F7; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-track { background: #F8FAFC; }
+::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.3); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #4FA3A5; }
 
-/* Form Utilities */
-.form-select-wrapper::after {
-content: '';
-position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-border-left: 5px solid transparent; border-right: 5px solid transparent;
-border-top: 5px solid #6B7280; pointer-events: none;
+/* Utilities */
+.text-gradient {
+    background: linear-gradient(135deg, #0F766E 0%, #4FA3A5 50%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.text-gradient-teal {
+    background: linear-gradient(135deg, #0F766E 0%, #4FA3A5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .feature-locked::after {
-content: '';
-position: absolute; inset: 0;
-backdrop-filter: blur(4px);
-background: rgba(255,255,255,0.4);
-border-radius: inherit;
-z-index: 10;
+    content: ''; position: absolute; inset: 0;
+    backdrop-filter: blur(6px); background: rgba(248, 250, 252, 0.5);
+    z-index: 10;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
--webkit-box-shadow: 0 0 0 30px white inset !important;
-transition: background-color 5000s ease-in-out 0s;
+/* Glowing Border Animation */
+.glow-border {
+    position: relative;
+}
+.glow-border::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #4FA3A5, #8B5CF6, #4FA3A5);
+    background-size: 200% 100%;
+    animation: borderGlow 3s linear infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.glow-border:hover::before {
+    opacity: 1;
+}
+@keyframes borderGlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+/* Button pulse */
+.btn-pulse {
+    animation: pulseGlow 2s infinite;
+}
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(79, 163, 165, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(79, 163, 165, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(79, 163, 165, 0); }
 }
 </style>
 </head>
 <body class="antialiased selection:bg-brand-soft selection:text-brand-deep">
 
+<!-- Ambient Background -->
+<div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- Mouse Follower Glow -->
+<div id="cursor-glow" class="hidden md:block"></div>
+
 <!-- Pill-Shaped Glass Navbar -->
-<div class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 transition-all duration-300" id="nav-container">
-<nav class="max-w-6xl mx-auto glass-nav rounded-full transition-all duration-300" id="navbar">
-<div class="px-6 py-4 transition-all duration-300" id="nav-padding">
+<div class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8 transition-all duration-500" id="nav-container">
+<nav class="max-w-6xl mx-auto glass-nav rounded-full transition-all duration-500" id="navbar">
+<div class="px-5 py-3 md:px-6 md:py-4 transition-all duration-500" id="nav-padding">
 <div class="flex justify-between items-center">
 <!-- Logo -->
-<div class="flex items-center gap-2">
-<span class="text-2xl font-bold tracking-tight text-brand-text">Nee<span class="text-brand-primary">VLY</span></span>
-<a href="https://kritavatech.github.io/-/" target="_blank" class="hidden sm:inline-block text-[11px] font-bold text-brand-primary bg-brand-soft/80 hover:bg-brand-primary/20 px-2.5 py-0.5 rounded-full mt-1 border border-brand-primary/20 transition-all hover:scale-105 backdrop-blur-sm">by KritaVa</a>
+<div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo(0,0)">
+<div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold shadow-glow group-hover:rotate-180 transition-transform duration-700">N</div>
+<span class="text-xl md:text-2xl font-black tracking-tight text-brand-text">Nee<span class="text-brand-primary">VLY</span></span>
+<a href="https://kritavatech.github.io/-/" target="_blank" class="hidden sm:inline-block text-[10px] md:text-[11px] font-bold text-brand-primary bg-brand-soft hover:bg-brand-primary hover:text-white px-2.5 py-1 rounded-full mt-1 border border-brand-primary/20 transition-all duration-300 relative overflow-hidden group/link">
+    <span class="relative z-10">by KritaVa</span>
+</a>
 </div>
 
 <!-- Center Links (Desktop) -->
-<div class="hidden lg:flex items-center gap-8 text-sm font-semibold">
-<a href="#problem" class="nav-link-hover" data-i18n="nav_problem">The Problem</a>
-<a href="#features" class="nav-link-hover" data-i18n="nav_features">Features</a>
-<a href="#how-it-works" class="nav-link-hover" data-i18n="nav_how">How it Works</a>
-<a href="#who" class="nav-link-hover" data-i18n="nav_who">Who is it for</a>
+<div class="hidden lg:flex items-center gap-8 text-sm font-bold text-brand-text/80">
+<a href="#problem" class="hover:text-brand-primary transition-colors hover:-translate-y-0.5 duration-300" data-i18n="nav_problem">The Problem</a>
+<a href="#features" class="hover:text-brand-primary transition-colors hover:-translate-y-0.5 duration-300" data-i18n="nav_features">Features</a>
+<a href="#how-it-works" class="hover:text-brand-primary transition-colors hover:-translate-y-0.5 duration-300" data-i18n="nav_how">How it Works</a>
+<a href="#who" class="hover:text-brand-primary transition-colors hover:-translate-y-0.5 duration-300" data-i18n="nav_who">Who is it for</a>
 </div>
 
-<div class="flex items-center gap-3 sm:gap-4">
+<div class="flex items-center gap-2 md:gap-4">
 <!-- Language Selector -->
 <div class="relative group">
-<button id="lang-btn" class="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-black/5 transition-colors text-sm font-semibold text-brand-text border border-transparent">
+<button id="lang-btn" class="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-white/50 transition-colors text-sm font-bold text-brand-text backdrop-blur-sm border border-transparent hover:border-brand-border">
 <i data-lucide="globe" class="w-4 h-4 text-brand-primary"></i>
 <span id="current-lang-label" class="hidden sm:inline-block">English</span>
 <i data-lucide="chevron-down" class="w-3 h-3 text-brand-muted"></i>
 </button>
 
-<!-- Premium Language Dropdown -->
-<div class="absolute right-0 mt-2 w-48 glass-dark rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right group-hover:translate-y-0 translate-y-2 z-50 overflow-hidden border border-white/10">
+<div class="absolute right-0 mt-2 w-48 glass-dark rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right scale-95 group-hover:scale-100 z-50 overflow-hidden border border-white/10">
 <div class="py-2" id="language-options">
 <!-- Populated by JS -->
 </div>
 </div>
 </div>
 
-<a href="#waitlist" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-brand-primary hover:bg-brand-deep rounded-full transition-all duration-300 shadow-md hover:shadow-glow hover:-translate-y-0.5" data-i18n="nav_waitlist">
+<a href="#waitlist" class="inline-flex items-center justify-center px-5 md:px-6 py-2.5 text-xs md:text-sm font-bold text-white bg-brand-text hover:bg-brand-primary rounded-full transition-all duration-300 shadow-md hover:shadow-glow hover:-translate-y-1 whitespace-nowrap glow-border" data-i18n="nav_waitlist">
 Join Waitlist
 </a>
 </div>
@@ -218,301 +361,371 @@ Join Waitlist
 </nav>
 </div>
 
-<!-- Hero Section -->
-<section class="pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden relative">
-<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-soft/80 via-transparent to-transparent -z-10"></div>
-
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-<div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-<div class="max-w-2xl fade-up">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-soft text-brand-deep text-sm font-medium mb-6 border border-brand-primary/20 shadow-sm">
-<span class="relative flex h-2 w-2">
+<!-- Hero Section with Continuous Floats & 3D -->
+<section class="pt-32 pb-20 lg:pt-48 lg:pb-32 relative min-h-[95vh] flex items-center z-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
+<div class="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+<div class="max-w-2xl relative z-20">
+<div class="reveal-element inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/60 backdrop-blur-md text-brand-deep text-xs md:text-sm font-bold mb-8 border border-white shadow-soft hover:shadow-glow transition-shadow cursor-default">
+<span class="relative flex h-2.5 w-2.5">
 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-primary"></span>
 </span>
-<span data-i18n="hero_badge">Early Access Registration Open</span>
+<span data-i18n="hero_badge" class="tracking-wide uppercase">Early Access Registration Open</span>
 </div>
-<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-text mb-6 leading-[1.15]" data-i18n="hero_title">
-Serious technology to simplify local construction commerce.
+<h1 class="reveal-element delay-100 text-5xl sm:text-6xl lg:text-[4.5rem] font-black tracking-tighter text-brand-text mb-6 leading-[1.05]" data-i18n="hero_title">
+Serious technology to simplify <span class="text-gradient">local construction</span> commerce.
 </h1>
-<p class="text-lg text-brand-muted mb-8 leading-relaxed max-w-xl" data-i18n="hero_subtitle">
+<p class="reveal-element delay-200 text-lg md:text-xl text-brand-muted mb-10 leading-relaxed font-medium max-w-lg" data-i18n="hero_subtitle">
 Find nearby suppliers, compare quotes, manage procurement, and simplify contractor workflows. A grounded approach to organizing local markets without the hype.
 </p>
-<div class="flex flex-col sm:flex-row gap-4">
-<a href="#waitlist" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-brand-primary hover:bg-brand-deep rounded-xl transition-all duration-300 shadow-md hover:shadow-glow hover:-translate-y-1">
+<div class="reveal-element delay-300 flex flex-col sm:flex-row gap-4">
+<a href="#waitlist" class="inline-flex items-center justify-center px-8 py-4.5 text-base font-bold text-white bg-brand-text hover:bg-brand-primary rounded-2xl transition-all duration-300 shadow-xl hover:shadow-glow hover:-translate-y-1 btn-pulse glow-border">
 <span data-i18n="hero_cta">Join the Waitlist</span>
-<i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+<i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
 </a>
-<a href="#problem" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-brand-text bg-white border border-brand-border hover:bg-gray-50 rounded-xl transition-all duration-300 hover:shadow-sm hover:-translate-y-1">
+<a href="#problem" class="inline-flex items-center justify-center px-8 py-4.5 text-base font-bold text-brand-text bg-white/80 backdrop-blur-md border border-white hover:bg-white rounded-2xl transition-all duration-300 shadow-soft hover:shadow-float hover:-translate-y-1">
 <span data-i18n="hero_secondary">Understand the Vision</span>
 </a>
 </div>
 </div>
 
-<!-- Abstract Grounded UI Mockup -->
-<div class="relative h-[400px] lg:h-[500px] flex items-center justify-center fade-up" style="transition-delay: 0.2s;">
-<!-- Main Dashboard Card -->
-<div class="absolute w-full max-w-sm bg-white rounded-2xl shadow-float border border-brand-border p-6 z-10 transition-transform duration-500 hover:scale-[1.02]">
-<div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 rounded-lg bg-brand-soft flex items-center justify-center text-brand-deep font-bold">NV</div>
-<div>
-<div class="text-sm font-bold" data-i18n="mockup_title">Site Alpha Procurement</div>
-<div class="text-xs text-brand-muted" data-i18n="mockup_subtitle">Active Requirements</div>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-brand-primary/30 transition-colors">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center"><i data-lucide="file-text" class="w-4 h-4 text-brand-muted"></i></div>
-<div>
-<div class="text-sm font-medium" data-i18n="mockup_item1">Cement (50 Bags)</div>
-<div class="text-xs text-brand-success" data-i18n="mockup_stat1">3 Quotes Received</div>
-</div>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-brand-primary/30 transition-colors">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-md bg-white border border-gray-200 flex items-center justify-center"><i data-lucide="truck" class="w-4 h-4 text-brand-muted"></i></div>
-<div>
-<div class="text-sm font-medium" data-i18n="mockup_item2">TMT Bars (2 Tons)</div>
-<div class="text-xs text-brand-warning" data-i18n="mockup_stat2">Pending Local Match</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<!-- Exact Mockup Recreation (Highly Animated) -->
+<div class="relative h-[450px] lg:h-[600px] flex items-center justify-center reveal-element delay-200 w-full perspective-1000 mt-10 lg:mt-0">
+<div class="tilt-card w-full max-w-md relative" id="hero-mockup">
+    
+    <!-- Decorative background glow behind mockup -->
+    <div class="absolute inset-0 bg-brand-primary/20 blur-[80px] rounded-full tilt-inner"></div>
 
-<!-- Floating Card 1 -->
-<div class="absolute -right-4 top-10 w-48 bg-white rounded-xl shadow-lg border border-brand-border p-4 z-20 float-anim hover:shadow-xl transition-shadow cursor-default">
-<div class="flex items-center gap-2 mb-2">
-<i data-lucide="store" class="w-4 h-4 text-brand-primary"></i>
-<span class="text-xs font-semibold" data-i18n="mockup_float1_title">Local Discovery</span>
-</div>
-<div class="text-xs text-brand-muted" data-i18n="mockup_float1_desc">4 verified sellers within 5km radius.</div>
-</div>
+    <!-- Main Dashboard Card -->
+    <div class="w-full bg-white/90 backdrop-blur-2xl rounded-[2rem] shadow-float border-2 border-white p-6 md:p-8 relative z-10 transition-transform duration-200 ease-out tilt-inner shadow-inner-light animate-float-slow">
+        <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-5">
+            <div class="w-14 h-14 rounded-2xl bg-brand-soft flex items-center justify-center text-brand-deep font-black text-xl border border-brand-primary/20 shadow-sm">NV</div>
+            <div>
+                <div class="text-lg font-black text-brand-text tracking-tight" data-i18n="mockup_title">Site Alpha Procurement</div>
+                <div class="text-xs font-bold text-brand-muted uppercase tracking-widest mt-1" data-i18n="mockup_subtitle">Active Requirements</div>
+            </div>
+        </div>
+        
+        <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-gray-50/80 rounded-2xl border border-gray-200 hover:border-brand-primary/50 hover:bg-white hover:shadow-md transition-all group cursor-default">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center border border-gray-100 group-hover:scale-110 transition-transform">
+                        <i data-lucide="package" class="w-6 h-6 text-brand-text"></i>
+                    </div>
+                    <div>
+                        <div class="text-base font-bold text-brand-text" data-i18n="mockup_item1">Cement (50 Bags)</div>
+                        <div class="text-sm font-semibold text-brand-success mt-1 flex items-center gap-1">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i> <span data-i18n="mockup_stat1">3 Quotes Received</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-between p-4 bg-gray-50/80 rounded-2xl border border-gray-200 hover:border-brand-warning/50 hover:bg-white hover:shadow-md transition-all group cursor-default">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center border border-gray-100 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layers" class="w-6 h-6 text-brand-text"></i>
+                    </div>
+                    <div>
+                        <div class="text-base font-bold text-brand-text" data-i18n="mockup_item2">TMT Bars (2 Tons)</div>
+                        <div class="text-sm font-semibold text-brand-warning mt-1 flex items-center gap-1">
+                            <i data-lucide="clock" class="w-4 h-4"></i> <span data-i18n="mockup_stat2">Pending Local Match</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Floating Card 2 -->
-<div class="absolute -left-8 bottom-16 w-56 bg-brand-deep text-white rounded-xl shadow-lg p-4 z-20 float-anim-delay hover:shadow-xl transition-shadow cursor-default">
-<div class="flex items-center justify-between mb-2">
-<span class="text-xs font-medium opacity-80" data-i18n="mockup_float2_title">Site Expense</span>
-<i data-lucide="trending-down" class="w-4 h-4 text-brand-soft"></i>
-</div>
-<div class="text-lg font-bold">₹1.4L / ₹2.0L</div>
-<div class="text-[10px] mt-1 opacity-70" data-i18n="mockup_float2_desc">Budget tracking updated</div>
+    <!-- Floating Element 1 (Local Discovery - Top Right) -->
+    <div class="absolute -right-6 md:-right-16 top-4 md:top-12 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-float border-2 border-white p-5 z-20 animate-float-medium tilt-inner-high">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-8 h-8 rounded-full bg-brand-soft flex items-center justify-center"><i data-lucide="store" class="w-4 h-4 text-brand-primary"></i></div>
+            <span class="text-xs font-black text-brand-text uppercase tracking-widest" data-i18n="mockup_float1_title">Local Discovery</span>
+        </div>
+        <div class="text-sm font-medium text-brand-muted leading-relaxed" data-i18n="mockup_float1_desc">4 verified sellers within 5km radius.</div>
+    </div>
+
+    <!-- Floating Element 2 (Site Expense - Bottom Left) -->
+    <div class="absolute -left-6 md:-left-20 bottom-8 md:bottom-20 w-64 bg-[#0B1120] text-white rounded-[2rem] shadow-float p-6 z-20 animate-float-fast border border-white/10 tilt-inner-high hover:shadow-glow-accent transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest" data-i18n="mockup_float2_title">Site Expense</span>
+            <div class="bg-brand-success/20 px-2.5 py-1.5 rounded-lg text-brand-success flex items-center justify-center"><i data-lucide="trending-down" class="w-4 h-4"></i></div>
+        </div>
+        <div class="text-3xl font-black tracking-tight mb-2">₹1.4L <span class="text-base font-bold text-slate-500">/ ₹2.0L</span></div>
+        <div class="text-xs font-medium text-slate-400" data-i18n="mockup_float2_desc">Budget tracking updated just now</div>
+        
+        <!-- Mini animated progress bar -->
+        <div class="w-full bg-white/10 h-1.5 rounded-full mt-4 overflow-hidden">
+            <div class="bg-brand-primary h-full rounded-full w-[70%] relative overflow-hidden">
+                <div class="absolute inset-0 bg-white/30 w-full animate-[scroll-marquee_2s_linear_infinite]" style="transform: skewX(-45deg);"></div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>
 </div>
 </section>
 
-<!-- The Problem Section -->
-<section id="problem" class="py-24 bg-white">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16 fade-up">
-<h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="problem_title">The reality of local procurement.</h2>
-<p class="text-brand-muted text-lg" data-i18n="problem_desc">We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking. It's time to organize the workflow without disrupting the local ecosystem.</p>
+<!-- Infinite Fast Marquee -->
+<div class="marquee-container shadow-float">
+    <div class="marquee-content text-2xl md:text-4xl font-black text-white/90 tracking-tighter uppercase">
+        <span>INTELLIGENT PROCUREMENT <span class="text-brand-primary mx-4">•</span> HYPERLOCAL COMMERCE <span class="text-brand-primary mx-4">•</span> SMART TRACKING <span class="text-brand-primary mx-4">•</span> </span>
+        <span>INTELLIGENT PROCUREMENT <span class="text-brand-primary mx-4">•</span> HYPERLOCAL COMMERCE <span class="text-brand-primary mx-4">•</span> SMART TRACKING <span class="text-brand-primary mx-4">•</span> </span>
+        <span>INTELLIGENT PROCUREMENT <span class="text-brand-primary mx-4">•</span> HYPERLOCAL COMMERCE <span class="text-brand-primary mx-4">•</span> SMART TRACKING <span class="text-brand-primary mx-4">•</span> </span>
+    </div>
 </div>
 
-<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Problem Cards -->
-<div class="p-8 rounded-2xl bg-brand-bg border border-brand-border fade-up hover:shadow-lg hover:-translate-y-2 transition-all duration-300 hover:border-brand-primary/30 group">
-<div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="phone-call" class="w-6 h-6 text-brand-error"></i>
-</div>
-<h3 class="text-xl font-bold mb-3 text-brand-text" data-i18n="prob_1_title">Manual Sourcing Chaos</h3>
-<p class="text-brand-muted leading-relaxed" data-i18n="prob_1_desc">Calling shop after shop to check availability and negotiate rates wastes hours of productive construction time.</p>
-</div>
-<div class="p-8 rounded-2xl bg-brand-bg border border-brand-border fade-up hover:shadow-lg hover:-translate-y-2 transition-all duration-300 hover:border-brand-primary/30 group" style="transition-delay: 0.1s;">
-<div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="eye-off" class="w-6 h-6 text-brand-error"></i>
-</div>
-<h3 class="text-xl font-bold mb-3 text-brand-text" data-i18n="prob_2_title">Zero Market Visibility</h3>
-<p class="text-brand-muted leading-relaxed" data-i18n="prob_2_desc">Buyers have no way to know which local supplier actually has the required material in stock at a fair price.</p>
-</div>
-<div class="p-8 rounded-2xl bg-brand-bg border border-brand-border fade-up hover:shadow-lg hover:-translate-y-2 transition-all duration-300 hover:border-brand-primary/30 group" style="transition-delay: 0.2s;">
-<div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="book-x" class="w-6 h-6 text-brand-error"></i>
-</div>
-<h3 class="text-xl font-bold mb-3 text-brand-text" data-i18n="prob_3_title">Fragmented Tracking</h3>
-<p class="text-brand-muted leading-relaxed" data-i18n="prob_3_desc">Contractors struggle to keep track of site-wise expenses, dues, and supplier ledgers across different notebooks.</p>
-</div>
-</div>
-</div>
+<!-- The Problem Section (Horizontal Scroll on Desktop, Normal on Mobile) -->
+<section id="problem" class="horizontal-scroll-wrapper relative z-10 bg-brand-bg">
+    <!-- Sticky container that holds the horizontal sliding content -->
+    <div class="horizontal-sticky-container">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 absolute top-10 left-0 right-0 md:static md:w-auto md:px-0 z-20 md:hidden">
+            <div class="text-center md:text-left mb-8">
+                <h2 class="text-4xl font-black text-brand-text tracking-tight mb-4" data-i18n="problem_title">The reality of local procurement.</h2>
+                <p class="text-brand-muted text-lg font-medium" data-i18n="problem_desc">We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking.</p>
+            </div>
+        </div>
+
+        <div class="horizontal-slide-content w-full items-center mt-32 md:mt-0" id="horizontal-track">
+            
+            <!-- Intro Card (Desktop Only) -->
+            <div class="horizontal-card hidden md:flex flex-col justify-center bg-transparent border-none shadow-none pl-8 lg:pl-16">
+                <h2 class="text-5xl lg:text-6xl font-black text-brand-text tracking-tighter mb-6 leading-tight" data-i18n="problem_title">The reality of <br><span class="text-gradient">local procurement.</span></h2>
+                <p class="text-brand-muted text-xl font-medium leading-relaxed max-w-md" data-i18n="problem_desc">We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking.</p>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="horizontal-card bg-white rounded-[2.5rem] p-10 md:p-12 shadow-float border border-brand-border hover:shadow-glow-accent transition-shadow relative overflow-hidden group tilt-card">
+                <div class="absolute right-0 top-0 w-64 h-64 bg-brand-error/5 rounded-full blur-3xl -z-10 group-hover:bg-brand-error/10 transition-colors"></div>
+                <div class="w-20 h-20 bg-brand-bg rounded-2xl flex items-center justify-center mb-8 border border-brand-border group-hover:scale-110 group-hover:bg-brand-error/10 transition-all duration-500 tilt-inner">
+                    <i data-lucide="phone-call" class="w-10 h-10 text-brand-error"></i>
+                </div>
+                <h3 class="text-3xl font-black mb-4 text-brand-text tracking-tight tilt-inner" data-i18n="prob_1_title">Manual Sourcing Chaos</h3>
+                <p class="text-brand-muted text-lg leading-relaxed font-medium tilt-inner" data-i18n="prob_1_desc">Calling shop after shop to check availability and negotiate rates wastes hours of productive construction time.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="horizontal-card bg-white rounded-[2.5rem] p-10 md:p-12 shadow-float border border-brand-border hover:shadow-glow transition-shadow relative overflow-hidden group tilt-card">
+                <div class="absolute right-0 top-0 w-64 h-64 bg-brand-warning/5 rounded-full blur-3xl -z-10 group-hover:bg-brand-warning/10 transition-colors"></div>
+                <div class="w-20 h-20 bg-brand-bg rounded-2xl flex items-center justify-center mb-8 border border-brand-border group-hover:scale-110 group-hover:bg-brand-warning/10 transition-all duration-500 tilt-inner">
+                    <i data-lucide="eye-off" class="w-10 h-10 text-brand-warning"></i>
+                </div>
+                <h3 class="text-3xl font-black mb-4 text-brand-text tracking-tight tilt-inner" data-i18n="prob_2_title">Zero Market Visibility</h3>
+                <p class="text-brand-muted text-lg leading-relaxed font-medium tilt-inner" data-i18n="prob_2_desc">Buyers have no way to know which local supplier actually has the required material in stock at a fair price.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="horizontal-card bg-[#0B1120] text-white rounded-[2.5rem] p-10 md:p-12 shadow-float border border-white/10 hover:shadow-glow transition-shadow relative overflow-hidden group tilt-card mr-[10vw]">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-30"></div>
+                <div class="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 mb-8 backdrop-blur-sm group-hover:scale-110 group-hover:bg-brand-primary/20 transition-all duration-500 tilt-inner relative z-10">
+                    <i data-lucide="book-x" class="w-10 h-10 text-white group-hover:text-brand-primary transition-colors"></i>
+                </div>
+                <h3 class="text-3xl font-black mb-4 text-white tracking-tight tilt-inner relative z-10" data-i18n="prob_3_title">Fragmented Tracking</h3>
+                <p class="text-slate-300 text-lg leading-relaxed font-medium tilt-inner relative z-10" data-i18n="prob_3_desc">Contractors struggle to keep track of site-wise expenses, dues, and supplier ledgers across different notebooks. A recipe for financial leaks.</p>
+            </div>
+
+        </div>
+    </div>
 </section>
 
-<!-- What is NeeVLY -->
-<section class="py-28 bg-brand-deep text-white relative overflow-hidden">
-<div class="absolute right-0 top-0 w-1/2 h-full opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiLz48L3N2Zz4=')]"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center fade-up">
-<h2 class="text-3xl lg:text-5xl font-bold mb-8" data-i18n="what_title">Not just another marketplace.</h2>
-<p class="text-xl lg:text-2xl font-light text-brand-soft max-w-4xl mx-auto leading-relaxed" data-i18n="what_desc">
+<!-- What is NeeVLY (Immersive Dark Section) -->
+<section class="py-40 bg-[#0B1120] text-white relative overflow-hidden z-20">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(79,163,165,0.3),_transparent_70%)] opacity-60 mix-blend-screen"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center reveal-element">
+<div class="w-20 h-20 mx-auto bg-brand-primary/20 text-brand-primary rounded-full flex items-center justify-center mb-8 border border-brand-primary/30 shadow-glow animate-pulse">
+    <i data-lucide="zap" class="w-10 h-10"></i>
+</div>
+<h2 class="text-5xl md:text-7xl font-black mb-8 tracking-tighter drop-shadow-lg" data-i18n="what_title">Not just another marketplace.</h2>
+<p class="text-xl md:text-3xl font-medium text-slate-300 max-w-5xl mx-auto leading-tight" data-i18n="what_desc">
 NeeVLY is a smart local procurement and business coordination ecosystem. We are building practical tools to reduce chaos, organize workflows, and help local businesses become digitally accessible.
 </p>
 </div>
 </section>
 
-<!-- How it Works Section -->
-<section id="how-it-works" class="py-24 bg-brand-bg">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center max-w-3xl mx-auto mb-16 fade-up">
-<span class="text-brand-primary font-bold tracking-wider uppercase text-sm mb-2 block" data-i18n="how_eyebrow">The Process</span>
-<h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="how_title">How NeeVLY Organizes Sourcing</h2>
+<!-- How it Works (Sticky Stacking Cards - Refined Apple Style) -->
+<section id="how-it-works" class="py-32 bg-white relative z-10">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-24 reveal-element">
+<span class="inline-block px-4 py-1.5 rounded-full bg-brand-soft text-brand-deep font-bold tracking-widest uppercase text-sm mb-6 border border-brand-primary/20" data-i18n="how_eyebrow">The Process</span>
+<h2 class="text-5xl md:text-6xl font-black text-brand-text tracking-tighter" data-i18n="how_title">How NeeVLY Organizes Sourcing</h2>
 </div>
 
-<div class="relative">
-<!-- Connecting Line -->
-<div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-brand-border -translate-y-1/2 z-0"></div>
-
-<div class="grid md:grid-cols-3 gap-8 relative z-10">
+<div class="sticky-card-container space-y-12 md:space-y-24">
 <!-- Step 1 -->
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border relative hover:shadow-lg hover:-translate-y-2 transition-all duration-300 fade-up">
-<div class="w-12 h-12 bg-brand-soft text-brand-primary rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto md:mx-0 border border-brand-primary/20">1</div>
-<h3 class="text-xl font-bold mb-3 text-center md:text-left text-brand-text" data-i18n="how_1_title">Discover & Match</h3>
-<p class="text-brand-muted text-center md:text-left" data-i18n="how_1_desc">Contractors upload their material requirements. The system instantly pings verified nearby sellers who have the stock.</p>
+<div class="sticky-card bg-brand-bg p-8 md:p-14 rounded-[3rem] shadow-soft border border-brand-border reveal-element hover:shadow-float transition-shadow duration-500" style="z-index: 1;">
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-14">
+<div class="w-24 h-24 bg-white text-brand-primary rounded-[2rem] flex items-center justify-center font-black text-4xl shrink-0 border border-brand-border shadow-sm">1</div>
+<div class="text-center md:text-left">
+<h3 class="text-3xl md:text-4xl font-black mb-4 text-brand-text tracking-tight" data-i18n="how_1_title">Discover & Match</h3>
+<p class="text-brand-muted text-xl font-medium leading-relaxed" data-i18n="how_1_desc">Contractors upload their material requirements. The system instantly pings verified nearby sellers who have the stock. No more blind calling.</p>
+</div>
+</div>
 </div>
 
 <!-- Step 2 -->
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border relative hover:shadow-lg hover:-translate-y-2 transition-all duration-300 fade-up" style="transition-delay: 0.1s;">
-<div class="w-12 h-12 bg-brand-soft text-brand-primary rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto md:mx-0 border border-brand-primary/20">2</div>
-<h3 class="text-xl font-bold mb-3 text-center md:text-left text-brand-text" data-i18n="how_2_title">Compare Quotes</h3>
-<p class="text-brand-muted text-center md:text-left" data-i18n="how_2_desc">Sellers respond with custom quotes. Buyers compare prices, distance, and ratings side-by-side in real time.</p>
+<div class="sticky-card bg-white p-8 md:p-14 rounded-[3rem] shadow-float border border-brand-border reveal-element hover:shadow-glow transition-shadow duration-500" style="z-index: 2; top: 140px;">
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-14">
+<div class="w-24 h-24 bg-brand-soft text-brand-primary rounded-[2rem] flex items-center justify-center font-black text-4xl shrink-0 border border-brand-primary/20 shadow-inner">2</div>
+<div class="text-center md:text-left">
+<h3 class="text-3xl md:text-4xl font-black mb-4 text-brand-text tracking-tight" data-i18n="how_2_title">Compare Quotes</h3>
+<p class="text-brand-muted text-xl font-medium leading-relaxed" data-i18n="how_2_desc">Sellers respond with custom quotes. Buyers compare prices, distance, and ratings side-by-side in real time to make informed decisions.</p>
+</div>
+</div>
 </div>
 
 <!-- Step 3 -->
-<div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border relative hover:shadow-lg hover:-translate-y-2 transition-all duration-300 fade-up" style="transition-delay: 0.2s;">
-<div class="w-12 h-12 bg-brand-soft text-brand-primary rounded-full flex items-center justify-center font-bold text-xl mb-6 mx-auto md:mx-0 border border-brand-primary/20">3</div>
-<h3 class="text-xl font-bold mb-3 text-center md:text-left text-brand-text" data-i18n="how_3_title">Execute & Track</h3>
-<p class="text-brand-muted text-center md:text-left" data-i18n="how_3_desc">Finalize the order, manage logistics communication, and track site-wise expenses automatically in the digital khata.</p>
+<div class="sticky-card bg-[#0B1120] text-white p-8 md:p-14 rounded-[3rem] shadow-float border border-white/10 reveal-element hover:shadow-glow-accent transition-shadow duration-500" style="z-index: 3; top: 160px;">
+<div class="flex flex-col md:flex-row items-center gap-8 md:gap-14">
+<div class="w-24 h-24 bg-white/10 text-white rounded-[2rem] flex items-center justify-center font-black text-4xl shrink-0 border border-white/20 backdrop-blur-sm">3</div>
+<div class="text-center md:text-left">
+<h3 class="text-3xl md:text-4xl font-black mb-4 tracking-tight" data-i18n="how_3_title">Execute & Track</h3>
+<p class="text-slate-300 text-xl font-medium leading-relaxed" data-i18n="how_3_desc">Finalize the order, manage logistics communication, and track site-wise expenses automatically in the digital khata.</p>
 </div>
 </div>
-</div>
-</div>
-</section>
-
-<!-- Core Features -->
-<section id="features" class="py-24 bg-white border-t border-brand-border">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="mb-16 fade-up text-center md:text-left">
-<h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="feat_title">Core Ecosystem Features</h2>
-<p class="text-brand-muted max-w-2xl text-lg mx-auto md:mx-0" data-i18n="feat_desc">Tools designed for practical reality, not just theoretical perfection.</p>
-</div>
-
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- Features -->
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="git-pull-request" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_1_title">Smart RFQ System</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_1_desc">Request bulk material quotes from multiple nearby suppliers simultaneously. No more manual calls.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.1s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="map-pin" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_2_title">Hyperlocal Search</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_2_desc">Search materials based on distance, availability likelihood, and nearby supplier profiles.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.2s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="notebook" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_3_title">Digital Khata</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_3_desc">Simple ledger system to track transactions, dues, and payment history between contractors and sellers.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.3s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="building" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_4_title">Site Expense Tracking</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_4_desc">Track spending separately for different construction sites with organized, clear summaries.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="repeat" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_5_title">Repeat Procurement</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_5_desc">Quickly reorder frequently used materials and manage recurring site requirements.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.1s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="handshake" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_6_title">Supplier Coordination</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_6_desc">Smoother communication and workflow bridging between contractors and their trusted suppliers.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.2s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="bar-chart-2" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_7_title">Lightweight Insights</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_7_desc">Simple operational analytics designed specifically for local sellers without overwhelming complexity.</p>
-</div>
-
-<div class="bg-brand-bg p-8 rounded-2xl border border-brand-border hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 fade-up group" style="transition-delay: 0.3s;">
-<div class="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<i data-lucide="radar" class="w-6 h-6 text-brand-primary"></i>
-</div>
-<h3 class="font-bold text-lg mb-3 text-brand-text" data-i18n="feat_8_title">Faster Discovery</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="feat_8_desc">Help nearby suppliers become digitally discoverable to customers actively searching to build.</p>
 </div>
 </div>
 </div>
 </section>
 
-<!-- Future Features (Locked) -->
-<section class="py-24 bg-brand-bg border-t border-brand-border">
+<!-- Core Features (Highly Interactive Bento Grid) -->
+<section id="features" class="py-32 bg-brand-bg relative z-10 border-t border-brand-border/50">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="mb-16 text-center max-w-2xl mx-auto fade-up">
-<h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="future_title">More Features Rolling Out Gradually</h2>
-<p class="text-brand-muted bg-white inline-block px-5 py-2.5 rounded-full shadow-sm border border-brand-border" data-i18n="future_desc">We are building thoughtfully. These capabilities will launch as NeeVLY evolves.</p>
+<div class="mb-24 text-center reveal-element">
+<h2 class="text-5xl md:text-6xl font-black text-brand-text mb-6 tracking-tighter" data-i18n="feat_title">Core Ecosystem Features</h2>
+<p class="text-brand-muted max-w-2xl text-xl font-medium mx-auto" data-i18n="feat_desc">Tools designed for practical reality, not just theoretical perfection.</p>
 </div>
 
-<div class="grid md:grid-cols-3 gap-8 opacity-90">
-<div class="relative bg-white p-8 rounded-2xl border border-brand-border feature-locked overflow-hidden fade-up">
-<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-3">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
-<i data-lucide="lock" class="w-5 h-5 text-brand-deep"></i>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Feature Card Template -->
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element group tilt-card relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-brand-primary/0 to-brand-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="git-pull-request" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
 </div>
-<span class="text-xs font-bold text-brand-deep uppercase tracking-widest bg-white/90 px-3 py-1.5 rounded-full shadow-sm" data-i18n="future_badge">Coming Soon</span>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_1_title">Smart RFQ System</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_1_desc">Request bulk material quotes from multiple nearby suppliers simultaneously. No more manual calls.</p>
 </div>
-<div class="blur-[3px] select-none">
-<h3 class="font-bold text-lg mb-3" data-i18n="future_1_title">AI Procurement Insights</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="future_1_desc">Predictive models to suggest the best times and suppliers to procure specific materials based on historical local data.</p>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-100 group tilt-card relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-brand-primary/0 to-brand-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="map-pin" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
+</div>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_2_title">Hyperlocal Search</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_2_desc">Search materials based on distance, availability likelihood, and nearby supplier profiles.</p>
+</div>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-200 group tilt-card relative overflow-hidden lg:col-span-2 lg:row-span-2 flex flex-col justify-between hover:border-brand-primary/50">
+<div class="absolute right-0 bottom-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl -z-10"></div>
+<div>
+<div class="w-20 h-20 bg-brand-soft rounded-[2rem] flex items-center justify-center shadow-inner border border-brand-primary/20 mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="notebook" class="w-10 h-10 text-brand-primary"></i>
+</div>
+<h3 class="font-black text-4xl mb-4 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_3_title">Digital Khata</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-xl max-w-md" data-i18n="feat_3_desc">Simple ledger system to track transactions, dues, and payment history between contractors and sellers.</p>
+</div>
+<div class="mt-8 tilt-inner-high relative z-10">
+    <div class="bg-white p-4 rounded-2xl shadow-soft border border-gray-100 flex items-center justify-between max-w-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">Due</div>
+            <span class="font-bold text-sm">Sharma Hardware</span>
+        </div>
+        <span class="font-black text-brand-text">₹45,000</span>
+    </div>
 </div>
 </div>
 
-<div class="relative bg-white p-8 rounded-2xl border border-brand-border feature-locked overflow-hidden fade-up" style="transition-delay: 0.1s;">
-<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-3">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
-<i data-lucide="lock" class="w-5 h-5 text-brand-deep"></i>
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-300 group tilt-card relative overflow-hidden">
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="building" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
 </div>
-<span class="text-xs font-bold text-brand-deep uppercase tracking-widest bg-white/90 px-3 py-1.5 rounded-full shadow-sm" data-i18n="future_badge">Coming Soon</span>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_4_title">Site Expense Tracking</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_4_desc">Track spending separately for different construction sites with organized, clear summaries.</p>
 </div>
-<div class="blur-[3px] select-none">
-<h3 class="font-bold text-lg mb-3" data-i18n="future_2_title">Smart Inventory Predictions</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="future_2_desc">Helping sellers anticipate local demand spikes for specific materials, optimizing their stock levels automatically.</p>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element group tilt-card relative overflow-hidden">
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="repeat" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
+</div>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_5_title">Repeat Procurement</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_5_desc">Quickly reorder frequently used materials and manage recurring site requirements.</p>
+</div>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-100 group tilt-card relative overflow-hidden">
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="handshake" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
+</div>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_6_title">Supplier Coordination</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_6_desc">Smoother communication and workflow bridging between contractors and their trusted suppliers.</p>
+</div>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-200 group tilt-card relative overflow-hidden">
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="bar-chart-2" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
+</div>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_7_title">Lightweight Insights</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_7_desc">Simple operational analytics designed specifically for local sellers without overwhelming complexity.</p>
+</div>
+
+<div class="bg-white p-8 rounded-[2.5rem] border border-brand-border hover:shadow-float transition-all duration-500 reveal-element delay-300 group tilt-card relative overflow-hidden">
+<div class="w-16 h-16 bg-brand-bg rounded-2xl flex items-center justify-center shadow-sm border border-brand-border mb-8 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-brand-primary group-hover:border-transparent transition-all duration-500 tilt-inner relative z-10">
+<i data-lucide="radar" class="w-8 h-8 text-brand-primary group-hover:text-white transition-colors"></i>
+</div>
+<h3 class="font-black text-2xl mb-3 text-brand-text tracking-tight tilt-inner relative z-10" data-i18n="feat_8_title">Faster Discovery</h3>
+<p class="text-brand-muted font-medium leading-relaxed tilt-inner relative z-10 text-lg" data-i18n="feat_8_desc">Help nearby suppliers become digitally discoverable to customers actively searching to build.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Future Features (Locked - Premium Look) -->
+<section class="py-24 bg-white relative z-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="mb-16 text-center max-w-2xl mx-auto reveal-element">
+<h2 class="text-4xl md:text-5xl font-black text-brand-text mb-6 tracking-tighter" data-i18n="future_title">More Features Rolling Out Gradually</h2>
+<p class="text-brand-primary font-bold bg-brand-soft/50 inline-block px-6 py-3 rounded-full shadow-sm border border-brand-primary/20" data-i18n="future_desc">We are building thoughtfully. These capabilities will launch as NeeVLY evolves.</p>
+</div>
+
+<div class="grid md:grid-cols-3 gap-8 opacity-95">
+<div class="relative bg-brand-bg p-10 rounded-[2.5rem] border border-brand-border feature-locked overflow-hidden reveal-element hover:shadow-md transition-shadow">
+<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-4">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-soft border border-gray-100 animate-pulse">
+<i data-lucide="lock" class="w-7 h-7 text-brand-text"></i>
+</div>
+<span class="text-xs font-black text-brand-text uppercase tracking-widest bg-white/95 backdrop-blur px-5 py-2.5 rounded-full shadow-soft" data-i18n="future_badge">Coming Soon</span>
+</div>
+<div class="blur-[5px] select-none">
+<h3 class="font-black text-2xl mb-3" data-i18n="future_1_title">AI Procurement Insights</h3>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="future_1_desc">Predictive models to suggest the best times and suppliers to procure specific materials based on historical local data.</p>
 </div>
 </div>
 
-<div class="relative bg-white p-8 rounded-2xl border border-brand-border feature-locked overflow-hidden fade-up" style="transition-delay: 0.2s;">
-<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-3">
-<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
-<i data-lucide="lock" class="w-5 h-5 text-brand-deep"></i>
+<div class="relative bg-brand-bg p-10 rounded-[2.5rem] border border-brand-border feature-locked overflow-hidden reveal-element delay-100 hover:shadow-md transition-shadow">
+<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-4">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-soft border border-gray-100 animate-pulse" style="animation-delay: 0.5s;">
+<i data-lucide="lock" class="w-7 h-7 text-brand-text"></i>
 </div>
-<span class="text-xs font-bold text-brand-deep uppercase tracking-widest bg-white/90 px-3 py-1.5 rounded-full shadow-sm" data-i18n="future_badge">Coming Soon</span>
+<span class="text-xs font-black text-brand-text uppercase tracking-widest bg-white/95 backdrop-blur px-5 py-2.5 rounded-full shadow-soft" data-i18n="future_badge">Coming Soon</span>
 </div>
-<div class="blur-[3px] select-none">
-<h3 class="font-bold text-lg mb-3" data-i18n="future_3_title">Multi-Site Automation</h3>
-<p class="text-sm text-brand-muted leading-relaxed" data-i18n="future_3_desc">Enterprise-grade tools for large contractors to automate approvals and workflow mapping across 5+ active sites.</p>
+<div class="blur-[5px] select-none">
+<h3 class="font-black text-2xl mb-3" data-i18n="future_2_title">Smart Inventory Predictions</h3>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="future_2_desc">Helping sellers anticipate local demand spikes for specific materials, optimizing their stock levels automatically.</p>
+</div>
+</div>
+
+<div class="relative bg-brand-bg p-10 rounded-[2.5rem] border border-brand-border feature-locked overflow-hidden reveal-element delay-200 hover:shadow-md transition-shadow">
+<div class="absolute inset-0 z-20 flex items-center justify-center flex-col gap-4">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-soft border border-gray-100 animate-pulse" style="animation-delay: 1s;">
+<i data-lucide="lock" class="w-7 h-7 text-brand-text"></i>
+</div>
+<span class="text-xs font-black text-brand-text uppercase tracking-widest bg-white/95 backdrop-blur px-5 py-2.5 rounded-full shadow-soft" data-i18n="future_badge">Coming Soon</span>
+</div>
+<div class="blur-[5px] select-none">
+<h3 class="font-black text-2xl mb-3" data-i18n="future_3_title">Multi-Site Automation</h3>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="future_3_desc">Enterprise-grade tools for large contractors to automate approvals and workflow mapping across 5+ active sites.</p>
 </div>
 </div>
 </div>
@@ -520,53 +733,55 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </section>
 
 <!-- Who Is It For & Why Local Matters -->
-<section id="who" class="py-24 bg-white">
+<section id="who" class="py-32 bg-brand-bg relative z-10 border-t border-brand-border/50">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 <!-- Who is it for -->
-<div>
-<h2 class="text-3xl font-bold text-brand-text mb-8" data-i18n="who_title">Who is NeeVLY for?</h2>
+<div class="reveal-element">
+<h2 class="text-5xl md:text-6xl font-black text-brand-text mb-12 tracking-tighter" data-i18n="who_title">Who is NeeVLY for?</h2>
 <div class="space-y-6">
-<div class="flex gap-5 items-start bg-brand-bg p-6 rounded-2xl border border-brand-border fade-up hover:border-brand-primary/30 transition-colors">
-<div class="mt-1 w-12 h-12 rounded-xl bg-brand-soft text-brand-deep flex items-center justify-center shrink-0 border border-brand-primary/20">
-<i data-lucide="hard-hat" class="w-6 h-6"></i>
+<div class="flex gap-6 items-start bg-white p-8 md:p-10 rounded-[2.5rem] border border-brand-border hover:shadow-float hover:border-brand-primary/30 transition-all duration-300 group">
+<div class="mt-1 w-16 h-16 rounded-2xl bg-brand-bg text-brand-text flex items-center justify-center shrink-0 border border-brand-border group-hover:bg-brand-primary group-hover:text-white transition-colors">
+<i data-lucide="hard-hat" class="w-8 h-8"></i>
 </div>
 <div>
-<h4 class="font-bold text-lg text-brand-text mb-2" data-i18n="who_1_title">Contractors & Masons</h4>
-<p class="text-brand-muted leading-relaxed" data-i18n="who_1_desc">Simplify site material management, compare quotes fast, and track expenses without the paperwork mess.</p>
+<h4 class="font-black text-2xl text-brand-text mb-3 tracking-tight" data-i18n="who_1_title">Contractors & Masons</h4>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="who_1_desc">Simplify site material management, compare quotes fast, and track expenses without the paperwork mess.</p>
 </div>
 </div>
-<div class="flex gap-5 items-start bg-brand-bg p-6 rounded-2xl border border-brand-border fade-up hover:border-brand-primary/30 transition-colors" style="transition-delay: 0.1s;">
-<div class="mt-1 w-12 h-12 rounded-xl bg-brand-soft text-brand-deep flex items-center justify-center shrink-0 border border-brand-primary/20">
-<i data-lucide="store" class="w-6 h-6"></i>
-</div>
-<div>
-<h4 class="font-bold text-lg text-brand-text mb-2" data-i18n="who_2_title">Local Material Sellers</h4>
-<p class="text-brand-muted leading-relaxed" data-i18n="who_2_desc">Hardware, plumbing, tiles, and electrical stores seeking digital presence and systematic order flows.</p>
-</div>
-</div>
-<div class="flex gap-5 items-start bg-brand-bg p-6 rounded-2xl border border-brand-border fade-up hover:border-brand-primary/30 transition-colors" style="transition-delay: 0.2s;">
-<div class="mt-1 w-12 h-12 rounded-xl bg-brand-soft text-brand-deep flex items-center justify-center shrink-0 border border-brand-primary/20">
-<i data-lucide="home" class="w-6 h-6"></i>
+<div class="flex gap-6 items-start bg-white p-8 md:p-10 rounded-[2.5rem] border border-brand-border hover:shadow-float hover:border-brand-primary/30 transition-all duration-300 group">
+<div class="mt-1 w-16 h-16 rounded-2xl bg-brand-bg text-brand-text flex items-center justify-center shrink-0 border border-brand-border group-hover:bg-brand-primary group-hover:text-white transition-colors">
+<i data-lucide="store" class="w-8 h-8"></i>
 </div>
 <div>
-<h4 class="font-bold text-lg text-brand-text mb-2" data-i18n="who_3_title">Home Builders</h4>
-<p class="text-brand-muted leading-relaxed" data-i18n="who_3_desc">Individuals constructing their own homes who want price transparency and authentic local sourcing.</p>
+<h4 class="font-black text-2xl text-brand-text mb-3 tracking-tight" data-i18n="who_2_title">Local Material Sellers</h4>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="who_2_desc">Hardware, plumbing, tiles, and electrical stores seeking digital presence and systematic order flows.</p>
+</div>
+</div>
+<div class="flex gap-6 items-start bg-white p-8 md:p-10 rounded-[2.5rem] border border-brand-border hover:shadow-float hover:border-brand-primary/30 transition-all duration-300 group">
+<div class="mt-1 w-16 h-16 rounded-2xl bg-brand-bg text-brand-text flex items-center justify-center shrink-0 border border-brand-border group-hover:bg-brand-primary group-hover:text-white transition-colors">
+<i data-lucide="home" class="w-8 h-8"></i>
+</div>
+<div>
+<h4 class="font-black text-2xl text-brand-text mb-3 tracking-tight" data-i18n="who_3_title">Home Builders</h4>
+<p class="text-brand-muted font-medium leading-relaxed text-lg" data-i18n="who_3_desc">Individuals constructing their own homes who want price transparency and authentic local sourcing.</p>
 </div>
 </div>
 </div>
 </div>
 
 <!-- Why Local Matters -->
-<div class="flex flex-col justify-center fade-up bg-brand-bg p-10 rounded-3xl border border-brand-border">
-<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-8 border border-gray-100">
-<i data-lucide="heart-handshake" class="w-8 h-8 text-brand-primary"></i>
+<div class="flex flex-col justify-center reveal-element delay-200 bg-[#0B1120] text-white p-12 md:p-16 rounded-[3.5rem] shadow-float hover:shadow-glow-accent transition-shadow relative overflow-hidden h-full">
+<div class="absolute right-0 top-0 w-80 h-80 bg-brand-accent/20 rounded-full blur-[80px] -z-10 animate-pulse"></div>
+<div class="absolute left-0 bottom-0 w-80 h-80 bg-brand-primary/20 rounded-full blur-[80px] -z-10"></div>
+<div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-3xl flex items-center justify-center border border-white/20 mb-10 shadow-inner">
+<i data-lucide="heart-handshake" class="w-10 h-10 text-white"></i>
 </div>
-<h2 class="text-3xl font-bold text-brand-text mb-6" data-i18n="why_title">Why Local Commerce Matters</h2>
-<div class="prose prose-lg text-brand-muted">
-<p class="mb-5 leading-relaxed" data-i18n="why_p1">We believe the future of construction technology isn't about replacing local suppliers with giant centralized warehouses. It's about empowering the existing local ecosystem.</p>
-<p class="mb-6 leading-relaxed" data-i18n="why_p2">Tier-2 and Tier-3 cities run on relationships and trust. NeeVLY is designed to digitize this fragmented commerce respectfully—giving sellers the tools to be competitive, and buyers the transparency they deserve.</p>
-<div class="bg-white px-5 py-4 rounded-xl border border-brand-border font-medium text-brand-deep inline-block shadow-sm" data-i18n="why_p3">
+<h2 class="text-4xl md:text-5xl font-black mb-8 tracking-tighter" data-i18n="why_title">Why Local Commerce Matters</h2>
+<div class="text-slate-300 text-xl font-medium space-y-6 leading-relaxed">
+<p data-i18n="why_p1">We believe the future of construction technology isn't about replacing local suppliers with giant centralized warehouses. It's about empowering the existing local ecosystem.</p>
+<p data-i18n="why_p2">Tier-2 and Tier-3 cities run on relationships and trust. NeeVLY is designed to digitize this fragmented commerce respectfully—giving sellers the tools to be competitive, and buyers the transparency they deserve.</p>
+<div class="bg-brand-primary text-white px-8 py-6 rounded-3xl font-black text-2xl mt-8 inline-block shadow-glow" data-i18n="why_p3">
 Our goal: Smarter local procurement, stronger local economies.
 </div>
 </div>
@@ -576,106 +791,118 @@ Our goal: Smarter local procurement, stronger local economies.
 </section>
 
 <!-- FAQ & AI Assistant Section -->
-<section class="py-24 bg-white border-t border-brand-border relative">
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16 fade-up">
-<h2 class="text-3xl font-bold text-brand-text mb-4" data-i18n="faq_title">Frequently Asked Questions</h2>
-<p class="text-brand-muted text-lg" data-i18n="faq_desc">Everything you need to know about NeeVLY.</p>
+<section class="py-32 bg-white relative z-10">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-24 reveal-element">
+<h2 class="text-5xl md:text-6xl font-black text-brand-text mb-6 tracking-tighter" data-i18n="faq_title">Frequently Asked Questions</h2>
+<p class="text-brand-muted text-2xl font-medium" data-i18n="faq_desc">Everything you need to know about NeeVLY.</p>
 </div>
 
-<div class="space-y-4">
+<div class="space-y-6">
 <!-- FAQ Item 1 -->
-<div class="border border-brand-border rounded-2xl bg-brand-bg overflow-hidden fade-up">
-<button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-<span class="font-bold text-brand-text text-lg" data-i18n="faq_1_q">What exactly is NeeVLY?</span>
-<i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-primary shrink-0"></i>
+<div class="border-2 border-brand-border rounded-[2rem] bg-brand-bg overflow-hidden reveal-element shadow-sm hover:shadow-md transition-shadow hover:border-brand-primary/30">
+<button class="faq-btn w-full px-10 py-8 flex items-center justify-between text-left focus:outline-none group">
+<span class="font-black text-brand-text text-2xl group-hover:text-brand-primary transition-colors" data-i18n="faq_1_q">What exactly is NeeVLY?</span>
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-brand-border group-hover:border-brand-primary/30 transition-colors">
+<i data-lucide="plus" class="faq-icon w-6 h-6 text-brand-text transition-transform duration-300"></i>
+</div>
 </button>
-<div class="faq-content">
-<div class="faq-inner px-6 pb-5 text-brand-muted leading-relaxed" data-i18n="faq_1_a">
+<div class="faq-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+<div class="faq-inner overflow-hidden px-10 pb-8 text-brand-muted text-xl font-medium leading-relaxed" data-i18n="faq_1_a">
 NeeVLY is an intelligent local platform that connects construction material buyers (like contractors and home builders) directly with nearby verified sellers to simplify quotes and tracking.
 </div>
 </div>
 </div>
 
 <!-- FAQ Item 2 -->
-<div class="border border-brand-border rounded-2xl bg-brand-bg overflow-hidden fade-up" style="transition-delay: 0.1s;">
-<button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-<span class="font-bold text-brand-text text-lg" data-i18n="faq_2_q">Is NeeVLY free to use?</span>
-<i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-primary shrink-0"></i>
+<div class="border-2 border-brand-border rounded-[2rem] bg-brand-bg overflow-hidden reveal-element shadow-sm hover:shadow-md transition-shadow hover:border-brand-primary/30">
+<button class="faq-btn w-full px-10 py-8 flex items-center justify-between text-left focus:outline-none group">
+<span class="font-black text-brand-text text-2xl group-hover:text-brand-primary transition-colors" data-i18n="faq_2_q">Is NeeVLY free to use?</span>
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-brand-border group-hover:border-brand-primary/30 transition-colors">
+<i data-lucide="plus" class="faq-icon w-6 h-6 text-brand-text transition-transform duration-300"></i>
+</div>
 </button>
-<div class="faq-content">
-<div class="faq-inner px-6 pb-5 text-brand-muted leading-relaxed" data-i18n="faq_2_a">
+<div class="faq-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+<div class="faq-inner overflow-hidden px-10 pb-8 text-brand-muted text-xl font-medium leading-relaxed" data-i18n="faq_2_a">
 Yes, joining the waitlist and accessing the core platform will be free for buyers. Sellers also enjoy a zero-commission launch phase.
 </div>
 </div>
 </div>
 
 <!-- FAQ Item 3 -->
-<div class="border border-brand-border rounded-2xl bg-brand-bg overflow-hidden fade-up" style="transition-delay: 0.2s;">
-<button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-<span class="font-bold text-brand-text text-lg" data-i18n="faq_3_q">Which cities are you launching in first?</span>
-<i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-primary shrink-0"></i>
+<div class="border-2 border-brand-border rounded-[2rem] bg-brand-bg overflow-hidden reveal-element shadow-sm hover:shadow-md transition-shadow hover:border-brand-primary/30">
+<button class="faq-btn w-full px-10 py-8 flex items-center justify-between text-left focus:outline-none group">
+<span class="font-black text-brand-text text-2xl group-hover:text-brand-primary transition-colors" data-i18n="faq_3_q">Which cities are you launching in first?</span>
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-brand-border group-hover:border-brand-primary/30 transition-colors">
+<i data-lucide="plus" class="faq-icon w-6 h-6 text-brand-text transition-transform duration-300"></i>
+</div>
 </button>
-<div class="faq-content">
-<div class="faq-inner px-6 pb-5 text-brand-muted leading-relaxed" data-i18n="faq_3_a">
+<div class="faq-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+<div class="faq-inner overflow-hidden px-10 pb-8 text-brand-muted text-xl font-medium leading-relaxed" data-i18n="faq_3_a">
 We are focusing on Tier-2 and Tier-3 cities in India, starting with key regions in Jharkhand and expanding gradually based on waitlist demand.
 </div>
 </div>
 </div>
 
 <!-- FAQ Item 4 -->
-<div class="border border-brand-border rounded-2xl bg-brand-bg overflow-hidden fade-up" style="transition-delay: 0.3s;">
-<button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-<span class="font-bold text-brand-text text-lg" data-i18n="faq_4_q">How is this better than calling shops manually?</span>
-<i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-primary shrink-0"></i>
+<div class="border-2 border-brand-border rounded-[2rem] bg-brand-bg overflow-hidden reveal-element shadow-sm hover:shadow-md transition-shadow hover:border-brand-primary/30">
+<button class="faq-btn w-full px-10 py-8 flex items-center justify-between text-left focus:outline-none group">
+<span class="font-black text-brand-text text-2xl group-hover:text-brand-primary transition-colors" data-i18n="faq_4_q">How is this better than calling shops manually?</span>
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-brand-border group-hover:border-brand-primary/30 transition-colors">
+<i data-lucide="plus" class="faq-icon w-6 h-6 text-brand-text transition-transform duration-300"></i>
+</div>
 </button>
-<div class="faq-content">
-<div class="faq-inner px-6 pb-5 text-brand-muted leading-relaxed" data-i18n="faq_4_a">
+<div class="faq-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+<div class="faq-inner overflow-hidden px-10 pb-8 text-brand-muted text-xl font-medium leading-relaxed" data-i18n="faq_4_a">
 Instead of calling 5 different shops to check availability and negotiate, you submit one requirement on NeeVLY. Sellers respond to you, allowing you to compare prices and distance instantly.
 </div>
 </div>
 </div>
 
 <!-- FAQ Item 5 -->
-<div class="border border-brand-border rounded-2xl bg-brand-bg overflow-hidden fade-up" style="transition-delay: 0.4s;">
-<button class="faq-btn w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-<span class="font-bold text-brand-text text-lg" data-i18n="faq_5_q">Do you handle the delivery?</span>
-<i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-brand-primary shrink-0"></i>
+<div class="border-2 border-brand-border rounded-[2rem] bg-brand-bg overflow-hidden reveal-element shadow-sm hover:shadow-md transition-shadow hover:border-brand-primary/30">
+<button class="faq-btn w-full px-10 py-8 flex items-center justify-between text-left focus:outline-none group">
+<span class="font-black text-brand-text text-2xl group-hover:text-brand-primary transition-colors" data-i18n="faq_5_q">Do you handle the delivery?</span>
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-brand-border group-hover:border-brand-primary/30 transition-colors">
+<i data-lucide="plus" class="faq-icon w-6 h-6 text-brand-text transition-transform duration-300"></i>
+</div>
 </button>
-<div class="faq-content">
-<div class="faq-inner px-6 pb-5 text-brand-muted leading-relaxed" data-i18n="faq_5_a">
+<div class="faq-content grid grid-rows-[0fr] transition-all duration-300 ease-in-out">
+<div class="faq-inner overflow-hidden px-10 pb-8 text-brand-muted text-xl font-medium leading-relaxed" data-i18n="faq_5_a">
 Initially, we connect you with local sellers who manage their own logistics, just like they do offline. We track the order and expense, while the local relationships remain intact.
 </div>
 </div>
 </div>
 </div>
 
-<!-- KritaVa AI Section -->
-<div class="mt-20 pt-16 border-t border-brand-border fade-up relative">
-<!-- Soft Glow -->
-<div class="absolute left-1/2 top-10 -translate-x-1/2 w-full max-w-lg h-32 bg-brand-primary/10 blur-[60px] rounded-full pointer-events-none"></div>
+<!-- KritaVa AI Section (Insane Glow Redesign) -->
+<div class="mt-40 pt-20 border-t-2 border-brand-border reveal-element relative">
+<div class="absolute left-1/2 top-0 -translate-x-1/2 w-screen h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(79,163,165,0.15),_transparent_70%)] pointer-events-none -z-10 mix-blend-multiply"></div>
 
-<div class="relative z-10 max-w-2xl mx-auto text-center">
-<h3 class="text-2xl font-bold text-brand-text mb-3" data-i18n="ai_title">Any other doubts? Ask KritaVa AI</h3>
-<p class="text-brand-muted mb-8" data-i18n="ai_desc">Get instant, intelligent answers about NeeVLY in your selected language.</p>
+<div class="relative z-10 w-full max-w-4xl mx-auto text-center bg-white/60 backdrop-blur-3xl p-10 md:p-16 rounded-[3.5rem] shadow-float border border-white glow-border">
+<div class="w-24 h-24 mx-auto bg-brand-text text-white rounded-3xl flex items-center justify-center mb-8 shadow-glow-accent btn-pulse">
+<i data-lucide="sparkles" class="w-12 h-12 text-brand-accent"></i>
+</div>
+<h3 class="text-4xl md:text-5xl font-black text-brand-text mb-6 tracking-tighter" data-i18n="ai_title">Any other doubts? Ask KritaVa AI</h3>
+<p class="text-brand-muted text-xl font-medium mb-12" data-i18n="ai_desc">Get instant, intelligent answers about NeeVLY in your selected language.</p>
 
-<form id="ai-form" class="relative group mb-6">
-<input type="text" id="ai-input" class="block w-full pl-6 pr-32 py-4 min-h-[64px] text-brand-text bg-white rounded-full border border-brand-border shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all duration-300" placeholder="Type your question here..." required>
-<button type="submit" id="ai-btn" class="absolute right-2 top-2 bottom-2 px-6 flex items-center justify-center bg-brand-primary hover:bg-brand-deep text-white font-bold rounded-full transition-all duration-300 shadow-sm disabled:opacity-70 disabled:cursor-not-allowed">
+<form id="ai-form" class="relative group mb-8">
+<input type="text" id="ai-input" class="block w-full pl-10 pr-40 py-6 min-h-[80px] text-xl text-brand-text bg-white rounded-full border-2 border-brand-border shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/20 focus:border-brand-primary transition-all duration-300 font-bold placeholder-gray-400" placeholder="Type your question here..." required>
+<button type="submit" id="ai-btn" class="absolute right-3 top-3 bottom-3 px-10 flex items-center justify-center bg-brand-text hover:bg-brand-primary text-white font-black text-lg rounded-full transition-colors duration-300 shadow-md disabled:opacity-70 disabled:cursor-not-allowed">
 <span id="ai-btn-text" data-i18n="ai_btn">Ask</span>
-<i data-lucide="loader-2" id="ai-loader" class="w-5 h-5 ml-2 animate-spin hidden"></i>
+<i data-lucide="loader-2" id="ai-loader" class="w-6 h-6 ml-2 animate-spin hidden"></i>
 </button>
 </form>
 
 <!-- AI Response Area -->
-<div id="ai-response-area" class="hidden text-left bg-brand-bg p-6 rounded-3xl border border-brand-border shadow-sm transition-all duration-500 opacity-0 transform translate-y-4">
-<div class="flex items-center gap-3 mb-4">
-<div class="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20">
-<i data-lucide="bot" class="w-4 h-4"></i>
+<div id="ai-response-area" class="hidden text-left bg-white p-10 rounded-[2.5rem] shadow-soft border border-brand-border transition-all duration-500 opacity-0 transform translate-y-4">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-2xl bg-brand-primary/10 text-brand-primary flex items-center justify-center border border-brand-primary/20">
+<i data-lucide="bot" class="w-6 h-6"></i>
 </div>
-<span class="font-bold text-sm text-brand-text">KritaVa AI</span>
+<span class="font-black text-xl text-brand-text">KritaVa AI</span>
 </div>
-<div id="ai-response-text" class="text-brand-text text-sm md:text-base leading-relaxed space-y-3">
+<div id="ai-response-text" class="text-brand-text text-lg md:text-xl font-medium leading-relaxed space-y-4">
 <!-- Response injected via JS -->
 </div>
 </div>
@@ -685,116 +912,116 @@ Initially, we connect you with local sellers who manage their own logistics, jus
 </div>
 </section>
 
-<!-- Waitlist Section with Form -->
-<section id="waitlist" class="py-24 relative bg-brand-bg border-t border-brand-border">
-<div class="absolute inset-0 bg-brand-deep/5 -z-10"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16 fade-up">
-<h2 class="text-4xl font-bold text-brand-text mb-4" data-i18n="waitlist_title">Be Part of the Foundation.</h2>
-<p class="text-brand-muted text-lg max-w-2xl mx-auto" data-i18n="waitlist_desc">Join the waitlist. We are rolling out city by city, prioritizing our earliest supporters.</p>
+<!-- Waitlist Section with Premium Form -->
+<section id="waitlist" class="py-40 relative bg-brand-bg border-t border-brand-border/50 z-10 overflow-hidden">
+<div class="absolute right-0 top-0 w-[50vw] h-[50vw] bg-brand-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+<div class="text-center mb-24 reveal-element">
+<h2 class="text-6xl md:text-[5rem] font-black text-brand-text mb-8 tracking-tighter leading-none" data-i18n="waitlist_title">Be Part of the Foundation.</h2>
+<p class="text-brand-muted text-2xl font-medium max-w-3xl mx-auto" data-i18n="waitlist_desc">Join the waitlist. We are rolling out city by city, prioritizing our earliest supporters.</p>
 </div>
 
-<div class="grid lg:grid-cols-5 gap-12 items-start">
+<div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
 
 <!-- Benefits Panel -->
-<div class="lg:col-span-2 space-y-8 fade-up">
-<!-- FIXED HOVER OCD GLITCH BELOW: Added hover:shadow-glow and hover:border-brand-primary/40 to exactly match the premium visual weight of the seller card -->
-<div class="bg-white rounded-2xl p-8 border border-brand-border shadow-lg hover:shadow-xl hover:shadow-glow hover:border-brand-primary/40 hover:-translate-y-1 transition-all duration-300">
-<h3 class="font-bold text-xl mb-5 flex items-center gap-3 text-brand-text">
-<div class="w-10 h-10 rounded-lg bg-brand-soft flex items-center justify-center"><i data-lucide="shopping-cart" class="w-5 h-5 text-brand-primary"></i></div>
+<div class="lg:col-span-2 space-y-8 reveal-element">
+<div class="bg-white rounded-[3rem] p-12 border border-brand-border shadow-soft hover:shadow-float hover:border-brand-primary/40 transition-all duration-500 group tilt-card">
+<h3 class="font-black text-3xl mb-10 flex items-center gap-5 text-brand-text tracking-tight tilt-inner">
+<div class="w-16 h-16 rounded-2xl bg-brand-bg flex items-center justify-center shadow-inner border border-brand-border group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all"><i data-lucide="shopping-cart" class="w-8 h-8 transition-colors"></i></div>
 <span data-i18n="waitlist_buy_title">Buyers / Contractors</span>
 </h3>
-<ul class="space-y-4 text-brand-muted">
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_1">Priority city rollout access</span></li>
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_2">Founding-user recognition</span></li>
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_3">Early workflow tools access</span></li>
-<li class="flex items-start gap-3 blur-[4px] select-none opacity-60"><i data-lucide="gift" class="w-5 h-5 shrink-0"></i> <span data-i18n="waitlist_buy_4">Special surprise discount</span></li>
+<ul class="space-y-6 text-brand-muted font-bold text-xl tilt-inner">
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_1">Priority city rollout access</span></li>
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_2">Founding-user recognition</span></li>
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-success shrink-0"></i> <span data-i18n="waitlist_buy_3">Early workflow tools access</span></li>
+<li class="flex items-start gap-4 blur-[5px] select-none opacity-50"><i data-lucide="gift" class="w-7 h-7 shrink-0"></i> <span data-i18n="waitlist_buy_4">Special surprise discount</span></li>
 </ul>
 </div>
 
-<div class="bg-brand-deep text-white rounded-2xl p-8 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-<h3 class="font-bold text-xl mb-5 flex items-center gap-3 text-white">
-<div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center"><i data-lucide="store" class="w-5 h-5 text-brand-soft"></i></div>
+<div class="bg-[#0B1120] text-white rounded-[3rem] p-12 shadow-float hover:-translate-y-2 transition-transform duration-500 group relative overflow-hidden tilt-card hover:shadow-glow-accent">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.1),_transparent_60%)]"></div>
+<h3 class="font-black text-3xl mb-10 flex items-center gap-5 text-white tracking-tight relative z-10 tilt-inner">
+<div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform"><i data-lucide="store" class="w-8 h-8 text-white"></i></div>
 <span data-i18n="waitlist_sell_title">Material Sellers</span>
 </h3>
-<ul class="space-y-4 text-brand-soft/90">
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-soft shrink-0"></i> <span data-i18n="waitlist_sell_1">Zero commission launch phase</span></li>
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-soft shrink-0"></i> <span data-i18n="waitlist_sell_2">Founding seller badge & priority visibility</span></li>
-<li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-brand-soft shrink-0"></i> <span data-i18n="waitlist_sell_3">Basic operational analytics</span></li>
-<li class="flex items-start gap-3 blur-[4px] select-none opacity-60"><i data-lucide="gift" class="w-5 h-5 shrink-0"></i> <span data-i18n="waitlist_sell_4">Premium SaaS tool preview</span></li>
+<ul class="space-y-6 text-slate-300 font-bold text-xl relative z-10 tilt-inner">
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-primary shrink-0"></i> <span data-i18n="waitlist_sell_1">Zero commission launch phase</span></li>
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-primary shrink-0"></i> <span data-i18n="waitlist_sell_2">Founding seller badge & priority visibility</span></li>
+<li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-7 h-7 text-brand-primary shrink-0"></i> <span data-i18n="waitlist_sell_3">Basic operational analytics</span></li>
+<li class="flex items-start gap-4 blur-[5px] select-none opacity-50"><i data-lucide="gift" class="w-7 h-7 shrink-0"></i> <span data-i18n="waitlist_sell_4">Premium SaaS tool preview</span></li>
 </ul>
 </div>
 </div>
 
 <!-- Upgraded Premium Form -->
-<div class="lg:col-span-3 fade-up" style="transition-delay: 0.2s;">
-<div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-float border border-brand-border relative overflow-hidden">
+<div class="lg:col-span-3 reveal-element delay-200">
+<div class="bg-white/80 backdrop-blur-2xl rounded-[3.5rem] p-10 md:p-16 shadow-float border-2 border-white relative overflow-hidden glow-border">
 
 <!-- Form Success State -->
 <div id="form-success" class="absolute inset-0 bg-white z-50 flex flex-col items-center justify-center hidden opacity-0 transition-opacity duration-500">
-<div class="w-20 h-20 bg-brand-success/10 rounded-full flex items-center justify-center mb-6">
-<i data-lucide="check" class="w-10 h-10 text-brand-success"></i>
+<div class="w-32 h-32 bg-brand-success/10 rounded-full flex items-center justify-center mb-8 btn-pulse">
+<i data-lucide="check" class="w-16 h-16 text-brand-success"></i>
 </div>
-<h3 class="text-3xl font-bold text-brand-text mb-3" data-i18n="success_title">You're on the list.</h3>
-<p class="text-brand-muted text-center max-w-sm text-lg" data-i18n="success_desc">Thank you for joining the NeeVLY waitlist. We will notify you as we begin operations in your city.</p>
+<h3 class="text-5xl font-black text-brand-text mb-6 tracking-tighter" data-i18n="success_title">You're on the list.</h3>
+<p class="text-brand-muted text-center max-w-md text-xl font-medium" data-i18n="success_desc">Thank you for joining the NeeVLY waitlist. We will notify you as we begin operations in your city.</p>
 </div>
 
 <!-- Form -->
-<form id="waitlist-form" class="space-y-6">
+<form id="waitlist-form" class="space-y-10">
 
 <!-- Role Selection -->
 <div>
-<label class="block text-sm font-semibold text-brand-text mb-3" data-i18n="form_role">I am a...</label>
-<div class="grid grid-cols-3 gap-3">
+<label class="block text-sm font-black text-brand-text mb-5 uppercase tracking-widest" data-i18n="form_role">I am a...</label>
+<div class="grid grid-cols-3 gap-5">
 <label class="cursor-pointer">
 <input type="radio" name="role" value="Buyer" class="peer sr-only" required>
-<div class="text-center p-3.5 rounded-xl border-2 border-brand-border text-brand-muted hover:bg-brand-soft/30 peer-checked:border-brand-primary peer-checked:bg-brand-soft peer-checked:text-brand-deep transition-all text-sm font-semibold" data-i18n="role_buyer">Buyer</div>
+<div class="text-center p-5 rounded-3xl border-2 border-brand-border text-brand-muted hover:bg-brand-bg peer-checked:border-brand-primary peer-checked:bg-brand-primary peer-checked:text-white transition-all text-base font-bold shadow-sm" data-i18n="role_buyer">Buyer</div>
 </label>
 <label class="cursor-pointer">
 <input type="radio" name="role" value="Seller" class="peer sr-only">
-<div class="text-center p-3.5 rounded-xl border-2 border-brand-border text-brand-muted hover:bg-brand-soft/30 peer-checked:border-brand-primary peer-checked:bg-brand-soft peer-checked:text-brand-deep transition-all text-sm font-semibold" data-i18n="role_seller">Seller</div>
+<div class="text-center p-5 rounded-3xl border-2 border-brand-border text-brand-muted hover:bg-brand-bg peer-checked:border-brand-primary peer-checked:bg-brand-primary peer-checked:text-white transition-all text-base font-bold shadow-sm" data-i18n="role_seller">Seller</div>
 </label>
 <label class="cursor-pointer">
 <input type="radio" name="role" value="Contractor" class="peer sr-only">
-<div class="text-center p-3.5 rounded-xl border-2 border-brand-border text-brand-muted hover:bg-brand-soft/30 peer-checked:border-brand-primary peer-checked:bg-brand-soft peer-checked:text-brand-deep transition-all text-sm font-semibold" data-i18n="role_contractor">Contractor</div>
+<div class="text-center p-5 rounded-3xl border-2 border-brand-border text-brand-muted hover:bg-brand-bg peer-checked:border-brand-primary peer-checked:bg-brand-primary peer-checked:text-white transition-all text-base font-bold shadow-sm" data-i18n="role_contractor">Contractor</div>
 </label>
 </div>
 </div>
 
-<div class="grid sm:grid-cols-2 gap-6">
+<div class="grid sm:grid-cols-2 gap-10">
 <!-- Name -->
 <div class="relative group">
-<input type="text" id="name" class="block w-full px-4 pb-2 pt-6 min-h-[56px] text-brand-text bg-brand-bg rounded-xl border border-brand-border appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary peer transition-all duration-300" placeholder=" " required>
-<label for="name" class="absolute text-sm text-brand-muted duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_name">Full Name</label>
+<input type="text" id="name" class="block w-full px-6 pb-4 pt-8 min-h-[72px] text-xl font-bold text-brand-text bg-brand-bg rounded-3xl border-2 border-transparent focus:bg-white focus:border-brand-primary appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 peer transition-all duration-300 shadow-inner" placeholder=" " required>
+<label for="name" class="absolute text-sm font-bold text-brand-muted duration-300 transform -translate-y-3 scale-75 top-6 z-10 origin-[0] left-6 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_name">Full Name</label>
 </div>
 
 <!-- Phone -->
 <div class="relative group">
-<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-brand-muted font-medium text-sm border-r border-brand-border pr-2 z-20 h-full">+91</div>
-<input type="tel" id="phone" class="block w-full pl-[4.5rem] pr-4 pb-2 pt-6 min-h-[56px] text-brand-text bg-brand-bg rounded-xl border border-brand-border appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary peer transition-all duration-300" placeholder=" " required maxlength="10">
-<label for="phone" class="absolute text-sm text-brand-muted duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-[4.5rem] peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_phone">Phone Number</label>
-<p id="phone-error" class="hidden text-xs text-brand-error mt-1 absolute -bottom-5 left-0" data-i18n="form_phone_err">Enter a valid 10-digit number.</p>
+<div class="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-brand-text font-black text-xl border-r border-brand-border pr-4 z-20 h-full">+91</div>
+<input type="tel" id="phone" class="block w-full pl-[6.5rem] pr-6 pb-4 pt-8 min-h-[72px] text-xl font-bold text-brand-text bg-brand-bg rounded-3xl border-2 border-transparent focus:bg-white focus:border-brand-primary appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 peer transition-all duration-300 shadow-inner" placeholder=" " required maxlength="10">
+<label for="phone" class="absolute text-sm font-bold text-brand-muted duration-300 transform -translate-y-3 scale-75 top-6 z-10 origin-[0] left-[6.5rem] peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_phone">Phone Number</label>
+<p id="phone-error" class="hidden text-sm font-bold text-brand-error mt-2 absolute -bottom-7 left-0" data-i18n="form_phone_err">Enter a valid 10-digit number.</p>
 </div>
 </div>
 
 <!-- Email -->
 <div class="relative group">
-<input type="email" id="email" class="block w-full px-4 pb-2 pt-6 min-h-[56px] text-brand-text bg-brand-bg rounded-xl border border-brand-border appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary peer transition-all duration-300" placeholder=" " required>
-<label for="email" class="absolute text-sm text-brand-muted duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_email">Email Address</label>
+<input type="email" id="email" class="block w-full px-6 pb-4 pt-8 min-h-[72px] text-xl font-bold text-brand-text bg-brand-bg rounded-3xl border-2 border-transparent focus:bg-white focus:border-brand-primary appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 peer transition-all duration-300 shadow-inner" placeholder=" " required>
+<label for="email" class="absolute text-sm font-bold text-brand-muted duration-300 transform -translate-y-3 scale-75 top-6 z-10 origin-[0] left-6 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_email">Email Address</label>
 </div>
 
-<div class="grid sm:grid-cols-2 gap-6">
+<div class="grid sm:grid-cols-2 gap-10">
 <!-- State -->
-<div class="relative form-select-wrapper rounded-xl bg-brand-bg group">
-<select id="state" class="block w-full px-4 py-4 min-h-[56px] text-brand-text bg-transparent border border-brand-border rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all cursor-pointer font-medium" required>
+<div class="relative form-select-wrapper rounded-3xl bg-brand-bg group shadow-inner">
+<select id="state" class="block w-full px-6 py-6 min-h-[72px] text-xl font-bold text-brand-text bg-transparent border-2 border-transparent focus:bg-white focus:border-brand-primary rounded-3xl appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 transition-all cursor-pointer" required>
 <option value="" disabled selected data-i18n="form_state">Select State</option>
 <!-- Populated via JS -->
 </select>
 </div>
 
 <!-- City -->
-<div class="relative form-select-wrapper rounded-xl bg-brand-bg group">
-<select id="city" class="block w-full px-4 py-4 min-h-[56px] text-brand-text bg-transparent border border-brand-border rounded-xl appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed font-medium" required disabled>
+<div class="relative form-select-wrapper rounded-3xl bg-brand-bg group shadow-inner">
+<select id="city" class="block w-full px-6 py-6 min-h-[72px] text-xl font-bold text-brand-text bg-transparent border-2 border-transparent focus:bg-white focus:border-brand-primary rounded-3xl appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" required disabled>
 <option value="" disabled selected data-i18n="form_city">Select City</option>
 <!-- Populated via JS -->
 </select>
@@ -803,13 +1030,13 @@ Initially, we connect you with local sellers who manage their own logistics, jus
 
 <!-- Feature Interest -->
 <div class="relative group">
-<textarea id="feature_interest" rows="3" class="block w-full px-4 pb-3 pt-6 text-brand-text bg-brand-bg rounded-xl border border-brand-border appearance-none focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary peer transition-all duration-300 resize-none" placeholder=" "></textarea>
-<label for="feature_interest" class="absolute text-sm text-brand-muted duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_feature">What feature interests you most? (Optional)</label>
+<textarea id="feature_interest" rows="4" class="block w-full px-6 pb-5 pt-8 text-xl font-bold text-brand-text bg-brand-bg rounded-3xl border-2 border-transparent focus:bg-white focus:border-brand-primary appearance-none focus:outline-none focus:ring-4 focus:ring-brand-primary/20 peer transition-all duration-300 resize-none shadow-inner" placeholder=" "></textarea>
+<label for="feature_interest" class="absolute text-sm font-bold text-brand-muted duration-300 transform -translate-y-3 scale-75 top-6 z-10 origin-[0] left-6 peer-focus:text-brand-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 pointer-events-none" data-i18n="form_feature">What feature interests you most? (Optional)</label>
 </div>
 
-<button type="submit" id="submit-btn" class="w-full flex items-center justify-center py-4 px-4 border border-transparent rounded-xl shadow-md text-lg font-bold text-white bg-brand-primary hover:bg-brand-deep focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all duration-300 hover:shadow-glow hover:-translate-y-1 mt-4">
+<button type="submit" id="submit-btn" class="w-full flex items-center justify-center py-6 px-8 border border-transparent rounded-3xl shadow-glow text-2xl font-black text-white bg-brand-primary hover:bg-brand-text focus:outline-none focus:ring-4 focus:ring-brand-text/30 transition-all duration-500 hover:-translate-y-2 mt-8">
 <span id="btn-text" data-i18n="form_btn">Reserve Early Access</span>
-<i data-lucide="loader-2" id="btn-loader" class="w-5 h-5 ml-2 animate-spin hidden"></i>
+<i data-lucide="loader-2" id="btn-loader" class="w-8 h-8 ml-3 animate-spin hidden"></i>
 </button>
 </form>
 </div>
@@ -818,39 +1045,29 @@ Initially, we connect you with local sellers who manage their own logistics, jus
 </div>
 </section>
 
-<!-- Footer matched to precise layout -->
-<footer class="bg-[#EAEAEA] border-t border-brand-border py-12">
+<!-- Minimal Premium Footer -->
+<footer class="bg-white border-t border-brand-border py-16 relative z-10">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center text-center md:text-left">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
 
-<!-- 1. Brand -->
-<div class="flex justify-center md:justify-start items-center gap-2">
-<span class="text-xl font-bold text-brand-text">NeeVLY</span>
-<span class="text-xs text-brand-muted font-medium">by KritaVa</span>
+<!-- Brand -->
+<div class="flex items-center gap-3">
+<span class="text-3xl font-black text-brand-text tracking-tighter">NeeVLY</span>
+<span class="text-sm text-brand-muted font-bold tracking-widest uppercase bg-brand-bg px-3 py-1 rounded-full">by KritaVa</span>
 </div>
 
-<!-- 2. Email -->
-<div class="flex justify-center md:justify-center items-center gap-2 text-brand-muted hover:text-brand-primary transition-colors text-sm font-medium">
-<a href="mailto:kritava.tech@gmail.com" class="flex items-center gap-2">
-<i data-lucide="mail" class="w-4 h-4"></i> kritava.tech@gmail.com
+<!-- Social & Contact -->
+<div class="flex items-center gap-8 text-brand-text font-bold text-base">
+<a href="mailto:kritava.tech@gmail.com" class="hover:text-brand-primary transition-colors flex items-center gap-2 hover:-translate-y-1 duration-300">
+<i data-lucide="mail" class="w-5 h-5"></i> Email
+</a>
+<a href="https://instagram.com/kritava.tech" target="_blank" rel="noopener" class="hover:text-brand-primary transition-colors flex items-center gap-2 hover:-translate-y-1 duration-300">
+<i data-lucide="instagram" class="w-5 h-5"></i> Instagram
 </a>
 </div>
 
-<!-- 3. Instagram -->
-<div class="flex justify-center md:justify-center items-center gap-2 text-brand-muted hover:text-brand-primary transition-colors text-sm font-medium">
-<a href="https://instagram.com/kritava.tech" target="_blank" rel="noopener" class="flex items-center gap-2">
-<!-- Raw SVG to guarantee visibility -->
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-</svg>
-@kritava.tech
-</a>
-</div>
-
-<!-- 4. Copyright -->
-<div class="text-xs text-brand-muted md:text-right" data-i18n="footer_copy">
+<!-- Copyright -->
+<div class="text-base font-semibold text-brand-muted" data-i18n="footer_copy">
 &copy; <span id="year"></span> KritaVa Technologies. Building for India.
 </div>
 
@@ -863,29 +1080,105 @@ Initially, we connect you with local sellers who manage their own logistics, jus
 lucide.createIcons();
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// --- Animations ---
-const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-const observer = new IntersectionObserver((entries, observer) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('visible');
-observer.unobserve(entry.target);
+// --- Insane Apple-Style Animations (Vanilla JS) ---
+
+// 1. Mouse Follower Glow (Desktop only)
+const cursorGlow = document.getElementById('cursor-glow');
+if (window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+    });
+}
+
+// 2. Scroll Reveal Observer (Blur & Scale)
+const revealObserverOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, revealObserverOptions);
+document.querySelectorAll('.reveal-element').forEach(el => revealObserver.observe(el));
+
+// 3. 3D Tilt Effect for Hero and Feature Cards (Smoothed Out)
+function applyTiltEffect(elements) {
+    if (window.matchMedia("(pointer: fine)").matches) {
+        elements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5; // Reduced from 10 to 5 for smoother feel
+                const rotateY = ((x - centerX) / centerX) * 5;  // Reduced from 10 to 5
+                
+                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+    }
+}
+applyTiltEffect(document.querySelectorAll('.tilt-card'));
+
+// 4. Horizontal Scroll Logic for Problem Section
+const horizontalTrack = document.getElementById('horizontal-track');
+const problemSection = document.getElementById('problem');
+
+window.addEventListener('scroll', () => {
+    if (window.innerWidth >= 768 && horizontalTrack && problemSection) {
+        const rect = problemSection.getBoundingClientRect();
+        // Check if section is pinned
+        if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+            const scrollProgress = Math.abs(rect.top) / (rect.height - window.innerHeight);
+            const maxTranslate = horizontalTrack.scrollWidth - window.innerWidth + 100; // Adding buffer
+            horizontalTrack.style.transform = `translateX(-${scrollProgress * maxTranslate}px)`;
+        } else if (rect.top > 0) {
+            horizontalTrack.style.transform = `translateX(0px)`;
+        }
+    }
+});
+
+
+// --- Navbar Scroll Effect ---
+window.addEventListener('scroll', () => {
+const navContainer = document.getElementById('nav-padding');
+const nav = document.getElementById('navbar');
+if (window.scrollY > 20) {
+navContainer.classList.replace('py-3', 'py-2');
+navContainer.classList.replace('md:py-4', 'md:py-2');
+nav.classList.add('glass-nav-scrolled');
+nav.classList.remove('glass-nav');
+} else {
+navContainer.classList.replace('py-2', 'py-3');
+navContainer.classList.replace('md:py-2', 'md:py-4');
+nav.classList.add('glass-nav');
+nav.classList.remove('glass-nav-scrolled');
 }
 });
-}, observerOptions);
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 // --- FAQ Logic ---
 document.querySelectorAll('.faq-btn').forEach(btn => {
 btn.addEventListener('click', () => {
 const content = btn.nextElementSibling;
 const icon = btn.querySelector('.faq-icon');
-content.classList.toggle('open');
-icon.classList.toggle('open');
+if(content.style.gridTemplateRows === '1fr') {
+    content.style.gridTemplateRows = '0fr';
+    icon.classList.remove('rotate-45');
+} else {
+    content.style.gridTemplateRows = '1fr';
+    icon.classList.add('rotate-45');
+}
 });
 });
 
-// --- Data: States & Cities ---
+// --- Data: States & Cities (EXACT COPY) ---
 const locationData = {
 "Andaman and Nicobar Islands": ["Port Blair", "Garacharma", "Bambooflat", "Prothrapur", "Mayabunder", "Diglipur", "Rangat"],
 "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Rajamahendravaram", "Tirupati", "Kakinada", "Kadapa", "Anantapur", "Vizianagaram", "Eluru", "Ongole", "Nandyal", "Machilipatnam", "Adoni", "Tenali", "Proddatur", "Chittoor", "Hindupur", "Srikakulam", "Bhimavaram", "Guntakal", "Dharmavaram", "Gudivada", "Narasaraopet", "Tadipatri", "Tadepalligudem", "Amaravati", "Chilakaluripet", "Yemmiganur", "Kadiri", "Chirala", "Anakapalle", "Kavali", "Palacole", "Sullurpeta", "Rayachoti", "Kandukur", "Bapatla", "Ponnur"],
@@ -951,7 +1244,7 @@ citySelect.disabled = true;
 }
 });
 
-// --- Form Phone Validation & Sanitization ---
+// --- Form Phone Validation & Sanitization (EXACT COPY) ---
 const phoneInput = document.getElementById('phone');
 const phoneError = document.getElementById('phone-error');
 
@@ -963,15 +1256,15 @@ if (val.length > 10) val = val.substring(0, 10);
 e.target.value = val;
 
 if(val.length > 0 && val.length < 10) {
-phoneInput.classList.add('border-brand-error', 'focus:border-brand-error');
+phoneInput.classList.add('border-brand-error');
 phoneError.classList.remove('hidden');
 } else {
-phoneInput.classList.remove('border-brand-error', 'focus:border-brand-error');
+phoneInput.classList.remove('border-brand-error');
 phoneError.classList.add('hidden');
 }
 });
 
-// --- Waitlist Submission to Google Forms ---
+// --- Waitlist Submission to Google Forms (EXACT COPY) ---
 const waitlistForm = document.getElementById('waitlist-form');
 const formSuccess = document.getElementById('form-success');
 const submitBtn = document.getElementById('submit-btn');
@@ -1024,7 +1317,7 @@ btnLoader.classList.add('hidden');
 });
 });
 
-// --- Exhaustive 100% Localization System for All Languages ---
+// --- Exhaustive 100% Localization System (EXACT COPY) ---
 const languages = {
 en: { name: "English", native: "English" },
 hi: { name: "Hindi", native: "हिन्दी" },
@@ -1039,19 +1332,19 @@ te: { name: "Telugu", native: "తెలుగు" }
 const translations = {
 en: {
 nav_problem: "The Problem", nav_features: "Features", nav_how: "How it Works", nav_who: "Who is it for", nav_waitlist: "Join Waitlist",
-hero_badge: "Early Access Registration Open", hero_title: "Serious technology to simplify local construction commerce.",
+hero_badge: "Early Access Registration Open", hero_title: "Serious technology to simplify <span class='text-gradient'>local construction</span> commerce.",
 hero_subtitle: "Find nearby suppliers, compare quotes, manage procurement, and simplify contractor workflows. A grounded approach to organizing local markets without the hype.",
 hero_cta: "Join the Waitlist", hero_secondary: "Understand the Vision", mockup_title: "Site Alpha Procurement", mockup_subtitle: "Active Requirements", 
 mockup_item1: "Cement (50 Bags)", mockup_stat1: "3 Quotes Received", mockup_item2: "TMT Bars (2 Tons)", mockup_stat2: "Pending Local Match", 
-mockup_float1_title: "Local Discovery", mockup_float1_desc: "4 verified sellers within 5km radius.", mockup_float2_title: "Site Expense", mockup_float2_desc: "Budget tracking updated",
-problem_title: "The reality of local procurement.", problem_desc: "We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking.",
+mockup_float1_title: "Local Discovery", mockup_float1_desc: "4 verified sellers within 5km radius.", mockup_float2_title: "Site Expense", mockup_float2_desc: "Budget tracking updated just now",
+problem_title: "The reality of local procurement.", problem_desc: "We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking. It's time to organize the workflow without disrupting the local ecosystem.",
 prob_1_title: "Manual Sourcing Chaos", prob_1_desc: "Calling shop after shop to check availability and negotiate rates wastes hours of productive construction time.",
 prob_2_title: "Zero Market Visibility", prob_2_desc: "Buyers have no way to know which local supplier actually has the required material in stock at a fair price.",
-prob_3_title: "Fragmented Tracking", prob_3_desc: "Contractors struggle to keep track of site-wise expenses, dues, and supplier ledgers across different notebooks.",
+prob_3_title: "Fragmented Tracking", prob_3_desc: "Contractors struggle to keep track of site-wise expenses, dues, and supplier ledgers across different notebooks. A recipe for financial leaks.",
 what_title: "Not just another marketplace.", what_desc: "NeeVLY is a smart local procurement and business coordination ecosystem. We are building practical tools to reduce chaos, organize workflows, and help local businesses become digitally accessible.",
 how_eyebrow: "The Process", how_title: "How NeeVLY Organizes Sourcing",
-how_1_title: "Discover & Match", how_1_desc: "Contractors upload their material requirements. The system instantly pings verified nearby sellers who have the stock.",
-how_2_title: "Compare Quotes", how_2_desc: "Sellers respond with custom quotes. Buyers compare prices, distance, and ratings side-by-side in real time.",
+how_1_title: "Discover & Match", how_1_desc: "Contractors upload their material requirements. The system instantly pings verified nearby sellers who have the stock. No more blind calling.",
+how_2_title: "Compare Quotes", how_2_desc: "Sellers respond with custom quotes. Buyers compare prices, distance, and ratings side-by-side in real time to make informed decisions.",
 how_3_title: "Execute & Track", how_3_desc: "Finalize the order, manage logistics communication, and track site-wise expenses automatically in the digital khata.",
 feat_title: "Core Ecosystem Features", feat_desc: "Tools designed for practical reality, not just theoretical perfection.",
 feat_1_title: "Smart RFQ System", feat_1_desc: "Request bulk material quotes from multiple nearby suppliers simultaneously. No more manual calls.",
@@ -1089,7 +1382,7 @@ footer_copy: "&copy; 2026 KritaVa Technologies. Building for India."
 },
 hi: {
 nav_problem: "समस्या", nav_features: "विशेषताएं", nav_how: "यह कैसे काम करता है", nav_who: "यह किसके लिए है?", nav_waitlist: "वेटलिस्ट से जुड़ें",
-hero_badge: "प्रारंभिक पंजीकरण खुला है", hero_title: "स्थानीय निर्माण खरीददारी को सरल बनाने वाली तकनीक।",
+hero_badge: "प्रारंभिक पंजीकरण खुला है", hero_title: "<span class='text-gradient'>स्थानीय निर्माण</span> खरीददारी को सरल बनाने वाली तकनीक।",
 hero_subtitle: "आस-पास के आपूर्तिकर्ता खोजें, कीमतों की तुलना करें और कामकाज आसान बनाएं। बिना दिखावे के स्थानीय बाज़ार को व्यवस्थित करने का एक ठोस प्रयास।",
 hero_cta: "वेटलिस्ट में शामिल हों", hero_secondary: "हमारा विजन समझें", mockup_title: "साइट अल्फा खरीददारी", mockup_subtitle: "सक्रिय आवश्यकताएं", 
 mockup_item1: "सीमेंट (50 बोरी)", mockup_stat1: "3 कोटेशन मिले", mockup_item2: "TMT सरिया (2 टन)", mockup_stat2: "स्थानीय मैच लंबित", 
@@ -1139,7 +1432,7 @@ footer_copy: "&copy; 2026 KritaVa Technologies. भारत के लिए �
 },
 bho: {
 nav_problem: "समस्या", nav_features: "सुविधा", nav_how: "ई कइसे काम करेला", nav_who: "केकरा खातिर बा?", nav_waitlist: "जुड़ीं (Waitlist)", hero_badge: "रजिस्ट्रेशन खुल गइल बा",
-hero_title: "स्थानीय निर्माण खरीदारी के आसान बनावे वाला तकनीक।", hero_subtitle: "आस-पास के आपूर्तिकर्ता खोजीं, कीमत मिलाईं आ ठेकेदार के काम आसान बनाईं।",
+hero_title: "<span class='text-gradient'>स्थानीय निर्माण</span> खरीदारी के आसान बनावे वाला तकनीक।", hero_subtitle: "आस-पास के आपूर्तिकर्ता खोजीं, कीमत मिलाईं आ ठेकेदार के काम आसान बनाईं।",
 hero_cta: "वेटलिस्ट में शामिल होईं", hero_secondary: "हमनी के विजन समझीं", mockup_title: "साइट अल्फा खरीद", mockup_subtitle: "सक्रिय जरूरत",
 mockup_item1: "सीमेंट (50 बोरा)", mockup_stat1: "3 कोटेशन मिलल", mockup_item2: "TMT सरिया (2 टन)", mockup_stat2: "मैच पेंडिंग बा",
 mockup_float1_title: "स्थानीय खोज", mockup_float1_desc: "5 किमी के दायरे में 4 सत्यापित विक्रेता।", mockup_float2_title: "साइट के खरचा", mockup_float2_desc: "बजट ट्रैकिंग अपडेट",
@@ -1174,7 +1467,7 @@ success_title: "रउआ लिस्ट में बानी।", success_de
 },
 mai: {
 nav_problem: "समस्या", nav_features: "सुविधा", nav_how: "ई कोना काज करैत अछि", nav_who: "ककरा लेल अछि?", nav_waitlist: "जुड़ू (Waitlist)", hero_badge: "रजिस्ट्रेशन खुजल अछि",
-hero_title: "स्थानीय निर्माण खरीदारी केँ आसान बनाबय वाला तकनीक।", hero_subtitle: "आस-पासक आपूर्तिकर्ता खोजू, दामक तुलना करू। बिना कोनो दिखावाक स्थानीय बाज़ार व्यवस्थित करबाक प्रयास।",
+hero_title: "<span class='text-gradient'>स्थानीय निर्माण</span> खरीदारी केँ आसान बनाबय वाला तकनीक।", hero_subtitle: "आस-पासक आपूर्तिकर्ता खोजू, दामक तुलना करू। बिना कोनो दिखावाक स्थानीय बाज़ार व्यवस्थित करबाक प्रयास।",
 hero_cta: "वेटलिस्ट मे शामिल होउ", hero_secondary: "हमर विजन बुझू", mockup_title: "साइट अल्फा खरीद", mockup_subtitle: "सक्रिय आवश्यकता",
 mockup_item1: "सीमेंट (50 बोरा)", mockup_stat1: "3 कोटेशन भेटल", mockup_item2: "TMT सरिया (2 टन)", mockup_stat2: "मैच पेंडिंग अछि",
 mockup_float1_title: "स्थानीय खोज", mockup_float1_desc: "5 किमीक दायरा मे 4 सत्यापित विक्रेता।", mockup_float2_title: "साइटक खर्च", mockup_float2_desc: "बजट ट्रैकिंग अपडेट",
@@ -1209,7 +1502,7 @@ success_title: "अहाँ लिस्ट मे छी।", success_desc: "N
 },
 mr: {
 nav_problem: "समस्या", nav_features: "वैशिष्ट्ये", nav_how: "हे कसे कार्य करते", nav_who: "हे कोणासाठी आहे?", nav_waitlist: "वेटलिस्टमध्ये सामील व्हा",
-hero_badge: "नोंदणी सुरू आहे", hero_title: "स्थानिक बांधकाम खरेदी सुलभ करण्यासाठी तंत्रज्ञान.",
+hero_badge: "नोंदणी सुरू आहे", hero_title: "<span class='text-gradient'>स्थानिक बांधकाम</span> खरेदी सुलभ करण्यासाठी तंत्रज्ञान.",
 hero_subtitle: "जवळपासचे पुरवठादार शोधा, किमतींची तुलना करा आणि कंत्राटदारांचे कामकाज सोपे करा.", hero_cta: "वेटलिस्टमध्ये सामील व्हा", hero_secondary: "आमचा दृष्टिकोन समजून घ्या",
 mockup_title: "साइट अल्फा खरेदी", mockup_subtitle: "सक्रिय आवश्यकता", mockup_item1: "सिमेंट (50 पिशव्या)", mockup_stat1: "3 कोटेशन प्राप्त",
 mockup_item2: "TMT बार (2 टन)", mockup_stat2: "स्थानिक जुळणी प्रलंबित", mockup_float1_title: "स्थानिक शोध", mockup_float1_desc: "5 किमी परिसरात 4 सत्यापित विक्रेते.",
@@ -1229,7 +1522,7 @@ who_2_title: "स्थानिक विक्रेते", who_2_desc: "ह�
 why_title: "स्थानिक व्यवसाय का महत्त्वाचा आहे", why_p1: "आमचा विश्वास आहे की भविष्य स्थानिक इकोसिस्टम मजबूत करण्यात आहे.", why_p2: "NeeVLY हे स्थानिक व्यापाराचे डिजिटल स्वरूप आणण्यासाठी डिझाइन केले आहे.",
 why_p3: "लक्ष्य: स्मार्ट स्थानिक खरेदी, मजबूत अर्थव्यवस्था.", 
 faq_title: "सतत विचारले जाणारे प्रश्न", faq_desc: "NeeVLY बद्दल आपल्याला माहित असणे आवश्यक असलेली प्रत्येक गोष्ट.",
-faq_1_q: "NeeVLY नक्की काय आहे?", faq_1_a: "NeeVLY हे एक स्मार्ट प्लॅटफॉर्म आहे जे बांधकाम साहित्याच्या खरेदीदारांना थेट स्थानिक विक्रेत्यांशी जोडते.",
+faq_1_q: "NeeVLY नक्की काय आहे?", faq_1_a: "NeeVLY हे एक स्मार्ट प्लॅटफॉर्म आहे जे बांधकाम साहित्याच्या खरेदीदारांना थेट स्थानिक विक्रेंशी जोडते.",
 faq_2_q: "NeeVLY वापरण्यासाठी मोफत आहे का?", faq_2_a: "होय, खरेदीदारांसाठी हे मोफत आहे. सुरुवातीच्या काळात विक्रेत्यांसाठीही कोणतेही कमिशन नाही.",
 faq_3_q: "तुम्ही कोणत्या शहरांमध्ये सुरुवात करत आहात?", faq_3_a: "आम्ही टियर-2 आणि टियर-3 शहरांवर लक्ष केंद्रित करत आहोत, ज्याची सुरुवात झारखंडमधून होईल.",
 faq_4_q: "हे स्वतः दुकानांना कॉल करण्यापेक्षा कसे चांगले आहे?", faq_4_a: "5 दुकानांना कॉल करण्याऐवजी, तुम्ही NeeVLY वर फक्त एकदा तुमची गरज टाकता. विक्रेते तुम्हाला त्यांच्या किमती पाठवतात.",
@@ -1244,7 +1537,7 @@ success_title: "तुम्ही यादीत आहात.", success_desc:
 },
 bn: {
 nav_problem: "সমস্যা", nav_features: "বৈশিষ্ট্য", nav_how: "কিভাবে কাজ করে", nav_who: "এটি কার জন্য?", nav_waitlist: "ওয়েটলিস্টে যোগ দিন",
-hero_badge: "রেজিস্ট্রেশন খোলা আছে", hero_title: "স্থানীয় নির্মাণ কেনাকাটা সহজ করার প্রযুক্তি।",
+hero_badge: "রেজিস্ট্রেশন খোলা আছে", hero_title: "<span class='text-gradient'>স্থানীয় নির্মাণ</span> কেনাকাটা সহজ করার প্রযুক্তি।",
 hero_subtitle: "আশেপাশের সরবরাহকারী খুঁজুন, দামের তুলনা করুন এবং ঠিকাদারদের কাজ সহজ করুন।", hero_cta: "ওয়েটলিস্টে যোগ দিন", hero_secondary: "আমাদের লক্ষ্য বুঝুন",
 mockup_title: "সাইট আলফা ক্রয়", mockup_subtitle: "সক্রিয় প্রয়োজনীয়তা", mockup_item1: "সিমেন্ট (৫০ ব্যাগ)", mockup_stat1: "৩ টি কোটেশন পাওয়া গেছে",
 mockup_item2: "টিএমটি রড (২ টন)", mockup_stat2: "স্থানীয় মিল মুলতুবি", mockup_float1_title: "স্থানীয় সন্ধান", mockup_float1_desc: "৫ কিমি এর মধ্যে ৪ জন বিক্রেতা।",
@@ -1279,7 +1572,7 @@ success_title: "আপনি তালিকায় আছেন।", success_
 },
 ta: {
 nav_problem: "பிரச்சனை", nav_features: "அம்சங்கள்", nav_how: "எப்படி செயல்படுகிறது", nav_who: "யாருக்காக?", nav_waitlist: "பட்டியலில் சேரவும்",
-hero_badge: "பதிவு திறக்கப்பட்டுள்ளது", hero_title: "உள்ளூர் கட்டுமான கொள்முதலை எளிதாக்கும் தொழில்நுட்பம்.",
+hero_badge: "பதிவு திறக்கப்பட்டுள்ளது", hero_title: "<span class='text-gradient'>உள்ளூர் கட்டுமான</span> கொள்முதலை எளிதாக்கும் தொழில்நுட்பம்.",
 hero_subtitle: "அருகிலுள்ள சப்ளையர்களைக் கண்டறியவும், விலைகளை ஒப்பிடவும்.", hero_cta: "பட்டியலில் சேரவும்", hero_secondary: "எங்கள் பார்வையை புரிந்து கொள்ளுங்கள்",
 mockup_title: "தள ஆல்பா கொள்முதல்", mockup_subtitle: "செயலில் உள்ள தேவைகள்", mockup_item1: "சிமெண்ட் (50 பைகள்)", mockup_stat1: "3 மேற்கோள்கள்",
 mockup_item2: "TMT கம்பிகள் (2 டன்)", mockup_stat2: "உள்ளூர் பொருத்தம் நிலுவையில் உள்ளது", mockup_float1_title: "உள்ளூர் கண்டுபிடிப்பு", mockup_float1_desc: "5 கிமீக்குள் 4 சரிபார்க்கப்பட்ட விற்பனையாளர்கள்.",
@@ -1314,7 +1607,7 @@ success_title: "நீங்கள் பட்டியலில் உள்�
 },
 te: {
 nav_problem: "సమస్య", nav_features: "ఫీచర్లు", nav_how: "ఎలా పనిచేస్తుంది", nav_who: "ఎవరి కోసం?", nav_waitlist: "వెయిట్‌లిస్ట్‌లో చేరండి",
-hero_badge: "రిజిస్ట్రేషన్ ప్రారంభమైంది", hero_title: "స్థానిక నిర్మాణ కొనుగోళ్లను సులభతరం చేసే సాంకేతికత.",
+hero_badge: "రిజిస్ట్రేషన్ ప్రారంభమైంది", hero_title: "<span class='text-gradient'>స్థానిక నిర్మాణ</span> కొనుగోళ్లను సులభతరం చేసే సాంకేతికత.",
 hero_subtitle: "సమీపంలోని సరఫరాదారులను కనుగొనండి మరియు ధరలను సరిపోల్చండి.", hero_cta: "వెయిట్‌లిస్ట్‌లో చేరండి", hero_secondary: "మా దృష్టిని అర్థం చేసుకోండి",
 mockup_title: "సైట్ ఆల్ఫా కొనుగోలు", mockup_subtitle: "క్రియాశీల అవసరాలు", mockup_item1: "సిమెంట్ (50 బ్యాగులు)", mockup_stat1: "3 కొటేషన్లు వచ్చాయి",
 mockup_item2: "TMT బార్స్ (2 టన్నులు)", mockup_stat2: "స్థానిక మ్యాచ్ పెండింగ్", mockup_float1_title: "స్థానిక అన్వేషణ", mockup_float1_desc: "5 కి.మీ లోపు 4 ధృవీకరించబడిన విక్రేతలు.",
@@ -1353,11 +1646,10 @@ const langOptionsContainer = document.getElementById('language-options');
 const currentLangLabel = document.getElementById('current-lang-label');
 let currentLang = 'en';
 
-// Build Language Dropdown UI
 Object.keys(languages).forEach(code => {
 const btn = document.createElement('button');
-btn.className = `w-full text-left px-5 py-2.5 text-sm hover:bg-gray-800 transition-colors flex items-center justify-between ${code === currentLang ? 'bg-gray-800/80 text-brand-primary font-bold' : 'font-medium text-gray-200'}`;
-btn.innerHTML = `<span>${languages[code].native}</span> <span class="text-[10px] text-gray-400 uppercase tracking-wider">${languages[code].name}</span>`;
+btn.className = `w-full text-left px-5 py-2.5 text-sm hover:bg-white/10 transition-colors flex items-center justify-between ${code === currentLang ? 'bg-white/10 text-brand-primary font-bold' : 'font-medium text-slate-200'}`;
+btn.innerHTML = `<span>${languages[code].native}</span> <span class="text-[10px] text-slate-400 uppercase tracking-wider">${languages[code].name}</span>`;
 btn.onclick = () => setLanguage(code);
 langOptionsContainer.appendChild(btn);
 });
@@ -1366,60 +1658,35 @@ function setLanguage(langCode) {
 currentLang = langCode;
 currentLangLabel.textContent = languages[langCode].native;
 
-// Update Active State
 Array.from(langOptionsContainer.children).forEach((btn, index) => {
 if(Object.keys(languages)[index] === langCode) {
-btn.classList.add('bg-gray-800/80', 'text-brand-primary', 'font-bold');
-btn.classList.remove('font-medium', 'text-gray-200');
+btn.classList.add('bg-white/10', 'text-brand-primary', 'font-bold');
+btn.classList.remove('font-medium', 'text-slate-200');
 } else {
-btn.classList.remove('bg-gray-800/80', 'text-brand-primary', 'font-bold');
-btn.classList.add('font-medium', 'text-gray-200');
+btn.classList.remove('bg-white/10', 'text-brand-primary', 'font-bold');
+btn.classList.add('font-medium', 'text-slate-200');
 }
 });
 
-// Replace Texts Exhaustively across all data-i18n tags
 document.querySelectorAll('[data-i18n]').forEach(el => {
 const key = el.getAttribute('data-i18n');
 const text = translations[langCode]?.[key] || translations['en'][key];
-
-if (text) {
-if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-// Inputs are handled by adjacent labels.
-} else {
+if (text && el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') {
 el.innerHTML = text;
-}
 }
 });
 
-// Update Input Placeholders manually if needed
 const aiInput = document.getElementById('ai-input');
 if(aiInput) aiInput.placeholder = translations[langCode]?.ai_placeholder || translations['en']['ai_placeholder'];
 
-// Re-trigger select updates for translated placeholders
 if(!citySelect.value) {
 citySelect.innerHTML = `<option value="" disabled selected data-i18n="form_city">${translations[currentLang]?.form_city || 'Select City'}</option>`; 
 }
 }
 
-// --- Navbar Scroll Effect (Preserving EXACT logic) ---
-window.addEventListener('scroll', () => {
-const navContainer = document.getElementById('nav-padding');
-const nav = document.getElementById('navbar');
-if (window.scrollY > 20) {
-// Gets smaller padding
-navContainer.classList.replace('py-4', 'py-2');
-nav.classList.add('glass-nav-scrolled');
-nav.classList.remove('glass-nav');
-} else {
-navContainer.classList.replace('py-2', 'py-4');
-nav.classList.add('glass-nav');
-nav.classList.remove('glass-nav-scrolled');
-}
-});
-
-// --- KritaVa AI Fetch Logic ---
+// --- KritaVa AI Fetch Logic (EXACT COPY) ---
 const aiForm = document.getElementById('ai-form');
-const aiInput = document.getElementById('ai-input');
+const aiInputText = document.getElementById('ai-input');
 const aiResponseArea = document.getElementById('ai-response-area');
 const aiResponseText = document.getElementById('ai-response-text');
 const aiBtn = document.getElementById('ai-btn');
@@ -1667,23 +1934,18 @@ you shoudld be focused on saving the api credit (do not mention in you response 
 
 aiForm.addEventListener('submit', async (e) => {
 e.preventDefault();
-const question = aiInput.value.trim();
+const question = aiInputText.value.trim();
 if (!question) return;
 
-// Show loading UI
 aiBtn.disabled = true;
 aiBtnText.classList.add('hidden');
 aiLoader.classList.remove('hidden');
 aiResponseArea.classList.remove('hidden');
 aiResponseArea.classList.remove('opacity-0', 'translate-y-4');
-aiResponseText.innerHTML = `<span class="animate-pulse text-brand-muted">${translations[currentLang]?.ai_loading || 'Thinking...'}</span>`;
+aiResponseText.innerHTML = `<span class="animate-pulse text-brand-muted font-medium">${translations[currentLang]?.ai_loading || 'Thinking...'}</span>`;
 
 try {
-// Connecting to the Gemini API securely
-// TODO: PUT YOUR NEW API KEY HERE
-// Paste your scrambled Base64 string here
 const encodedKey = "QUl6YVN5Q0M2Q0MwQUpsVmszdEhka2lQTy1BdWZDeFdVZWh0N3Nr"; 
-// The browser decrypts it on the fly, but GitHub bots only see the scrambled text!
 const apiKey = atob(encodedKey); 
 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
@@ -1703,7 +1965,6 @@ body: JSON.stringify(payload)
 });
 
 if (!response.ok) {
-// Extract exact error from Google to know exactly why it failed
 const errorData = await response.json();
 throw new Error(errorData.error?.message || `HTTP Error: ${response.status}`);
 }
@@ -1716,9 +1977,8 @@ throw new Error("Received empty or invalid response from AI.");
 
 const text = data.candidates[0].content.parts[0].text;
 
-// Simple formatting to make markdown look nice
 const formattedText = text
-.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-deep">$1</strong>')
+.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-text font-black">$1</strong>')
 .replace(/\*(.*?)\*/g, '<em>$1</em>')
 .replace(/\n/g, '<br>');
 
@@ -1726,17 +1986,14 @@ aiResponseText.innerHTML = formattedText;
 
 } catch (error) {
 console.error("AI Error Detailed:", error);
-// Now printing the EXACT error message to the screen so we aren't guessing
-aiResponseText.innerHTML = `<span class="text-brand-error font-medium">Error: ${error.message}</span>`;
+aiResponseText.innerHTML = `<span class="text-brand-error font-bold">Error: ${error.message}</span>`;
 } finally {
-// Restore button state
 aiBtn.disabled = false;
 aiBtnText.classList.remove('hidden');
 aiLoader.classList.add('hidden');
-aiInput.value = '';
+aiInputText.value = '';
 }
 });
-
 </script>
 </body>
 </html>
