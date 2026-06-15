@@ -5,18 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>NeeVLY by KritaVa | Intelligent Local Construction Procurement</title>
 
+<!-- Favicon Integration -->
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
 <link rel="manifest" href="./site.webmanifest">
 <link rel="shortcut icon" href="./favicon.ico">
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+<!-- Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
 
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -302,16 +306,20 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
 </head>
 <body class="antialiased selection:bg-brand-soft selection:text-brand-deep">
 
+<!-- Scroll Progress -->
 <div id="scroll-progress"></div>
 
+<!-- Ambient Background -->
 <div class="ambient-bg">
     <div class="bg-grid absolute inset-0 z-0"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 </div>
 
+<!-- Mouse Follower Glow -->
 <div id="cursor-glow" class="hidden md:block"></div>
 
+<!-- Mobile Navigation Menu Overlay -->
 <div id="mobile-menu" class="fixed inset-0 z-[100] bg-brand-bg/95 backdrop-blur-3xl transform translate-x-full lg:hidden flex flex-col justify-center items-center">
     <button id="close-menu-btn" class="absolute top-6 right-6 p-2 bg-white/50 rounded-full border border-gray-200 shadow-sm text-brand-text">
         <i data-lucide="x" class="w-6 h-6"></i>
@@ -325,11 +333,13 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
     </div>
 </div>
 
+<!-- Pill-Shaped Glass Navbar -->
 <div class="fixed top-3 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-500" id="nav-container">
 <nav class="max-w-6xl mx-auto glass-nav rounded-full transition-all duration-500" id="navbar">
 <div class="px-4 py-2.5 md:px-5 md:py-3 transition-all duration-500" id="nav-padding">
 <div class="flex justify-between items-center">
     
+<!-- Logo -->
 <a href="https://kritavatech.github.io/-/" target="_blank" class="flex items-center gap-2 md:gap-3 group cursor-pointer relative" onclick="window.scrollTo(0,0)">
     <img src="NeeVLY LOGO.png" alt="NeeVLY Logo" class="h-6 md:h-8 w-auto object-contain group-hover:scale-105 transition-transform" onerror="this.outerHTML='<div class=\'w-8 h-8 rounded-full bg-gradient-to-br from-brand-deep to-brand-primary text-white flex items-center justify-center font-black text-lg shadow-glow\'>N</div>'">
     
@@ -339,6 +349,7 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
     </div>
 </a>
 
+<!-- Center Links -->
 <div class="hidden lg:flex items-center gap-8 text-sm font-bold text-brand-text/90">
 <a href="#problem" class="hover:text-brand-primary transition-all hover:-translate-y-0.5 duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full" data-i18n="nav_problem">The Problem</a>
 <a href="#features" class="hover:text-brand-primary transition-all hover:-translate-y-0.5 duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-brand-primary after:transition-all hover:after:w-full" data-i18n="nav_features">Features</a>
@@ -347,6 +358,7 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
 </div>
 
 <div class="flex items-center gap-2 md:gap-4">
+<!-- Language Selector -->
 <div class="relative group hidden sm:block">
 <button id="lang-btn" class="flex items-center gap-1.5 px-3 py-2 rounded-full hover:bg-white/60 transition-colors text-xs md:text-sm font-bold text-brand-text backdrop-blur-md border border-transparent hover:border-brand-primary/20">
 <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-primary"></i>
@@ -363,6 +375,7 @@ textarea:focus ~ label, textarea:not(:placeholder-shown) ~ label {
 Join Waitlist
 </a>
 
+<!-- Mobile Menu Button -->
 <button id="mobile-menu-btn" class="lg:hidden p-2 text-brand-text hover:text-brand-primary transition-colors focus:outline-none">
     <i data-lucide="menu" class="w-6 h-6"></i>
 </button>
@@ -373,10 +386,12 @@ Join Waitlist
 </nav>
 </div>
 
+<!-- Hero Section -->
 <section class="pt-28 pb-12 lg:pt-40 lg:pb-24 relative min-h-[85vh] flex items-center z-10 overflow-hidden">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
 <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
 <div class="max-w-2xl relative z-20 text-center lg:text-left mt-8 lg:mt-0">
+<!-- Banner -->
 <div class="reveal-element inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur-md text-brand-deep text-xs font-bold mb-6 border border-white shadow-sm hover:shadow-glow transition-all cursor-default">
 <span class="relative flex h-2 w-2">
 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75"></span>
@@ -402,12 +417,14 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
 </div>
 </div>
 
+<!-- Scaled and fully responsive Hero Mockup -->
 <div class="relative h-[320px] sm:h-[400px] md:h-[450px] lg:h-[550px] flex items-center justify-center reveal-element delay-200 w-full mt-6 lg:mt-0">
 <div class="tilt-wrapper w-full max-w-[26rem] mx-auto">
     <div class="tilt-card w-[92%] sm:w-full mx-auto relative" id="hero-mockup">
         
         <div class="absolute inset-0 bg-brand-primary/20 blur-[60px] md:blur-[80px] rounded-full tilt-inner animate-pulse"></div>
 
+        <!-- Main Dashboard Card -->
         <div class="w-full bg-white/90 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2rem] shadow-float border border-white p-5 md:p-8 relative z-10 animate-float-slow">
             <div class="flex items-center gap-4 mb-5 md:mb-6 border-b border-gray-100/80 pb-4 md:pb-5">
                 <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-brand-soft flex items-center justify-center text-brand-deep font-black text-base md:text-lg border border-brand-primary/20 shadow-sm">NV</div>
@@ -452,6 +469,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
             </div>
         </div>
 
+        <!-- Floating Element 1 - Mobile Optimised Positioning -->
         <div class="absolute -right-2 sm:-right-8 md:-right-12 top-6 sm:top-8 md:top-10 w-[45%] sm:w-48 md:w-56 bg-white/95 backdrop-blur-xl rounded-xl md:rounded-2xl shadow-float border border-white p-3 md:p-5 z-30 animate-float-medium tilt-inner-high hover:shadow-glow transition-shadow">
             <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
                 <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-brand-soft flex items-center justify-center shrink-0"><i data-lucide="store" class="w-3 h-3 md:w-4 md:h-4 text-brand-primary"></i></div>
@@ -460,6 +478,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
             <div class="text-[10px] md:text-sm font-medium text-brand-muted leading-relaxed" data-i18n="mockup_float1_desc">4 verified sellers within 5km.</div>
         </div>
 
+        <!-- Floating Element 2 - Mobile Optimised Positioning -->
         <div class="absolute -left-2 sm:-left-8 md:-left-16 bottom-4 md:bottom-16 w-[55%] sm:w-56 md:w-64 bg-[#0B1120]/95 backdrop-blur-xl text-white rounded-2xl md:rounded-3xl shadow-float p-4 md:p-6 z-30 animate-float-rotate border border-white/10 tilt-inner-high hover:shadow-glow-accent transition-shadow">
             <div class="flex items-center justify-between mb-2 md:mb-4">
                 <span class="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest" data-i18n="mockup_float2_title">Site Expense</span>
@@ -475,6 +494,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
 </div>
 </section>
 
+<!-- Top Marquee Banner -->
 <div class="marquee-container">
     <div class="marquee-content text-xl md:text-3xl font-black text-white/90 tracking-tight uppercase flex items-center">
         <span>SMART TRACKING <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> INTELLIGENT PROCUREMENT <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-accent mx-3 md:mx-4 -mt-1"></i> HYPERLOCAL COMMERCE <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> </span>
@@ -483,8 +503,10 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
     </div>
 </div>
 
+<!-- The Problem Section -->
 <section id="problem" class="horizontal-scroll-wrapper relative z-10 bg-brand-bg">
     <div class="horizontal-sticky-container">
+        <!-- Mobile Header -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative md:static md:w-auto md:px-0 z-20 md:hidden pt-12 pb-2">
             <div class="text-center mb-2">
                 <h2 class="text-3xl font-black text-brand-text tracking-tight mb-3" data-i18n="problem_title">The reality of local procurement.</h2>
@@ -493,11 +515,13 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
         </div>
 
         <div class="horizontal-slide-content w-full items-center mt-0" id="horizontal-track">
+            <!-- Intro Card (Desktop Only) -->
             <div class="horizontal-card hidden md:flex flex-col justify-center bg-transparent border-none shadow-none pl-8 lg:pl-16">
                 <h2 class="text-4xl lg:text-5xl font-black text-brand-text tracking-tight mb-6 leading-[1.1]" data-i18n="problem_title">The reality of <br><span class="text-gradient">local procurement.</span></h2>
                 <p class="text-brand-muted text-lg font-medium leading-relaxed max-w-md border-l-4 border-brand-primary pl-5" data-i18n="problem_desc">We observed the chaos. Calling multiple shops manually, no transparent price comparison, fragmented markets, and difficult project tracking.</p>
             </div>
 
+            <!-- Card 1 -->
             <div class="horizontal-card bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-soft border border-brand-border hover:border-brand-error/30 hover:shadow-float transition-all duration-300 relative overflow-hidden group tilt-wrapper w-full">
                 <div class="tilt-card h-full flex flex-col justify-center">
                     <div class="absolute right-0 top-0 w-32 h-32 md:w-48 md:h-48 bg-brand-error/5 rounded-full blur-[40px] md:blur-[60px] -z-10 group-hover:bg-brand-error/10 transition-colors"></div>
@@ -509,6 +533,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
                 </div>
             </div>
 
+            <!-- Card 2 -->
             <div class="horizontal-card bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-soft border border-brand-border hover:border-brand-warning/30 hover:shadow-float transition-all duration-300 relative overflow-hidden group tilt-wrapper w-full">
                 <div class="tilt-card h-full flex flex-col justify-center">
                     <div class="absolute right-0 top-0 w-32 h-32 md:w-48 md:h-48 bg-brand-warning/5 rounded-full blur-[40px] md:blur-[60px] -z-10 group-hover:bg-brand-warning/10 transition-colors"></div>
@@ -520,6 +545,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
                 </div>
             </div>
 
+            <!-- Card 3 (Dark Premium) -->
             <div class="horizontal-card bg-[#0B1120] text-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-10 shadow-float border border-white/10 hover:border-brand-primary/50 hover:shadow-glow-accent transition-all duration-300 relative overflow-hidden group tilt-wrapper md:mr-[5vw] w-full">
                 <div class="tilt-card h-full flex flex-col justify-center">
                     <div class="w-14 h-14 md:w-16 md:h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 mb-5 md:mb-6 group-hover:scale-110 group-hover:bg-brand-primary transition-all tilt-inner relative z-10">
@@ -533,6 +559,7 @@ Find nearby suppliers, compare quotes, manage procurement, and simplify contract
     </div>
 </section>
 
+<!-- What is NeeVLY -->
 <section class="py-20 md:py-32 bg-[#0B1120] text-white relative overflow-hidden z-20">
 <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(45,212,191,0.2),_transparent_60%)] opacity-80 mix-blend-screen animate-pulse"></div>
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center reveal-element">
@@ -546,6 +573,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </section>
 
+<!-- How it Works -->
 <section id="how-it-works" class="py-20 md:py-32 bg-brand-bg relative z-10">
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16 md:mb-20 reveal-element">
@@ -554,6 +582,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 
 <div class="sticky-card-container space-y-6 md:space-y-24">
+<!-- Step 1 -->
 <div class="sticky-card bg-white p-6 md:p-12 rounded-[1.5rem] md:rounded-[3rem] shadow-soft border border-brand-border reveal-element" style="z-index: 1;">
 <div class="flex flex-col md:flex-row items-center gap-5 md:gap-10">
 <div class="w-16 h-16 md:w-20 md:h-20 bg-brand-soft text-brand-primary rounded-2xl flex items-center justify-center font-black text-2xl md:text-3xl shrink-0 border border-brand-primary/20">1</div>
@@ -564,6 +593,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </div>
 
+<!-- Step 2 -->
 <div class="sticky-card bg-white p-6 md:p-12 rounded-[1.5rem] md:rounded-[3rem] shadow-float border border-brand-border reveal-element" style="z-index: 2; top: 120px;">
 <div class="flex flex-col md:flex-row items-center gap-5 md:gap-10">
 <div class="w-16 h-16 md:w-20 md:h-20 bg-brand-bg text-brand-accent rounded-2xl flex items-center justify-center font-black text-2xl md:text-3xl shrink-0 border border-brand-border">2</div>
@@ -574,6 +604,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </div>
 
+<!-- Step 3 -->
 <div class="sticky-card bg-[#0B1120] text-white p-6 md:p-12 rounded-[1.5rem] md:rounded-[3rem] shadow-float border border-white/10 reveal-element" style="z-index: 3; top: 140px;">
 <div class="flex flex-col md:flex-row items-center gap-5 md:gap-10">
 <div class="w-16 h-16 md:w-20 md:h-20 bg-white/10 text-brand-primary rounded-2xl flex items-center justify-center font-black text-2xl md:text-3xl shrink-0 border border-white/20">3</div>
@@ -587,6 +618,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </section>
 
+<!-- Middle Marquee Banner -->
 <div class="marquee-container reverse z-20">
     <div class="marquee-content reverse text-xl md:text-3xl font-black text-white/90 tracking-tight uppercase flex items-center">
         <span>ECOSYSTEM TOOLS <i data-lucide="layers" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> DIGITAL KHATA <i data-lucide="layers" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-accent mx-3 md:mx-4 -mt-1"></i> HYPERLOCAL DISCOVERY <i data-lucide="layers" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> </span>
@@ -594,6 +626,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
     </div>
 </div>
 
+<!-- Core Features -->
 <section id="features" class="py-20 md:py-32 bg-white relative z-10 border-t border-brand-border">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -603,6 +636,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+<!-- Feature Card Template -->
 <div class="bg-brand-bg p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border border-brand-border hover:bg-white hover:border-brand-primary/40 hover:shadow-float transition-all duration-300 reveal-element group tilt-wrapper cursor-default">
 <div class="tilt-card h-full flex flex-col">
 <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center shadow-sm border border-brand-border mb-5 group-hover:rotate-12 group-hover:bg-brand-primary transition-all duration-500 tilt-inner">
@@ -627,6 +661,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </div>
 
+<!-- Large Feature Card -->
 <div class="bg-[#0B1120] text-white p-6 md:p-10 rounded-[1.5rem] md:rounded-[2rem] border border-white/10 hover:border-brand-primary/50 hover:shadow-glow-accent transition-all duration-300 reveal-element delay-200 group tilt-wrapper lg:col-span-2 lg:row-span-2 flex flex-col justify-between overflow-hidden cursor-default min-h-[300px]">
 <div class="tilt-card h-full flex flex-col justify-between relative z-10">
 <div>
@@ -713,6 +748,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </section>
 
+<!-- Future Features (Locked) -->
 <section class="py-20 bg-brand-bg relative z-10 border-t border-brand-border/50">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="mb-12 md:mb-16 text-center max-w-2xl mx-auto reveal-element">
@@ -763,9 +799,11 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </section>
 
+<!-- Who Is It For & Why Local Matters -->
 <section id="who" class="py-20 md:py-32 bg-white relative z-10 border-t border-brand-border">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+<!-- Who is it for -->
 <div class="reveal-element">
 <h2 class="text-3xl md:text-5xl font-black text-brand-text mb-6 md:mb-8 tracking-tight" data-i18n="who_title">Who is NeeVLY for?</h2>
 <div class="space-y-4 md:space-y-5">
@@ -799,6 +837,7 @@ NeeVLY is a smart local procurement and business coordination ecosystem. We are 
 </div>
 </div>
 
+<!-- Why Local Matters -->
 <div class="flex flex-col justify-center reveal-element delay-100 bg-[#0B1120] text-white p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-float hover:shadow-glow-accent transition-shadow relative overflow-hidden h-full">
 <div class="absolute right-0 top-0 w-48 h-48 md:w-64 md:h-64 bg-brand-primary/10 rounded-full blur-[60px] md:blur-[80px] -z-10 animate-pulse"></div>
 <div class="w-12 h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 mb-5 md:mb-6">
@@ -817,6 +856,7 @@ Our goal: Smarter local procurement, stronger local economies.
 </div>
 </section>
 
+<!-- FAQ Section -->
 <section class="py-20 md:py-32 bg-brand-bg relative z-10 border-t border-brand-border">
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-10 md:mb-16 reveal-element">
@@ -825,6 +865,7 @@ Our goal: Smarter local procurement, stronger local economies.
 </div>
 
 <div class="space-y-3 md:space-y-4">
+<!-- FAQ Item 1 -->
 <div class="border border-brand-border rounded-[1rem] md:rounded-[1.5rem] bg-white overflow-hidden reveal-element shadow-sm hover:border-brand-primary/30 transition-colors group">
 <button class="faq-btn w-full px-5 py-4 md:px-8 md:py-6 flex items-center justify-between text-left focus:outline-none">
 <span class="font-black text-brand-text text-base md:text-xl group-hover:text-brand-primary transition-colors pr-4" data-i18n="faq_1_q">What exactly is NeeVLY?</span>
@@ -839,6 +880,7 @@ NeeVLY is an intelligent local platform that connects construction material buye
 </div>
 </div>
 
+<!-- FAQ Item 2 -->
 <div class="border border-brand-border rounded-[1rem] md:rounded-[1.5rem] bg-white overflow-hidden reveal-element shadow-sm hover:border-brand-primary/30 transition-colors group">
 <button class="faq-btn w-full px-5 py-4 md:px-8 md:py-6 flex items-center justify-between text-left focus:outline-none">
 <span class="font-black text-brand-text text-base md:text-xl group-hover:text-brand-primary transition-colors pr-4" data-i18n="faq_2_q">Is NeeVLY free to use?</span>
@@ -853,6 +895,7 @@ Yes, joining the waitlist and accessing the core platform will be free for buyer
 </div>
 </div>
 
+<!-- FAQ Item 3 -->
 <div class="border border-brand-border rounded-[1rem] md:rounded-[1.5rem] bg-white overflow-hidden reveal-element shadow-sm hover:border-brand-primary/30 transition-colors group">
 <button class="faq-btn w-full px-5 py-4 md:px-8 md:py-6 flex items-center justify-between text-left focus:outline-none">
 <span class="font-black text-brand-text text-base md:text-xl group-hover:text-brand-primary transition-colors pr-4" data-i18n="faq_3_q">Which cities are you launching in first?</span>
@@ -867,6 +910,7 @@ We are focusing on Tier-2 and Tier-3 cities in India, starting with key regions 
 </div>
 </div>
 
+<!-- FAQ Item 4 -->
 <div class="border border-brand-border rounded-[1rem] md:rounded-[1.5rem] bg-white overflow-hidden reveal-element shadow-sm hover:border-brand-primary/30 transition-colors group">
 <button class="faq-btn w-full px-5 py-4 md:px-8 md:py-6 flex items-center justify-between text-left focus:outline-none">
 <span class="font-black text-brand-text text-base md:text-xl group-hover:text-brand-primary transition-colors pr-4" data-i18n="faq_4_q">How is this better than calling shops manually?</span>
@@ -884,6 +928,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </section>
 
+<!-- KritaVa AI Section -->
 <section class="pt-16 pb-24 md:pt-20 md:pb-32 border-t border-brand-border reveal-element relative bg-brand-bg z-10">
 <div class="relative z-10 w-full max-w-4xl mx-auto text-center">
     
@@ -904,6 +949,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
     </form>
 </div>
 
+<!-- AI Response Area -->
 <div id="ai-response-area" class="hidden text-left bg-white p-6 md:p-10 rounded-[1.5rem] md:rounded-[2rem] shadow-soft border border-gray-100 transition-all duration-500 opacity-0 transform translate-y-4 max-w-3xl mx-auto mt-6 md:mt-8 mx-4">
     <div class="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
         <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-brand-bg border border-gray-100 flex items-center justify-center shadow-sm overflow-hidden p-1">
@@ -912,12 +958,14 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
         <span class="font-black text-lg md:text-xl text-brand-text">KritaVa AI</span>
     </div>
     <div id="ai-response-text" class="text-brand-muted text-sm md:text-base font-medium leading-relaxed space-y-3 md:space-y-4">
-        </div>
+        <!-- Response injected via JS -->
+    </div>
 </div>
 
 </div>
 </section>
 
+<!-- Bottom Marquee Banner -->
 <div class="marquee-container shadow-float z-20">
     <div class="marquee-content text-xl md:text-3xl font-black text-white/90 tracking-tight uppercase flex items-center">
         <span>JOIN THE WAITLIST <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> EMPOWER LOCAL COMMERCE <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-accent mx-3 md:mx-4 -mt-1"></i> SIMPLIFY PROCUREMENT <i data-lucide="sparkles" class="inline w-4 h-4 md:w-5 md:h-5 text-brand-primary mx-3 md:mx-4 -mt-1"></i> </span>
@@ -925,6 +973,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
     </div>
 </div>
 
+<!-- Waitlist Section with Floating Labels -->
 <section id="waitlist" class="py-20 md:py-32 relative bg-white z-10 overflow-hidden">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
@@ -934,6 +983,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 
 <div class="grid lg:grid-cols-5 gap-8 lg:gap-16 items-start">
+<!-- Benefits Panel -->
 <div class="lg:col-span-2 space-y-5 md:space-y-6 reveal-element">
 <div class="bg-brand-bg rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 border border-brand-border shadow-sm hover:shadow-soft transition-all group tilt-wrapper">
 <div class="tilt-card">
@@ -967,6 +1017,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </div>
 
+<!-- Form -->
 <div class="lg:col-span-3 reveal-element delay-100">
 <div class="bg-brand-bg rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-12 shadow-sm border border-brand-border relative overflow-hidden">
 
@@ -998,11 +1049,13 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 
 <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
+<!-- Name Input (Floating Label) -->
 <div class="relative group h-[56px] md:h-[64px]">
 <input type="text" id="name" class="block w-full h-full px-4 md:px-5 pt-6 pb-2 text-sm md:text-base font-bold text-brand-text bg-white rounded-xl md:rounded-2xl border-2 border-transparent focus:border-brand-primary appearance-none focus:outline-none shadow-sm transition-colors peer" placeholder=" " required>
 <label for="name" class="absolute text-brand-muted duration-300 transform -translate-y-1/2 top-4 md:top-[1.1rem] left-4 md:left-5 z-10 origin-[0] scale-[0.70] md:scale-75 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm md:peer-placeholder-shown:text-base peer-focus:top-4 md:peer-focus:top-[1.1rem] peer-focus:scale-[0.70] md:peer-focus:scale-75 peer-focus:text-brand-primary pointer-events-none font-bold" data-i18n="form_name">Full Name</label>
 </div>
 
+<!-- Phone Input (Floating Label with +91) -->
 <div class="relative group h-[56px] md:h-[64px]">
 <div class="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-5 pointer-events-none text-brand-text font-bold text-sm md:text-base border-r border-gray-100 pr-2 md:pr-3 z-20 h-full">+91</div>
 <input type="tel" id="phone" class="block w-full h-full pl-[4.2rem] md:pl-[5rem] pr-4 md:pr-5 pt-6 pb-2 text-sm md:text-base font-bold text-brand-text bg-white rounded-xl md:rounded-2xl border-2 border-transparent focus:border-brand-primary appearance-none focus:outline-none shadow-sm transition-colors peer" placeholder=" " required maxlength="10">
@@ -1011,11 +1064,13 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </div>
 
+<!-- Email Input (Floating Label) -->
 <div class="relative group h-[56px] md:h-[64px]">
 <input type="email" id="email" class="block w-full h-full px-4 md:px-5 pt-6 pb-2 text-sm md:text-base font-bold text-brand-text bg-white rounded-xl md:rounded-2xl border-2 border-transparent focus:border-brand-primary appearance-none focus:outline-none shadow-sm transition-colors peer" placeholder=" " required>
 <label for="email" class="absolute text-brand-muted duration-300 transform -translate-y-1/2 top-4 md:top-[1.1rem] left-4 md:left-5 z-10 origin-[0] scale-[0.70] md:scale-75 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm md:peer-placeholder-shown:text-base peer-focus:top-4 md:peer-focus:top-[1.1rem] peer-focus:scale-[0.70] md:peer-focus:scale-75 peer-focus:text-brand-primary pointer-events-none font-bold" data-i18n="form_email">Email Address</label>
 </div>
 
+<!-- Select Elements -->
 <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
 <div class="relative form-select-wrapper rounded-xl md:rounded-2xl bg-white shadow-sm h-[56px] md:h-[64px]">
 <select id="state" class="block w-full h-full px-4 md:px-5 text-sm md:text-base font-bold text-brand-text bg-transparent border-2 border-transparent focus:border-brand-primary rounded-xl md:rounded-2xl appearance-none focus:outline-none transition-colors cursor-pointer" required>
@@ -1030,6 +1085,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </div>
 
+<!-- Textarea Input (Floating Label) -->
 <div class="relative group">
 <textarea id="feature_interest" rows="3" class="block w-full px-4 md:px-5 pt-8 pb-4 text-sm md:text-base font-bold text-brand-text bg-white rounded-xl md:rounded-2xl border-2 border-transparent focus:border-brand-primary appearance-none focus:outline-none shadow-sm transition-colors peer resize-none" placeholder=" "></textarea>
 <label for="feature_interest" class="absolute text-brand-muted duration-300 transform top-4 md:top-5 left-4 md:left-5 z-10 origin-[0] scale-[0.70] md:scale-75 -translate-y-1 peer-placeholder-shown:scale-100 peer-placeholder-shown:top-6 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm md:peer-placeholder-shown:text-base peer-focus:top-4 md:peer-focus:top-5 peer-focus:-translate-y-1 peer-focus:scale-[0.70] md:peer-focus:scale-75 peer-focus:text-brand-primary pointer-events-none font-bold" data-i18n="form_feature">What feature interests you most? (Optional)</label>
@@ -1046,6 +1102,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </section>
 
+<!-- Footer -->
 <footer class="bg-[#0B1120] pt-16 md:pt-20 pb-8 md:pb-10 relative z-10 text-slate-400 border-t border-white/5">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
@@ -1125,6 +1182,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
 </div>
 </footer>
 
+<!-- Privacy Policy Modal -->
 <div id="privacy-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
     <div class="absolute inset-0 bg-[#0B1120]/70 backdrop-blur-sm" onclick="closeModal('privacy-modal')"></div>
     <div class="relative w-full max-w-3xl bg-white rounded-2xl md:rounded-3xl shadow-float border border-brand-border p-6 md:p-10 max-h-[85vh] overflow-y-auto transform scale-95 transition-transform duration-300 modal-content">
@@ -1270,6 +1328,7 @@ Instead of calling 5 different shops, you submit one requirement on NeeVLY. Sell
     </div>
 </div>
 
+<!-- Terms of Service Modal -->
 <div id="terms-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
     <div class="absolute inset-0 bg-[#0B1120]/70 backdrop-blur-sm" onclick="closeModal('terms-modal')"></div>
     <div class="relative w-full max-w-3xl bg-white rounded-2xl md:rounded-3xl shadow-float border border-brand-border p-6 md:p-10 max-h-[85vh] overflow-y-auto transform scale-95 transition-transform duration-300 modal-content">
@@ -1700,7 +1759,7 @@ waitlistForm.addEventListener('submit', (e) => {
     const feature = document.getElementById('feature_interest').value || 'none';
 
     const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSeH7jHi1ZzKiO08ZQk9aHFvLMxrmwweMFBcBDV1WjuXOIymtQ/formResponse';
-    const formData = new URLSearchParams();
+    const formData = new FormData();
     formData.append('entry.1758066694', document.getElementById('name').value);
     formData.append('entry.752502061', document.getElementById('phone').value);
     formData.append('entry.158847154', document.getElementById('email').value);
@@ -1709,7 +1768,11 @@ waitlistForm.addEventListener('submit', (e) => {
     formData.append('entry.1545597352', role);
     formData.append('entry.1405713144', feature);
 
-    fetch(formUrl, { method: 'POST', mode: 'no-cors', body: formData.toString() })
+    fetch(formUrl, { 
+        method: 'POST', 
+        mode: 'no-cors', 
+        body: formData 
+    })
     .then(() => {
         formSuccess.classList.remove('hidden');
         setTimeout(() => { formSuccess.classList.remove('opacity-0'); }, 50);
